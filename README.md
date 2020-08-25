@@ -1,68 +1,268 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Plaundry
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+## Description
+Plaundry is a laundry service sales website. 
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## User Stories
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- **List**: Visitor can see all items that he can get cleaned.
+- **Search**: Visitor can search for items.
+- **Filter**: Visitor can select a specific category of items.
+- **Add to cart**: Visitor can choose item-quantity and add items to a cart.
+- **Signup**: Visitor has to Sign Up/Log In to visit the cart. 
+- **LogIn**: Visitor has to Sign Up/Log In to visit the cart. 
+- **Cart**: User can edit cart, increase quantity, or delete items.
+- **Delivery**: User can choose time and date for pick-up and delivery.
+- **Pay**: User pays cart (Sprite).
+- **Orderhistory**: User can see all past orders and order-status.
+- **Log out**: User can log out.
+- **Delete**: User can delete the profile.
+- **Admin/New, edit and delete**: Admin-user who can make new laundry-items and edit and delete current items.
+- **Admin/Delivery**: Admin-user who can see all orders and change their status.
+- **Deliveryman**: delivery-man that can see orders and change status.
+- **404**: User wants to see a nice 404-page.
 
-### `npm test`
+## Backlog
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Make cart public-route, only when clicking 'order' or something ask for log-in/sign-up.
+- Check when visiting page if the service is available in that area.
+- Add map for location of user
+- Add chatbot
+- Add email-confirmation
+- Review-page. Experiences and ratings of users. 
+- Animated CSS
 
-### `npm run build`
+<br>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Client / Frontend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## React Router Routes (React App)
+| Path                      | Component            | Permissions | Behavior                                                     |
+| ------------------------- | -------------------- | ----------- | ------------------------------------------------------------ |
+| `/`                       | SplashPage           | public `<Route>`            | Instructions page                               |
+| `/home`                   | Nav, categorybar, laundrylist, laundrycard     | public `<Route>`            | Home page                                        |
+| `/sign-in`                   | Signin            | public `<Route>`            | Sign in page                                       |
+| `/sign-up`                   | Signup             | public `<Route>`            | Sign up page                                        |
+| `/cart`                   | Nav, categorybar, cartlist, cartcard     | private `<Route>`            | Cart page                                        |
+| `/checkout`              | Nav, checkout           | private `<Route>`            | Checkout page                                        |
+| `/admin/sign-in`                   | Signin         | public `<Route>`            | Admin sign in page                                        |
+| `/admin`       | Adminnav, Addform,  adminlaundrylist, adminlaundrycard         | private `<Route>`            | Admin list page                                |          
+| `/admin/delivery`                   | Adminnav, Orderlist, ordercard         | private `<Route>`            | Admin delivery page
+| `/admin/delivery/:id/details`      | Adminnav, orderdetails         | private `<Route>`            | Delivery order details page          |                                   |
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Components
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Splashpage
+- Nav
+- Adminnav
+- Categorybar
+- Laundrylist
+- Laundrycard
+- Signup
+- Signin
+- Cartlist
+- Cartcard
+- Checkout
+- Addform
+- Adminlaundrylist
+- Adminlaundrycard
+- Orderlist
+- Ordercard
+- Orderdetails
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Services
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Auth Service
+  - auth.login(user)
+  - auth.signup(user)
+  - auth.logout()
 
-## Learn More
+- Backlog Service
+  - backlog.filter(type, status) // for different types of media and if they are done or not
+  - backlog.detail(id)
+  - backlog.add(id)
+  - backlog.delete(id)
+  - backlog.update(id)
+  
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Server / Backend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Models
 
-### Code Splitting
+User Model
+```javascript
+user = {
+  userName: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    
+  },
+  lastName: {
+    type: String,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  passwordHash: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    
+  },
+  postalCode: {
+    type: String,
+    
+  }
+  city: {
+    type: String,
+  
+  },
+  orderHistory: {
+    type: Array,
+    defaultValue: [(relation: order-ids)]
+  },
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Order Model
+```javascript
+order = {
+  userId: (relation to user),
+  order: [
+    { 
+    laundryId: objectId,
+    quantity: Number
+    }
+  ],
+  totalPrice {
+    type: Number,
+    required: true
+  },
+  status: {
+    type: String,
+    enum: [to pick, picked-up, washing, to deliver, delivered],
+    required: true,
+  }
+ }, 
+  pickUp: {
+    Date: {type: date, required: true},
+    Time: {type: String, required: true}
+  },
+  delivery: {
+    Date: {type: date, required: true},
+    Time: {type: String, required: true}
+  }
+```
 
-### Analyzing the Bundle Size
+Laundry-item Model
+```javascript
+laundryItem = {
+  category: {
+    type: String,
+    enum: [clothing, bedding, towels, business, 6kg],
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  description: String,
+  image: String,
+  price: {
+    type: Number,
+    required: true
+  }
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Admin Model
+```javascript
+admin = {
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  passwordHash: {
+    type: String,
+    required: true
+  }
+}
+```
 
-### Making a Progressive Web App
+Delivery Model
+```javascript
+delivery = {
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  passwordHash: {
+    type: String,
+    required: true
+  },
+  orderId: {
+    type: orderId,
+    ref: 'order'
+  }
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+<br>
 
-### Advanced Configuration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## API Endpoints (backend routes)
 
-### Deployment
+| HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
+| ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
+| GET         | `/api/laundry`           | All laundryitems                | 200            | 404          | Gives all laundry items           |
+| GET         | `/api/order/availability`           | Gets availability   | 200            | 404          | Adjusts calendar with availability           |
+| POST        | `/api/order`                | Posts order in db      | 201            | 404          | Checks if fields not empty (422)                            |
+| POST        | `/api/user/:id/edit`        | Edits user      | 201            | 404          | Checks if fields not empty (422)                            |
+| POST        | `/api/signin`        | {email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
+| POST        | `/api/signup`        | {username, email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
+| POST        | `/api/admin/signup`        | {email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
+| POST        | `/api/laundry/create`        | Create new laundryitem      | 201            | 404          | Checks if fields not empty (422)                            |
+| PUT        | `/api/laundry/:id/edit`        | Edit laundryitem      | 201            | 404          | Checks if fields not empty (422)                            |
+| DELETE        | `/api/laundry/:id/delete`        | Delete laundryitem      | 201            | 404          |                    |
+| GET        | `/api/orders`        | Get all orders      | 201            | 404          |                    |
+| PUT        | `/api/order/:id/edit`        | Edit order      | 201            | 404          | Checks if fields not empty (422)                    |
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+<br>
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Links
+
+### Trello/Kanban
+
+[Link to your trello board](https://trello.com/b/W14CF29f/plaundry) 
+
+### Git
+
+The url to your repository and to your deployed project
+
+[Client repository Link](https://github.com/llanting/plaundry-client)
+
+[Server repository Link](https://github.com/llanting/plaundry-server)
+
+[Deployed App Link](https://dashboard.heroku.com/apps/plaundry)
+
+### Slides
+
+The url to your presentation slides
+
+[Slides Link]()
