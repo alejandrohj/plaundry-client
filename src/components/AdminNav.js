@@ -9,8 +9,8 @@ export default function AdminNav(props) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+            {/* Links only for coding-purposes */}
             <Nav.Link href="/admin">Edit laundry</Nav.Link>
-            {/* Only for coding-purposes */}
             <Nav.Link href="/admin/sign-in">Sign In</Nav.Link>
             <Button onClick={props.onAdminLogOut}>Log Out</Button>
           </Nav>

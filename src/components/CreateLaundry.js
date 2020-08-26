@@ -53,7 +53,7 @@ export default function CreateLaundry(props) {
               <Form.File name="image" id="exampleFormControlFile1" label="Add an image" />
             </Form.Group>
 
-            <Button style={{height: '50px'}} variant="primary" type="submit">
+            <Button onClick={handleClose} style={{height: '50px'}} variant="primary" type="submit">
               Create Item
             </Button>
           </Form>

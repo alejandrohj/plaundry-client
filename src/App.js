@@ -6,15 +6,25 @@ import axios from 'axios'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp';
 import AdminView from './components/AdminView';
+import OrderList from './components/OrderList';
+import OrderDetails from './components/OrderDetails';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
-
 
 function App() {
 
   const [loggedInUser, setLogIn] = useState(null);
   const adminLogIn = true;
+
+  const [laundryitems, setLaundryItems] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${API_URL}/laundry`)
+      .then((res) => {
+        setLaundryItems(res.data)
+      })
+  }, [])
 
   if(!loggedInUser){
     axios.get(`${API_URL}/user`, {withCredentials: true})
@@ -61,6 +71,27 @@ function App() {
       })
   }
 
+  const handleCreateItem = (e) => {
+    e.preventDefault();
+    const {name, description, price, category, image} = e.currentTarget;
+    axios.post(`${API_URL}/laundry/create`, {name: name.value, category: category.value.toLowerCase(), description: description.value, price: price.value}, {withCredentials: true})
+      .then((result) => {
+        let newItem = result.data;
+        let cloneItems = JSON.parse(JSON.stringify(laundryitems))
+        cloneItems.push(newItem)
+        setLaundryItems(cloneItems)
+        // Redirect
+      })
+  }
+
+  const handleDeleteItem = () => {
+    // Laundry-delete server-side-route missing!
+  }
+
+  const handleEditItem = () => {
+  
+  }
+
   return (
     <div>
       <Switch>
@@ -71,10 +102,16 @@ function App() {
           return <SignUp onSignUp={handleSignUp} />
         }} />
          <Route exact path="/admin" render={() => {
-          return <AdminView />
+          return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} />
         }} />
         <Route path="/admin/sign-in" render={() => {
           return <SignIn admin={adminLogIn} onSignIn={handleAdminSignIn} onAdminLogOut={handleAdminLogOut} />
+        }} />
+        <Route exact path="/admin/delivery" render={() => {
+          return <OrderList />
+        }} />
+        <Route path="/admin/delivery/:id/details" render={(routeProps) => {
+          return <OrderDetails {...routeProps}/>
         }} />
       </Switch>
     </div>
