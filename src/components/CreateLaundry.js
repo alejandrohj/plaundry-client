@@ -9,7 +9,9 @@ export default function CreateLaundry(props) {
 
   return (
     <div>
-      <Button onClick={handleOpen} className="btn">Create a new item</Button>
+      <div className="create-laundryitem-btn">
+      <Button onClick={handleOpen} >Create a new item</Button>
+      </div>
       <Modal centered show={showCreate} onHide={handleClose}>
 
         <Modal.Header closeButton>

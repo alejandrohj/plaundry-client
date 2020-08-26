@@ -84,12 +84,33 @@ function App() {
       })
   }
 
-  const handleDeleteItem = () => {
-    // Laundry-delete server-side-route missing!
+  const handleDeleteItem = (id) => {
+    axios.delete(`${API_URL}/laundry/${id}/delete`)
+      .then(() => {
+        let filteredLaundryItems = laundryitems.filter((laundry) => {
+          return laundry._id !== id;
+        })
+        setLaundryItems(filteredLaundryItems)
+        // Redirect
+      })
   }
 
-  const handleEditItem = () => {
-  
+  // If you edit twice after each other, gives an error (but does save the change)
+  const handleEditItem = (updatedLaundry) => {
+    axios.post(`${API_URL}/laundry/${updatedLaundry._id}/edit`, {
+      name: updatedLaundry.name,
+      description: updatedLaundry.description,
+      price: updatedLaundry.price
+    })
+      .then(() => {
+        let clonedLaundryItems = laundryitems.map((item) => {
+          if (item._id === updatedLaundry._id) {
+            item = updatedLaundry
+          }
+        })
+        setLaundryItems(clonedLaundryItems)
+        // Redirect
+      })
   }
 
   return (
@@ -101,8 +122,8 @@ function App() {
         <Route path="/sign-up" render={() => {
           return <SignUp onSignUp={handleSignUp} />
         }} />
-         <Route exact path="/admin" render={() => {
-          return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} />
+         <Route exact path="/admin" render={(routeProps) => {
+          return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onEdit={handleEditItem} />
         }} />
         <Route path="/admin/sign-in" render={() => {
           return <SignIn admin={adminLogIn} onSignIn={handleAdminSignIn} onAdminLogOut={handleAdminLogOut} />

@@ -1,3 +1,62 @@
+
+/* Admin page */
 .card {
   margin: 10px;
+}
+
+.laundrycard-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.laundrycard-input {
+  margin: 10px;
+  width: 90%;
+}
+
+.btn-container-laundrycard {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+
+.btn-container-laundrycard button {
+  margin: 5px;
+}
+
+.create-laundryitem-btn {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+@media only screen and (min-width: 1000px) {
+ 
+  /* For coding purposes */
+  body {
+    background-color: lightblue;
+  }
+
+  /* Admin page */
+  .laundrycard-form {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .laundrycard-input {
+    width: 70%;
+    margin: 10px;
+  }
+  
+  .btn-container-laundrycard {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-container-laundrycard button {
+    width: 200px;  
+  }
+
 }

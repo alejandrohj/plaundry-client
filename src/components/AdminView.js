@@ -12,7 +12,7 @@ export default function AdminView(props) {
       <CreateLaundry onCreate={props.onCreate} />
         
       <hr></hr>
-      <AdminLaundryList laundrylist={props.laundrylist} onDelete={props.onDelete}/>
+      <AdminLaundryList laundrylist={props.laundrylist} onEdit={props.onEdit} onDelete={props.onDelete}/>
 
     </div>
   )
