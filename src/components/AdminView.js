@@ -6,20 +6,19 @@ import {Redirect} from 'react-router-dom'
 
 
 export default function AdminView(props) {
-
-  console.log(props.loggedInUser)
+ 
   return (
     <>
     {
       !props.loggedInUser ? 
       (<Redirect to={'/admin/sign-in'} />) :(
         <div>
-        <AdminNav onAdminLogout={props.onAdminLogOut}/>
+        <AdminNav onAdminLogOut={props.onAdminLogOut}/>
         
         <CreateLaundry onCreate={props.onCreate} />
           
         <hr></hr>
-        <AdminLaundryList laundrylist={props.laundrylist} onEdit={props.onEdit} onDelete={props.onDelete}/>
+        <AdminLaundryList laundrylist={props.laundrylist} onEdit={props.onEdit} onDelete={props.onDelete} />
         
       </div>
       )

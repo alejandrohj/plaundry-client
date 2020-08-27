@@ -3,6 +3,8 @@ import {Form, Button, Row, Col, Modal} from 'react-bootstrap';
 
 export default function CreateLaundry(props) {
 
+  let categories = ['bags', 'bedding', 'business', 'clothing',  'towels']
+
   const [showCreate, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
@@ -41,11 +43,12 @@ export default function CreateLaundry(props) {
               <Form.Group controlId="exampleForm.ControlSelect1">
                 <Form.Label>Category</Form.Label>
                 <Form.Control name="category" as="select">
-                  <option>Bags</option>
-                  <option>Bedding</option>
-                  <option>Business</option>
-                  <option>Clothing</option>
-                  <option>Towels</option>
+                  <option>Choose a category</option>
+                  {
+                    categories.map((elem) => {
+                    return <option value={elem}>{elem}</option>
+                    })
+                  }
                 </Form.Control>
               </Form.Group>
               </Col>

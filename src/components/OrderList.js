@@ -28,8 +28,7 @@ export default function OrderList(props) {
             return <OrderCard key={'order' + i} order={order}/>
           })
         }
-        <OrderCard />
-      </div>
+        </div>
     }
     </>
   )
