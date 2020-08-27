@@ -10,11 +10,11 @@ export default function Home(props) {
     }
     return (
         <div>
-            <Navbar/>
+            <Navbar onLogOut={props.onLogOut} />
             <CategoryNavbar/>
             {
                 props.laundryitems.map((elem,i) => {
-                    console.log(elem)
+                    //console.log(elem)
                     return (
                         <a></a>
                     )

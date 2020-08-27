@@ -8,7 +8,7 @@ export default function AdminLaundryCard(props) {
   const [laundryItem, setLaundryItem] = useState(props.item);
 
   useEffect(() => {
-    axios.get(`${API_URL}/laundry/${laundryItem._id}`)
+    axios.get(`${API_URL}/laundry/${laundryItem._id}`,  {withCredentials: true})
       .then((result) => {
           setLaundryItem(result.data)
       })

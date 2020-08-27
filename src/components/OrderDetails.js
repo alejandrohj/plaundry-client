@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Button} from 'react-bootstrap'
+import {Redirect} from 'react-router-dom'
 
 export default function OrderDetails(props) {
 
@@ -12,10 +13,16 @@ export default function OrderDetails(props) {
   // When status change: change both the state and change the db
 
   return (
-    <div>
-      <p>Address</p>
-      <p>Map</p>
-      <Button>Orderstatus: {order.status}</Button>
-    </div>
+    <>
+    {
+      !props.loggedInUser ? 
+      <Redirect to={'/admin/sign-in'} /> :
+      <div>
+        <p>Address</p>
+        <p>Map</p>
+        <Button>Orderstatus: {order.status}</Button>
+      </div>
+    }
+    </>
   )
 }

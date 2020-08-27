@@ -2,6 +2,7 @@ import React from 'react';
 import {Navbar, Nav, Button} from 'react-bootstrap'
 
 export default function AdminNav(props) {
+  console.log(props)
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -13,6 +14,7 @@ export default function AdminNav(props) {
             <Nav.Link href="/admin">Edit laundry</Nav.Link>
             <Nav.Link href="/admin/sign-in">Sign In</Nav.Link>
             <Button onClick={props.onAdminLogOut}>Log Out</Button>
+            
           </Nav>
         </Navbar.Collapse>
       </Navbar>
