@@ -8,23 +8,25 @@ import SignUp from './components/SignUp';
 import AdminView from './components/AdminView';
 import OrderList from './components/OrderList';
 import OrderDetails from './components/OrderDetails';
+import StartUp from './components/StartUp';
+import Home from './components/Home';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 
 function App() {
 
-  const [loggedInUser, setLogIn] = useState(null);
-  const adminLogIn = true;
-
   const [laundryitems, setLaundryItems] = useState([]);
-
   useEffect(() => {
     axios.get(`${API_URL}/laundry`)
       .then((res) => {
         setLaundryItems(res.data)
       })
   }, [])
+
+  const [loggedInUser, setLogIn] = useState(null);
+  const adminLogIn = true;
+  
 
   if(!loggedInUser){
     axios.get(`${API_URL}/user`, {withCredentials: true})
@@ -116,6 +118,7 @@ function App() {
   return (
     <div>
       <Switch>
+        <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
           return <SignIn onSignIn={handleSignIn} />
         }} />
@@ -124,7 +127,10 @@ function App() {
         }} />
          <Route exact path="/admin" render={(routeProps) => {
           return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onEdit={handleEditItem} />
-        }} />
+         }} />
+        <Route path="/home" render ={() => {
+          return <Home laundryitems={laundryitems}/>
+        }}/>
         <Route path="/admin/sign-in" render={() => {
           return <SignIn admin={adminLogIn} onSignIn={handleAdminSignIn} onAdminLogOut={handleAdminLogOut} />
         }} />

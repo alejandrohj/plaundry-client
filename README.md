@@ -44,11 +44,11 @@ Plaundry is a laundry service sales website.
 | Path                      | Component            | Permissions | Behavior                                                     |
 | ------------------------- | -------------------- | ----------- | ------------------------------------------------------------ |
 | `/`                       | SplashPage           | public `<Route>`            | Instructions page                               |
-| `/home`                   | Nav, categorybar, laundrylist, laundrycard     | public `<Route>`            | Home page                                        |
+| `/home`                   | Navbar, CategoryNavbar, laundrylist, laundrycard     | public `<Route>`            | Home page                                        |
 | `/sign-in`                   | Signin            | public `<Route>`            | Sign in page                                       |
 | `/sign-up`                   | Signup             | public `<Route>`            | Sign up page                                        |
-| `/cart`                   | Nav, categorybar, cartlist, cartcard     | private `<Route>`            | Cart page                                        |
-| `/checkout`              | Nav, checkout           | private `<Route>`            | Checkout page                                        |
+| `/cart`                   | Navbar, CategoryNavbar, cartlist, cartcard     | private `<Route>`            | Cart page                                        |
+| `/checkout`              | Navbar, checkout           | private `<Route>`            | Checkout page                                        |
 | `/admin/sign-in`                   | Signin         | public `<Route>`            | Admin sign in page                                        |
 | `/admin`       | Adminnav, Addform,  adminlaundrylist, adminlaundrycard         | private `<Route>`            | Admin list page                                |          
 | `/admin/delivery`                   | Adminnav, Orderlist, ordercard         | private `<Route>`            | Admin delivery page
@@ -58,9 +58,9 @@ Plaundry is a laundry service sales website.
 ## Components
 
 - Splashpage
-- Nav
+- Navbar
 - Adminnav
-- Categorybar
+- CategoryNavbar
 - Laundrylist
 - Laundrycard
 - Signup
