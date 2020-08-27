@@ -129,7 +129,7 @@ function App() {
           return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onEdit={handleEditItem} />
          }} />
         <Route path="/home" render ={() => {
-          return <Home laundryitems={laundryitems}/>
+          return <Home/>
         }}/>
         <Route path="/admin/sign-in" render={() => {
           return <SignIn admin={adminLogIn} onSignIn={handleAdminSignIn} onAdminLogOut={handleAdminLogOut} />
