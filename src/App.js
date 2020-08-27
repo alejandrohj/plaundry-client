@@ -26,12 +26,14 @@ function App() {
 
   const [loggedInUser, setLogIn] = useState(null);
   const adminLogIn = true;
-  
+  const [toHome, setToHome] = useState(false);
+  const [toAdminHome, setToAdminHome] = useState(false);
 
   if(!loggedInUser){
     axios.get(`${API_URL}/user`, {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
+        console.log(result.data)
       })
   }
 
@@ -41,7 +43,7 @@ function App() {
     axios.post(`${API_URL}/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        // Redirect!
+        setTimeout(() => setToHome(true), 1000)
       })
   }
 
@@ -51,25 +53,30 @@ function App() {
     axios.post(`${API_URL}/signup`, {username: username.value, email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        // Redirect!
+        setTimeout(() => setToHome(true), 1000)
       })
   }
 
   const handleAdminSignIn = (e) => {
     e.preventDefault();
     const {email, password} = e.currentTarget;
-    axios.post(`${API_URL}/admin/signin`, {email: email.value, password: password.value})
+    axios.post(`${API_URL}/admin/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        // Redirect
+        setTimeout(() => setToAdminHome(true), 1000)
       })
   }
 
   const handleAdminLogOut = () => {
+    console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         setLogIn(null)
-        // Redirect
+        
+       // Redirect to admin sign in
+      })
+      .catch(() => {
+        console.log('didnt')
       })
   }
 
@@ -82,18 +89,16 @@ function App() {
         let cloneItems = JSON.parse(JSON.stringify(laundryitems))
         cloneItems.push(newItem)
         setLaundryItems(cloneItems)
-        // Redirect
       })
   }
 
   const handleDeleteItem = (id) => {
-    axios.delete(`${API_URL}/laundry/${id}/delete`)
+    axios.delete(`${API_URL}/laundry/${id}/delete`,  {withCredentials: true})
       .then(() => {
         let filteredLaundryItems = laundryitems.filter((laundry) => {
           return laundry._id !== id;
         })
         setLaundryItems(filteredLaundryItems)
-        // Redirect
       })
   }
 
@@ -103,7 +108,7 @@ function App() {
       name: updatedLaundry.name,
       description: updatedLaundry.description,
       price: updatedLaundry.price
-    })
+    },  {withCredentials: true})
       .then(() => {
         let clonedLaundryItems = laundryitems.map((item) => {
           if (item._id === updatedLaundry._id) {
@@ -111,7 +116,14 @@ function App() {
           }
         })
         setLaundryItems(clonedLaundryItems)
-        // Redirect
+      })
+  }
+
+  const handleLogOut = () => {
+    console.log('worked')
+    axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
+      .then(() => {
+        setLogIn(null)
       })
   }
 
@@ -120,25 +132,25 @@ function App() {
       <Switch>
         <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
-          return <SignIn onSignIn={handleSignIn} />
+          return <SignIn toHome={toHome} onSignIn={handleSignIn} />
         }} />
         <Route path="/sign-up" render={() => {
-          return <SignUp onSignUp={handleSignUp} />
+          return <SignUp toHome={toHome} onSignUp={handleSignUp} />
         }} />
          <Route exact path="/admin" render={(routeProps) => {
-          return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onEdit={handleEditItem} />
+          return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onAdminLogOut={handleAdminLogOut} onEdit={handleEditItem} loggedInUser={loggedInUser}/>
          }} />
         <Route path="/home" render ={() => {
-          return <Home/>
+          return <Home onLogOut={handleLogOut} laundryitems={laundryitems}/>
         }}/>
         <Route path="/admin/sign-in" render={() => {
-          return <SignIn admin={adminLogIn} onSignIn={handleAdminSignIn} onAdminLogOut={handleAdminLogOut} />
+          return <SignIn admin={adminLogIn} onAdminLogOut={handleAdminLogOut} onSignIn={handleAdminSignIn} loggedInUser={loggedInUser} toAdminHome={toAdminHome}/>
         }} />
         <Route exact path="/admin/delivery" render={() => {
-          return <OrderList />
+          return <OrderList loggedInUser={loggedInUser}/>
         }} />
         <Route path="/admin/delivery/:id/details" render={(routeProps) => {
-          return <OrderDetails {...routeProps}/>
+          return <OrderDetails {...routeProps} loggedInUser={loggedInUser}/>
         }} />
       </Switch>
     </div>
