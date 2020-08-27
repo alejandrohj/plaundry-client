@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {Switch, Route, withRouter} from 'react-router-dom'
+import {Switch, Route, withRouter, Redirect} from 'react-router-dom'
 import {API_URL} from './config'
 import axios from 'axios'
 
-import SignIn from './components/SignIn'
+import SignIn from './components/SignIn';
+import AdminSignIn from './components/AdminSignIn';
 import SignUp from './components/SignUp';
 import AdminView from './components/AdminView';
 import OrderList from './components/OrderList';
@@ -32,8 +33,8 @@ function App() {
     }
   }, [])
 
-  const adminLogIn = true;
   const [toHome, setToHome] = useState(false);
+  const [toAdminHome, setToAdminHome] = useState(false);
 
   
   const handleSignIn = (e) => {
@@ -42,6 +43,7 @@ function App() {
     axios.post(`${API_URL}/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
+        setTimeout(() => setToHome(true), 500)
       })
   }
 
@@ -51,7 +53,7 @@ function App() {
     axios.post(`${API_URL}/signup`, {username: username.value, email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        setTimeout(() => setToHome(true), 1000)
+        setTimeout(() => setToHome(true), 500)
       })
   }
 
@@ -61,7 +63,7 @@ function App() {
     axios.post(`${API_URL}/admin/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        // Redirect to /admin!
+        setTimeout(() => setToAdminHome(true), 500)
       })
   }
 
@@ -70,6 +72,7 @@ function App() {
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         setLogIn(null)
+        // Redirect to admin/sign-in -> how?
       })  
   }
 
@@ -117,7 +120,7 @@ function App() {
     console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
-        setLogIn(null)
+        setLogIn(null);
       })
   }
 
@@ -126,19 +129,31 @@ function App() {
       <Switch>
         <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
-          return <SignIn onSignIn={handleSignIn} />
+          return <SignIn toHome={toHome} onSignIn={handleSignIn} />
         }} />
         <Route path="/sign-up" render={() => {
           return <SignUp toHome={toHome} onSignUp={handleSignUp} />
         }} />
          <Route exact path="/admin" render={(routeProps) => {
-          return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onAdminLogOut={handleAdminLogOut} onEdit={handleEditItem} loggedInUser={loggedInUser} />
+          return <AdminView 
+                    laundrylist={laundryitems} 
+                    onCreate={handleCreateItem} 
+                    onDelete={handleDeleteItem} 
+                    onAdminLogOut={handleAdminLogOut} 
+                    onEdit={handleEditItem} 
+                    loggedInUser={loggedInUser} 
+                  />
          }} />
         <Route path="/home" render ={() => {
           return <Home onLogOut={handleLogOut} laundryitems={laundryitems}/>
         }}/>
         <Route path="/admin/sign-in" render={() => {
-          return <SignIn admin={adminLogIn} onAdminLogOut={handleAdminLogOut} onSignIn={handleAdminSignIn} loggedInUser={loggedInUser} />
+          return <AdminSignIn 
+                    toAdminHome={toAdminHome} 
+                    onAdminLogOut={handleAdminLogOut} 
+                    onSignIn={handleAdminSignIn} 
+                    loggedInUser={loggedInUser} 
+                  />
         }} />
         <Route exact path="/admin/delivery" render={() => {
           return <OrderList loggedInUser={loggedInUser}/>

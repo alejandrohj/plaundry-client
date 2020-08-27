@@ -12,9 +12,9 @@ export default function AdminNav(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {/* Links only for coding-purposes */}
-            <Link to="/admin">Edit laundry</Link>
-            <Link to="/admin/sign-in">Sign In</Link>
-            <Link to="/admin/delivery">Delivery</Link>
+            <Link to="/admin"><Nav.Link>Edit laundry</Nav.Link></Link>
+            <Link to="/admin/sign-in"><Nav.Link>Sign In</Nav.Link></Link>
+            <Link to="/admin/delivery"><Nav.Link>Delivery</Nav.Link></Link>
             <Button onClick={props.onAdminLogOut}>Log Out</Button>
           </Nav>
         </Navbar.Collapse>

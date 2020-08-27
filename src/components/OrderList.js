@@ -4,7 +4,6 @@ import OrderCard from './OrderCard'
 import axios from 'axios'
 import {API_URL} from '../config'
 import {Redirect} from 'react-router-dom'
-import {Button} from 'react-bootstrap'
 
 export default function OrderList(props) {
 
@@ -13,19 +12,15 @@ export default function OrderList(props) {
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
       .then((res) => {
-        setOrders(res.data)
+        // Sort results by status
+        let ordersClone = JSON.parse(JSON.stringify(res.data));
+        let ordering = {};
+        let sortOrder = ['to pick up', 'picked up', 'washing', 'to deliver', 'delivered'];
+        for (let i = 0; i < sortOrder.length; i++) ordering[sortOrder[i]] = i;
+        ordersClone.sort((a,b) =>   (ordering[a.status] - ordering[b.status]))
+        setOrders(ordersClone)
       })
   }, [])
-
-  // Sort by status. BUT status is not alphabetical, so you have to set a number or something to each status and sort on that
-  const handleSort = () => {
-    let ordersClone = JSON.parse(JSON.stringify(orders));
-    ordersClone.sort((a,b) =>  {
-    
-    })
-    console.log(ordersClone)
-    setOrders(ordersClone)
-  }
 
   return (
     <>
@@ -35,7 +30,6 @@ export default function OrderList(props) {
       (
       <div>
         <AdminNav />
-        <Button onClick={handleSort}>Sort by status</Button>
         {
           orders.map((order, i) => {
             return <OrderCard key={'order' + i} order={order}/>
