@@ -45,8 +45,8 @@ export default function CreateLaundry(props) {
                 <Form.Control name="category" as="select">
                   <option>Choose a category</option>
                   {
-                    categories.map((elem) => {
-                    return <option value={elem}>{elem}</option>
+                    categories.map((elem, i) => {
+                    return <option key={'category' + i} value={elem}>{elem}</option>
                     })
                   }
                 </Form.Control>

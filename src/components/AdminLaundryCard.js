@@ -7,18 +7,11 @@ export default function AdminLaundryCard(props) {
 
   let categories = ['bags', 'bedding', 'business', 'clothing',  'towels'];
 
-  const [laundryItem, setLaundryItem] = useState(props.item);
+  const [laundryItem, setLaundryItem] = useState(null);
 
   useEffect(() => {
-    axios.get(`${API_URL}/laundry/${laundryItem._id}`,  {withCredentials: true})
+    axios.get(`${API_URL}/laundry/${props.item._id}`,  {withCredentials: true})
       .then((result) => {
-          let newCategory = categories.map((c) => {
-            return {
-              name: c,
-              isChecked: result.data.category.includes(c)
-            }
-          })
-          result.data.category = newCategory
           setLaundryItem(result.data)
       })
   }, [])
@@ -41,12 +34,17 @@ export default function AdminLaundryCard(props) {
     setLaundryItem(updatedLaundry)
   }
 
+  const handleCategoryChange = (e) => {
+    let updatedLaundry = JSON.parse(JSON.stringify(laundryItem));
+    updatedLaundry.category = e.currentTarget.value;
+    setLaundryItem(updatedLaundry)
+  }
+
   const [showDelete, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
 
-  // After change of item, this stays (instead of loading the card). Because of useEffect (only runs after refresh). How to solve this?
-  if (laundryItem === props.item){
+  if (!laundryItem){
     return <p>Loading ....</p>
   }
 
@@ -76,12 +74,11 @@ export default function AdminLaundryCard(props) {
           <Col>
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Category</Form.Label>
-            <Form.Control name="category" as="select">
-              <option>Choose a category</option>
- 
+            <Form.Control onChange={handleCategoryChange} name="category" as="select"  defaultValue={laundryItem.category}>
+
               {
-                laundryItem.category.map((elem) => {
-                  return <option value={elem.name} selected={elem.isChecked} >{elem.name}</option>
+                categories.map((elem, i) => {
+                  return <option key={'cat' + i}  value={elem} >{elem}</option>
                 })
               }
 

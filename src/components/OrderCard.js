@@ -11,7 +11,7 @@ export default function OrderCard(props) {
       <Card body>
         <Card.Text>
           {street} {postal} {city} {firstName} {lastName} {status}
-          <Link to={`/admin/delivery/${_id}/details`}><Button variant="primary">See</Button></Link>
+          <Link to={`/admin/delivery/${_id}/details`}><Button variant="primary">See Order</Button></Link>
         </Card.Text>
       </Card>
 

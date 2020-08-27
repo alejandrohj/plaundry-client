@@ -96,19 +96,11 @@ function App() {
   }
 
   const handleEditItem = (updatedLaundry) => {
- 
-    let newCategory;
-    updatedLaundry.category.map((elem) => {
-      if (elem.isChecked) {
-        return newCategory = elem
-      }
-    })
-    console.log(newCategory.name)
     axios.post(`${API_URL}/laundry/${updatedLaundry._id}/edit`, {
       name: updatedLaundry.name,
       description: updatedLaundry.description,
       price: updatedLaundry.price,
-      category: newCategory.name,
+      category: updatedLaundry.category
     },  {withCredentials: true})
       .then(() => {
         let clonedLaundryItems = laundryitems.map((item) => {
