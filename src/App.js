@@ -6,12 +6,23 @@ import axios from 'axios'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp';
 import AdminView from './components/AdminView';
+import StartUp from './components/StartUp';
+import Home from './components/Home';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 
 
+
 function App() {
+
+  const [laundryitems, setLaundryItems] = useState([]);
+  useEffect(() => {
+    axios.get(`${API_URL}/laundry`)
+      .then((res) => {
+        setLaundryItems(res.data)
+      })
+  }, [])
 
   const [loggedInUser, setLogIn] = useState(null);
   const adminLogIn = true;
@@ -64,12 +75,16 @@ function App() {
   return (
     <div>
       <Switch>
+        <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
           return <SignIn onSignIn={handleSignIn} />
         }} />
         <Route path="/sign-up" render={() => {
           return <SignUp onSignUp={handleSignUp} />
         }} />
+        <Route path="/home" render ={() => {
+          return <Home laundryitems={laundryitems}/>
+        }}/>
          <Route exact path="/admin" render={() => {
           return <AdminView />
         }} />
