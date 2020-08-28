@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom'
 import {API_URL} from './config'
 import axios from 'axios'
-
 import SignIn from './components/SignIn';
 import AdminSignIn from './components/AdminSignIn';
 import SignUp from './components/SignUp';
@@ -161,7 +160,7 @@ function App() {
                   />
          }} />
         <Route path="/home" render ={() => {
-          return <Home onLogOut={handleLogOut} laundrylist={laundryitems}/>
+          return <Home onLogOut={handleLogOut} laundrylist={laundryitems} loggedInUser={loggedInUser}/>
         }}/>
         <Route path="/admin/sign-in" render={() => {
           return <AdminSignIn 
