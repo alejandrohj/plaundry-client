@@ -3,6 +3,7 @@ import {Switch, Route, withRouter} from 'react-router-dom'
 import {API_URL} from './config'
 import axios from 'axios'
 
+//#region Components
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp';
 import AdminView from './components/AdminView';
@@ -10,6 +11,8 @@ import OrderList from './components/OrderList';
 import OrderDetails from './components/OrderDetails';
 import StartUp from './components/StartUp';
 import Home from './components/Home';
+import Cart from './components/Cart';
+//#region Components
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
@@ -22,20 +25,20 @@ function App() {
       .then((res) => {
         setLaundryItems(res.data)
       })
+      if(!loggedInUser){
+        axios.get(`${API_URL}/user`, {withCredentials: true})
+          .then((result) => {
+            setLogIn(result.data)
+            console.log(result.data)
+          })
+      }
   }, [])
 
-  const [loggedInUser, setLogIn] = useState(null);
+  const [loggedInUser, setLogIn] = useState();
   const adminLogIn = true;
   const [toHome, setToHome] = useState(false);
   const [toAdminHome, setToAdminHome] = useState(false);
 
-  if(!loggedInUser){
-    axios.get(`${API_URL}/user`, {withCredentials: true})
-      .then((result) => {
-        setLogIn(result.data)
-        console.log(result.data)
-      })
-  }
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -141,7 +144,7 @@ function App() {
           return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onAdminLogOut={handleAdminLogOut} onEdit={handleEditItem} loggedInUser={loggedInUser}/>
          }} />
         <Route path="/home" render ={() => {
-          return <Home onLogOut={handleLogOut} laundryitems={laundryitems}/>
+          return <Home onLogOut={handleLogOut} laundrylist={laundryitems}/>
         }}/>
         <Route path="/admin/sign-in" render={() => {
           return <SignIn admin={adminLogIn} onAdminLogOut={handleAdminLogOut} onSignIn={handleAdminSignIn} loggedInUser={loggedInUser} toAdminHome={toAdminHome}/>
@@ -152,6 +155,9 @@ function App() {
         <Route path="/admin/delivery/:id/details" render={(routeProps) => {
           return <OrderDetails {...routeProps} loggedInUser={loggedInUser}/>
         }} />
+        <Route path="/cart" render={()=>{
+          return <Cart loggedInUser={loggedInUser}/>
+        }}/>
       </Switch>
     </div>
   );

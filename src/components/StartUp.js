@@ -17,7 +17,7 @@ export default function StartUp() {
                 <Link to={'/home'}><Button variant="outline-secondary">Check</Button></Link>
                 </InputGroup.Append>
             </InputGroup>
-            <div style={{display:'flex',alignSelf: 'flex-start'}}>Company</div>
+            <Link to={'/admin'}><div style={{display:'flex',alignSelf: 'flex-start'}}>Company</div></Link>
         </div>
     )
 }

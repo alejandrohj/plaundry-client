@@ -10,34 +10,49 @@ import LaundryCard from './LaundryCard';
 //#endregion Components
 
 export default function Home(props) {
-    const [laundryitemsToDisplay, setLaundryItemsToDisplay] = useState([]);
-    useEffect(() =>{
-        axios.get(`${API_URL}/laundry/categories/clothing`)
+    const [laundryitems, setLaundryItems] = useState(null);
+    const [filter, setFilter]  = useState('clothing');
+    useEffect(() => {
+        let OrderStorage = JSON.parse(localStorage.getItem('order'));
+        if(!OrderStorage){
+            axios.get(`${API_URL}/laundry`)
             .then((res)=>{
-                setLaundryItemsToDisplay(res.data)
+                setLaundryItems(res.data)
             })
-    },[])
-
-    const handleCategorySelected = (category) =>{
-        axios.get(`${API_URL}/laundry/categories/${category}`)
-            .then((res)=>{
-                setLaundryItemsToDisplay(res.data)
-            })
-    }
-    const handleQuantityChange = (amount) =>{
-        if(!this.props.loggedUser){
-            return <Redirect to={'/sign-in'}/>
         }
-
+        else{
+            setLaundryItems(OrderStorage)
+        }
+        
+    }, [])
+    const handleCategorySelected = (category) =>{
+        setFilter(category)
     }
-    if (!laundryitemsToDisplay){
+    const handleAmountChange = (change,id) =>{
+        let cloneOfItems = JSON.parse(JSON.stringify(laundryitems));
+        let ItemsModified = cloneOfItems.map((elem)=>{
+            if(elem._id === id){
+                change === 'more'? elem.quantity ++ : elem.quantity --;
+                return elem
+            }
+            else{
+                return elem
+            }
+        })
+        setLaundryItems(ItemsModified)
+        localStorage.setItem('order',JSON.stringify(ItemsModified))
+        // let orderItems = localStorage.getItem('order')
+        // let parseOrder = JSON.parse(orderItems)
+        // console.log(parseOrder)
+    }
+    if (!laundryitems || !filter){
         return <p>Loading ....</p>
     }
     return (
         <div>
-            <Navbar/>
+            <Navbar onLogOut = {props.onLogOut}/>
             <CategoryNavbar onCatSelect = {handleCategorySelected}/>
-            <LaundryCard laundries ={laundryitemsToDisplay}/>
+            <LaundryCard onChangeAmount = {handleAmountChange} laundries ={laundryitems} filter={filter}/>
         </div>
     )
 }
