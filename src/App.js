@@ -3,8 +3,8 @@ import {Switch, Route, withRouter} from 'react-router-dom'
 import {API_URL} from './config'
 import axios from 'axios'
 
-//#region Components
-import SignIn from './components/SignIn'
+import SignIn from './components/SignIn';
+import AdminSignIn from './components/AdminSignIn';
 import SignUp from './components/SignUp';
 import AdminView from './components/AdminView';
 import OrderList from './components/OrderList';
@@ -20,33 +20,32 @@ import './App.css';
 function App() {
 
   const [laundryitems, setLaundryItems] = useState([]);
+  const [loggedInUser, setLogIn] = useState(null);
+
   useEffect(() => {
     axios.get(`${API_URL}/laundry`)
       .then((res) => {
         setLaundryItems(res.data)
       })
-      if(!loggedInUser){
-        axios.get(`${API_URL}/user`, {withCredentials: true})
-          .then((result) => {
-            setLogIn(result.data)
-            console.log(result.data)
-          })
-      }
+    if(!loggedInUser){
+      axios.get(`${API_URL}/user`, {withCredentials: true})
+        .then((result) => {
+          setLogIn(result.data)
+        })
+    }
   }, [])
 
-  const [loggedInUser, setLogIn] = useState();
-  const adminLogIn = true;
   const [toHome, setToHome] = useState(false);
   const [toAdminHome, setToAdminHome] = useState(false);
 
-
+  
   const handleSignIn = (e) => {
     e.preventDefault();
     const {email, password} = e.currentTarget;
     axios.post(`${API_URL}/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        setTimeout(() => setToHome(true), 1000)
+        setTimeout(() => setToHome(true), 500)
       })
   }
 
@@ -56,7 +55,7 @@ function App() {
     axios.post(`${API_URL}/signup`, {username: username.value, email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        setTimeout(() => setToHome(true), 1000)
+        setTimeout(() => setToHome(true), 500)
       })
   }
 
@@ -66,7 +65,7 @@ function App() {
     axios.post(`${API_URL}/admin/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
-        setTimeout(() => setToAdminHome(true), 1000)
+        setTimeout(() => setToAdminHome(true), 500)
       })
   }
 
@@ -75,23 +74,51 @@ function App() {
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         setLogIn(null)
-        
-       // Redirect to admin sign in
-      })
-      .catch(() => {
-        console.log('didnt')
-      })
+        // Redirect to admin/sign-in -> how?
+      })  
   }
 
   const handleCreateItem = (e) => {
     e.preventDefault();
     const {name, description, price, category, image} = e.currentTarget;
-    axios.post(`${API_URL}/laundry/create`, {name: name.value, category: category.value.toLowerCase(), description: description.value, price: price.value}, {withCredentials: true})
-      .then((result) => {
-        let newItem = result.data;
-        let cloneItems = JSON.parse(JSON.stringify(laundryitems))
-        cloneItems.push(newItem)
-        setLaundryItems(cloneItems)
+    let uploadData = new FormData();
+    uploadData.append("imageUrl", image.files[0]);
+
+    axios.post(`${API_URL}/upload`, uploadData)
+      .then((response) => {
+        axios.post(`${API_URL}/laundry/create`, {
+          name: name.value, 
+          category: category.value, 
+          description: description.value, 
+          price: price.value,
+          image: response.data.image
+        }, {withCredentials: true})
+          .then((result) => {
+            let newItem = result.data;
+            let cloneItems = JSON.parse(JSON.stringify(laundryitems))
+            cloneItems.push(newItem)
+            setLaundryItems(cloneItems)
+      })
+    })
+  }
+
+  const handleEditItem = (updatedLaundry) => {
+    axios.post(`${API_URL}/laundry/${updatedLaundry._id}/edit`, {
+      name: updatedLaundry.name,
+      description: updatedLaundry.description,
+      price: updatedLaundry.price,
+      category: updatedLaundry.category,
+      image: updatedLaundry.image
+
+    },  {withCredentials: true})
+      .then(() => {
+        let clonedLaundryItems = laundryitems.map((item) => {
+          if (item._id === updatedLaundry._id) {
+            item = updatedLaundry
+          }
+          return item;
+        })
+        setLaundryItems(clonedLaundryItems)
       })
   }
 
@@ -105,28 +132,11 @@ function App() {
       })
   }
 
-  // If you edit twice after each other, gives an error (but does save the change)
-  const handleEditItem = (updatedLaundry) => {
-    axios.post(`${API_URL}/laundry/${updatedLaundry._id}/edit`, {
-      name: updatedLaundry.name,
-      description: updatedLaundry.description,
-      price: updatedLaundry.price
-    },  {withCredentials: true})
-      .then(() => {
-        let clonedLaundryItems = laundryitems.map((item) => {
-          if (item._id === updatedLaundry._id) {
-            item = updatedLaundry
-          }
-        })
-        setLaundryItems(clonedLaundryItems)
-      })
-  }
-
   const handleLogOut = () => {
     console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
-        setLogIn(null)
+        setLogIn(null);
       })
   }
 
@@ -141,13 +151,25 @@ function App() {
           return <SignUp toHome={toHome} onSignUp={handleSignUp} />
         }} />
          <Route exact path="/admin" render={(routeProps) => {
-          return <AdminView laundrylist={laundryitems} onCreate={handleCreateItem} onDelete={handleDeleteItem} onAdminLogOut={handleAdminLogOut} onEdit={handleEditItem} loggedInUser={loggedInUser}/>
+          return <AdminView 
+                    laundrylist={laundryitems} 
+                    onCreate={handleCreateItem} 
+                    onDelete={handleDeleteItem} 
+                    onAdminLogOut={handleAdminLogOut} 
+                    onEdit={handleEditItem} 
+                    loggedInUser={loggedInUser} 
+                  />
          }} />
         <Route path="/home" render ={() => {
           return <Home onLogOut={handleLogOut} laundrylist={laundryitems}/>
         }}/>
         <Route path="/admin/sign-in" render={() => {
-          return <SignIn admin={adminLogIn} onAdminLogOut={handleAdminLogOut} onSignIn={handleAdminSignIn} loggedInUser={loggedInUser} toAdminHome={toAdminHome}/>
+          return <AdminSignIn 
+                    toAdminHome={toAdminHome} 
+                    onAdminLogOut={handleAdminLogOut} 
+                    onSignIn={handleAdminSignIn} 
+                    loggedInUser={loggedInUser} 
+                  />
         }} />
         <Route exact path="/admin/delivery" render={() => {
           return <OrderList loggedInUser={loggedInUser}/>

@@ -4,17 +4,14 @@ import {Link} from 'react-router-dom'
 
 export default function OrderCard(props) {
 
-  //const {street, postal, city, firstName, lastName, status, _id} = props.order
-  console.log('test', props.order)
-
-  // {/* <Link to={`/admin/delivery/${_id}/details`}> </Link> */}
+  const {street, postal, city, firstName, lastName, status, _id} = props.order
 
   return (
     
       <Card body>
         <Card.Text>
-          street postal city firstName lastName status
-          <Button variant="primary">See</Button>
+          {street} {postal} {city} {firstName} {lastName} {status}
+          <Link to={`/admin/delivery/${_id}/details`}><Button variant="primary">See Order</Button></Link>
         </Card.Text>
       </Card>
 

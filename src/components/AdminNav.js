@@ -1,8 +1,9 @@
 import React from 'react';
 import {Navbar, Nav, Button} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 export default function AdminNav(props) {
-  console.log(props)
+
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -11,10 +12,10 @@ export default function AdminNav(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {/* Links only for coding-purposes */}
-            <Nav.Link href="/admin">Edit laundry</Nav.Link>
-            <Nav.Link href="/admin/sign-in">Sign In</Nav.Link>
+            <Link to="/admin">Edit laundry</Link>
+            <Link to="/admin/sign-in">Sign In</Link>
+            <Link to="/admin/delivery">Delivery</Link>
             <Button onClick={props.onAdminLogOut}>Log Out</Button>
-            
           </Nav>
         </Navbar.Collapse>
       </Navbar>

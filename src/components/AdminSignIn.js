@@ -1,20 +1,19 @@
 import React from 'react'
 import {Form, Button} from 'react-bootstrap'
-import {Link, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
+import AdminNav from './AdminNav'
 
-export default function SignUp(props) {
+
+export default function AdminSignIn(props) {
+
   return (
     <div>
       {
-        props.toHome ? <Redirect to='/sign-in' /> :
-      
+        props.toAdminHome ? <Redirect to='/admin' /> :
         <>
-        <Form onSubmit={props.onSignUp}>
-          <Form.Group>
-            <Form.Label>Username</Form.Label>
-            <Form.Control name="username" type="text" placeholder="Enter username" />
-          </Form.Group>
-
+        <AdminNav onAdminLogOut={props.onAdminLogOut}/> 
+      
+        <Form onSubmit={props.onSignIn}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control name="email" type="email" placeholder="Enter email" />
@@ -31,15 +30,12 @@ export default function SignUp(props) {
             </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit">
-            Sign Up
+            Sign In
           </Button>
         </Form>
-
-        <p>Already have an account?</p>
-        <Link to="/sign-in">Sign In</Link>
         </>
-
       }
     </div>
   )
 }
+

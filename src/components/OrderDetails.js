@@ -1,27 +1,57 @@
 import React, {useState, useEffect} from 'react'
 import {Button} from 'react-bootstrap'
 import {Redirect} from 'react-router-dom'
+import axios from 'axios'
+import {API_URL} from '../config'
+import AdminNav from './AdminNav'
 
 export default function OrderDetails(props) {
 
-  // API-req order-detail in here
-  const [order, setOrder] = useState('')
-
- 
+  const [order, setOrder] = useState(null);
   let id = props.match.params.id
 
-  // When status change: change both the state and change the db
+  useEffect(() => {
+    axios.get(`${API_URL}/order/${id}`, {withCredentials: true})
+      .then((result) => {
+          setOrder(result.data)
+      })
+  }, [])
+
+  const handleStatusChange = (orderStatus) => {
+    if (orderStatus === 'to pick up') orderStatus = 'picked up';
+    else if (orderStatus === 'picked up') orderStatus = 'washing';
+    else if (orderStatus === 'washing') orderStatus = 'to deliver';
+    else if (orderStatus === 'to deliver') orderStatus = 'delivered';
+
+    axios.post(`${API_URL}/order/${id}/edit`, {status: orderStatus}, {withCredentials: true})
+      .then((result) => {
+        result.data.status = orderStatus
+        setOrder(result.data)
+      })
+  }
+
+  if (!order){
+    return <p>Loading ....</p>
+  }
+
+  const {status} = order
 
   return (
     <>
     {
       !props.loggedInUser ? 
       <Redirect to={'/admin/sign-in'} /> :
+      (
       <div>
-        <p>Address</p>
+        <AdminNav />
+        {/* <p>{order.street} {order.postal} {order.city}</p> */}
         <p>Map</p>
-        <Button>Orderstatus: {order.status}</Button>
+        {
+          status === 'delivered' ? (<Button disabled={true}>{status}</Button>) :
+          ( <Button onClick={() => handleStatusChange(order.status)}>{status}</Button> )
+        }
       </div>
+      )
     }
     </>
   )

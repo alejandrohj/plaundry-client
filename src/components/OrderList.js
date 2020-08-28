@@ -12,7 +12,13 @@ export default function OrderList(props) {
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
       .then((res) => {
-        setOrders(res.data)
+        // Sort results by status
+        let ordersClone = JSON.parse(JSON.stringify(res.data));
+        let ordering = {};
+        let sortOrder = ['to pick up', 'picked up', 'washing', 'to deliver', 'delivered'];
+        for (let i = 0; i < sortOrder.length; i++) ordering[sortOrder[i]] = i;
+        ordersClone.sort((a,b) =>   (ordering[a.status] - ordering[b.status]))
+        setOrders(ordersClone)
       })
   }, [])
 
@@ -20,7 +26,8 @@ export default function OrderList(props) {
     <>
     {
       !props.loggedInUser ? 
-      <Redirect to={'/admin/sign-in'} /> :
+      (<Redirect to={'/admin/sign-in'} />) :
+      (
       <div>
         <AdminNav />
         {
@@ -28,8 +35,8 @@ export default function OrderList(props) {
             return <OrderCard key={'order' + i} order={order}/>
           })
         }
-        <OrderCard />
-      </div>
+        </div>
+      )
     }
     </>
   )
