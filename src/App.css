@@ -1,3 +1,6 @@
+/* Colors */
+/* lightblue: E4F6FF */
+/* darker blue: #46C5FF */
 
 /* Admin page */
 .card {
@@ -40,7 +43,7 @@
  
   /* For coding purposes */
   body {
-    background-color: lightblue;
+    background-color: #E4F6FF;
   }
 
   /* Admin page */

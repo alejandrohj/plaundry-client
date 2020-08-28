@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import {API_URL} from './config';
 import axios from 'axios';
-
+//#region Components
 import SignIn from './components/SignIn';
 import AdminSignIn from './components/AdminSignIn';
 import SignUp from './components/SignUp';
@@ -13,7 +13,7 @@ import StartUp from './components/StartUp';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
-//#region Components
+//#endregion Components
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';

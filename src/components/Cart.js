@@ -29,7 +29,7 @@ export default function Cart(props) {
     }
     return (
         <div>
-        <Navbar/>
+        <Navbar loggedInUser={props.loggedInUser}/>
         <div style={{marginLeft: '10px'}}>
             <Link to={'/home'}><p>Go Back to the lists</p></Link>
             <AmountCart/>
