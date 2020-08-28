@@ -62,7 +62,7 @@ export default function Cart(props) {
                 </Card>)
             })
         }
-            
+        <Link to={'/checkout'}><p>Checkout</p></Link>
         </div>
     )
 }

@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {Switch, Route, withRouter} from 'react-router-dom'
-import {API_URL} from './config'
-import axios from 'axios'
+import {Switch, Route, withRouter} from 'react-router-dom';
+import {API_URL} from './config';
+import axios from 'axios';
+
 import SignIn from './components/SignIn';
 import AdminSignIn from './components/AdminSignIn';
 import SignUp from './components/SignUp';
@@ -11,10 +12,12 @@ import OrderDetails from './components/OrderDetails';
 import StartUp from './components/StartUp';
 import Home from './components/Home';
 import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 //#region Components
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
+
 
 function App() {
 
@@ -178,6 +181,9 @@ function App() {
         }} />
         <Route path="/cart" render={()=>{
           return <Cart loggedInUser={loggedInUser}/>
+        }}/>
+        <Route path="/checkout" render={()=>{
+          return <Checkout loggedInUser={loggedInUser}/>
         }}/>
       </Switch>
     </div>
