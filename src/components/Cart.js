@@ -11,15 +11,21 @@ import LocationSearchInput from './AutomCompleteAdress'
 
 export default function Cart(props) {
     const [OrderedLaundries, setOrderedLaundries] = useState(null);
-    const [Adress, setAdress] = useState(null)
-
+    const [Adress, setAdress] = useState(null);
+    const [Name, setName] = useState(null);
     useEffect(() => {
         setOrderedLaundries(JSON.parse(localStorage.getItem('order')));
         setAdress(JSON.parse(localStorage.getItem('adress')));
-
+        setName(JSON.parse(localStorage.getItem('name')))
     }, [])
     if (!OrderedLaundries){
-        return <p>Loading ....</p>
+        return (<>
+            <Navbar/>
+            <Link to={'/home'}><p>Go Back to the lists</p></Link>
+            <p>The cart is empty</p>
+            </>
+        )
+
     }
     let ItemsSelected = OrderedLaundries.filter((elem)=>{
         return elem.quantity > 0
@@ -27,11 +33,18 @@ export default function Cart(props) {
     const handleLocationSearch = (adress) =>{
         setAdress(adress)
     }
+    const handleChangenName = (e)=>{
+        localStorage.setItem('name',JSON.stringify(e.currentTarget.value))
+        setName(e.currentTarget.value)
+    }
     return (
         <div>
         <Navbar loggedInUser={props.loggedInUser}/>
         <div style={{marginLeft: '10px'}}>
-            <Link to={'/home'}><p>Go Back to the lists</p></Link>
+            <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                <Link to={'/home'}><p>Go Back to the lists</p></Link>
+                <Link to={'/checkout'}><p>Checkout</p></Link>
+            </div>
             <AmountCart/>
             <LocationSearchInput handleLocationSearch = {handleLocationSearch}/>
             {
@@ -41,8 +54,9 @@ export default function Cart(props) {
                     </>
                 ):(<p></p>)
             }
-            {/* <input onChange={handleLocationSearch} style={{width: '350px'}} type='text' name='adress' placeholder='TypeYour adress'/> */}
-            <input style={{width: '350px', marginTop: '10px'}} type='text' name='name' placeholder='TypeYour Name'/>
+            <hr/>
+            <label>Full Name</label>
+            <input onChange={handleChangenName} style={{width: '350px'}} type='text' defaultValue={Name} placeholder='Tipe your full name'/>
         </div>
         {
             ItemsSelected.map((elem,i)=>{
@@ -62,7 +76,6 @@ export default function Cart(props) {
                 </Card>)
             })
         }
-        <Link to={'/checkout'}><p>Checkout</p></Link>
         </div>
     )
 }

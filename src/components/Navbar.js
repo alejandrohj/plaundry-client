@@ -1,5 +1,5 @@
 import React from 'react'
-import {Nav,Navbar, Button} from 'react-bootstrap';
+import {Nav, Button} from 'react-bootstrap';
 
 export default function HomeNavbar(props) {
     return (
@@ -7,7 +7,7 @@ export default function HomeNavbar(props) {
                 {
                     props.loggedInUser?(
                         <Nav.Item>
-                            <Button style={{border: 'none',backgroundColor: 'transparent'}} onClick={props.onLogOut}>Log Out</Button>
+                            <Button style={{border: 'none',backgroundColor: 'transparent', color: 'blue'}} onClick={props.onLogOut}>Log Out</Button>
                         </Nav.Item>
                     ): (
                     <Nav.Item>

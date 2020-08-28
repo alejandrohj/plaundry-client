@@ -23,6 +23,7 @@ function App() {
 
   const [laundryitems, setLaundryItems] = useState([]);
   const [loggedInUser, setLogIn] = useState(null);
+  const [toIntro, setToIntro] = useState(false);
 
   useEffect(() => {
     axios.get(`${API_URL}/laundry`)
@@ -76,7 +77,6 @@ function App() {
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         setLogIn(null)
-        // Redirect to admin/sign-in -> how?
       })  
   }
 
@@ -138,7 +138,9 @@ function App() {
     console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
+        localStorage.clear();
         setLogIn(null);
+        setTimeout(() => setToIntro(true), 500)
       })
   }
 
@@ -163,7 +165,7 @@ function App() {
                   />
          }} />
         <Route path="/home" render ={() => {
-          return <Home onLogOut={handleLogOut} laundrylist={laundryitems} loggedInUser={loggedInUser}/>
+          return <Home onLogOut={handleLogOut} laundrylist={laundryitems} loggedInUser={loggedInUser} toIntro = {toIntro}/>
         }}/>
         <Route path="/admin/sign-in" render={() => {
           return <AdminSignIn 

@@ -19,7 +19,6 @@ export default function AmountCart(props) {
     if(!laundries){
         return <p>Loading ....</p>
     }
-    console.log(laundries)
     
     let total = laundries.reduce((acc,cur)=>{
         return acc + (cur.quantity * cur.price);
