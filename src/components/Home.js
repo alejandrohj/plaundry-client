@@ -3,7 +3,7 @@ import axios from 'axios';
 import {API_URL} from '../config'
 import {Nav, Button} from 'react-bootstrap'
 import {PUBLIC_URL} from '../config';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 //#region Components
 import Navbar from './Navbar';
@@ -53,16 +53,19 @@ export default function Home(props) {
     }
     return (
         <div>
-            <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
-            <CategoryNavbar onCatSelect = {handleCategorySelected}/>
-            <LaundryCard onChangeAmount = {handleAmountChange} laundries ={laundryitems} filter={filter}/>
-            <div style = {{display: "flex", backgroundColor: '#cfe1ff'}}>
-            <AmountCart laundries ={laundryitems}/>
-            <Nav.Item style={{marginLeft: '20px'}}>
-                <Link to={'/cart'}><Button><img src={`${PUBLIC_URL}/cart-outline.png`} alt ='cartImage'/> Go to the cart</Button></Link>
-            </Nav.Item>
-            </div>
-            
+            { 
+                props.toIntro ? (<Redirect to='/'/> ):(<>
+                <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
+                <CategoryNavbar onCatSelect = {handleCategorySelected}/>
+                <LaundryCard onChangeAmount = {handleAmountChange} laundries ={laundryitems} filter={filter}/>
+                <div style = {{display: "flex", backgroundColor: '#cfe1ff'}}>
+                <AmountCart laundries ={laundryitems}/>
+                <Nav.Item style={{marginLeft: '20px'}}>
+                    <Link to={'/cart'}><Button><img src={`${PUBLIC_URL}/cart-outline.png`} alt ='cartImage'/> Go to the cart</Button></Link>
+                </Nav.Item>
+                </div>
+                </>)
+            }
         </div>
     )
 }
