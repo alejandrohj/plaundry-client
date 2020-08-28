@@ -7,7 +7,7 @@ export default function HomeNavbar(props) {
     return (
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Nav.Item>
-                    <Nav.Link href="/sign-in">Signin</Nav.Link>
+                    <Link to="/sign-in">Signin</Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Button style={{border: 'none',}} onClick={props.onLogOut}>Log Out</Button>

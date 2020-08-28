@@ -5,6 +5,7 @@ import {API_URL} from '../config'
 import {Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
 
+
 export default function Cart(props) {
     const [OrderedLaundries, setOrderedLaundries] = useState(null);
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function Cart(props) {
             })
         }
         <Link to={'/home'}><p>Go Back to the lists</p></Link>
-            
+        <Link to={'/checkout'}><p>Checkout</p></Link>
         </div>
     )
 }

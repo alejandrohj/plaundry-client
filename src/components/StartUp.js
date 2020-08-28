@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
+import Calendar from './Calendar'
 
 import {InputGroup, FormControl,Button} from 'react-bootstrap';
 export default function StartUp() {
@@ -18,6 +19,8 @@ export default function StartUp() {
                 </InputGroup.Append>
             </InputGroup>
             <Link to={'/admin'}><div style={{display:'flex',alignSelf: 'flex-start'}}>Company</div></Link>
+
+            <Calendar />
         </div>
     )
 }
