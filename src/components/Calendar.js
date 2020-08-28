@@ -41,6 +41,7 @@ export default function Calendar() {
       }}
       duration='00:30:00'
       allDaySlot={false}
+      editable={true}
       slotMinTime="07:00:00"
       slotMaxTime="18:00:00"
       dateClick={handleClick}
