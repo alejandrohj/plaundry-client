@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Switch, Route, withRouter, Redirect} from 'react-router-dom'
+import {Switch, Route, withRouter} from 'react-router-dom'
 import {API_URL} from './config'
 import axios from 'axios'
 
@@ -79,12 +79,44 @@ function App() {
   const handleCreateItem = (e) => {
     e.preventDefault();
     const {name, description, price, category, image} = e.currentTarget;
-    axios.post(`${API_URL}/laundry/create`, {name: name.value, category: category.value.toLowerCase(), description: description.value, price: price.value}, {withCredentials: true})
-      .then((result) => {
-        let newItem = result.data;
-        let cloneItems = JSON.parse(JSON.stringify(laundryitems))
-        cloneItems.push(newItem)
-        setLaundryItems(cloneItems)
+    let uploadData = new FormData();
+    uploadData.append("imageUrl", image.files[0]);
+
+    axios.post(`${API_URL}/upload`, uploadData)
+      .then((response) => {
+        axios.post(`${API_URL}/laundry/create`, {
+          name: name.value, 
+          category: category.value, 
+          description: description.value, 
+          price: price.value,
+          image: response.data.image
+        }, {withCredentials: true})
+          .then((result) => {
+            let newItem = result.data;
+            let cloneItems = JSON.parse(JSON.stringify(laundryitems))
+            cloneItems.push(newItem)
+            setLaundryItems(cloneItems)
+      })
+    })
+  }
+
+  const handleEditItem = (updatedLaundry) => {
+    axios.post(`${API_URL}/laundry/${updatedLaundry._id}/edit`, {
+      name: updatedLaundry.name,
+      description: updatedLaundry.description,
+      price: updatedLaundry.price,
+      category: updatedLaundry.category,
+      image: updatedLaundry.image
+
+    },  {withCredentials: true})
+      .then(() => {
+        let clonedLaundryItems = laundryitems.map((item) => {
+          if (item._id === updatedLaundry._id) {
+            item = updatedLaundry
+          }
+          return item;
+        })
+        setLaundryItems(clonedLaundryItems)
       })
   }
 
@@ -95,24 +127,6 @@ function App() {
           return laundry._id !== id;
         })
         setLaundryItems(filteredLaundryItems)
-      })
-  }
-
-  const handleEditItem = (updatedLaundry) => {
-    axios.post(`${API_URL}/laundry/${updatedLaundry._id}/edit`, {
-      name: updatedLaundry.name,
-      description: updatedLaundry.description,
-      price: updatedLaundry.price,
-      category: updatedLaundry.category
-    },  {withCredentials: true})
-      .then(() => {
-        let clonedLaundryItems = laundryitems.map((item) => {
-          if (item._id === updatedLaundry._id) {
-            item = updatedLaundry
-          }
-          return item;
-        })
-        setLaundryItems(clonedLaundryItems)
       })
   }
 

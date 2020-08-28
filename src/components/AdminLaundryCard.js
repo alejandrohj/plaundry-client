@@ -40,6 +40,17 @@ export default function AdminLaundryCard(props) {
     setLaundryItem(updatedLaundry)
   }
 
+  const handleImageChange = (e) => {
+    let updatedLaundry = JSON.parse(JSON.stringify(laundryItem));  
+    let uploadData = new FormData();
+    uploadData.append("imageUrl", e.currentTarget.files[0]);
+    axios.post(`${API_URL}/upload`, uploadData)
+      .then((response) => {
+        updatedLaundry.image = response.data.image;
+        setLaundryItem(updatedLaundry);
+      })
+  }
+
   const [showDelete, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
@@ -49,7 +60,8 @@ export default function AdminLaundryCard(props) {
   }
 
   return (
-    <Card>
+    <Card style={{display:'flex', flexDirection: 'row'}}>
+      <img src={laundryItem.image} style={{height: '200px', width:'150px'}} alt="laundry-img" className="laundrycard-img"/>
 
       <Form className="laundrycard-form" >
 
@@ -87,7 +99,7 @@ export default function AdminLaundryCard(props) {
           </Col>
           <Col>
           <Form.Group>
-            <Form.File name="image" id="exampleFormControlFile1" label="Add an image" />
+              <Form.File onChange={handleImageChange} name="image" id="exampleFormControlFile1" label="Change image" />
           </Form.Group>
           </Col>
         </Row>
