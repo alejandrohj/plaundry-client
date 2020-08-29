@@ -3,6 +3,7 @@ import AdminLaundryCard from './AdminLaundryCard'
 
 export default function AdminLaundryList(props) {
   return (
+    
     <div className="admin-list-container">
     {
       props.laundrylist.map((laundry, i) => {

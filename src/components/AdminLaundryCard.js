@@ -112,7 +112,7 @@ export default function AdminLaundryCard(props) {
         </div>
         <Modal centered show={showDelete} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title style={{textAlign: 'center'}}>Are you sure you want to delete this item?</Modal.Title>
+            <Modal.Title className="admin-card-title" style={{textAlign: 'center'}}>Are you sure you want to delete this item?</Modal.Title>
           </Modal.Header>
           <Modal.Body style={{display: 'flex', justifyContent: 'space-evenly'}}>
             <Button className="general-btn" onClick={handleClose} style={{height: '40px', width: '100px'}} variant="primary">No</Button>

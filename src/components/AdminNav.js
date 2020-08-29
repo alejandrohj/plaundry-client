@@ -6,6 +6,7 @@ import {PUBLIC_URL} from '../config';
 export default function AdminNav(props) {
 
   return (
+    <>
     <Navbar className="admin-nav" expand="lg">
       <Link to="/"><img src={`${PUBLIC_URL}/white-logo.png`} style={{width: '150px'}} alt="logo"/></Link>
       {/* {
@@ -15,9 +16,9 @@ export default function AdminNav(props) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto" >
               {/* Links only for coding-purposes */}
-              <Link to="/admin"><Nav.Link style={{color: 'white', fontWeight: '600', marginLeft: '20px'}} disabled>Edit items</Nav.Link></Link>
+              <Link to="/admin"><Nav.Link style={{color: 'white', fontWeight: '600'}} disabled>Edit items</Nav.Link></Link>
               <Link to="/admin/sign-in"><Nav.Link style={{color: 'white', fontWeight: '600'}} disabled>Sign In</Nav.Link></Link>
-              <Link to="/admin/delivery"><Nav.Link style={{color: 'white', fontWeight: '600'}} disabled>Delivery</Nav.Link></Link>
+              <Link to="/admin/delivery"><Nav.Link style={{color: 'white', fontWeight: '600'}} disabled>All orders</Nav.Link></Link>
               </Nav>
               <Nav>
                 <Button className="admin-nav-btn" style={{fontWeight: '600'}} onClick={props.onAdminLogOut}>Log Out</Button>
@@ -27,5 +28,7 @@ export default function AdminNav(props) {
         {/* )
       } */}
     </Navbar>
+    <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
+    </>
   )
 }

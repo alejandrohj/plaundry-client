@@ -26,7 +26,7 @@ export default function SignIn(props) {
             Password needs to have a number, a character, a lowercase and uppercase letter and needs to have at least 8 characters.
           </Form.Text>
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button className="general-btn" variant="primary" type="submit">
           Sign In
         </Button>
       </Form>

@@ -30,11 +30,13 @@ export default function OrderList(props) {
  
     <div>
       <AdminNav />
+      <div className="orderlist">
       {
         orders.map((order, i) => {
           return <OrderCard key={'order' + i} order={order}/>
         })
       }
+      </div>
     </div>
    
   )

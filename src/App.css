@@ -2,6 +2,13 @@
 /* lightblue: E4F6FF */
 /* darker blue: #46C5FF */
 
+html, body {
+ height: 100%;
+ margin: 0;
+ padding: 0;
+}
+
+
 /* Genereal btn stylin */
 .general-btn{
   background-color:  #46C5FF;
@@ -21,9 +28,7 @@
 /* /-page */
 
 .splash-body {
-  margin:0;
-  padding:0;
-  width: 100%;
+  height: 100vh;
 }
 
 .splash {
@@ -64,18 +69,14 @@
 
 .splash-expl {
   text-align: center;
-  background-color: #E4F6FF;
-  padding: 20px;
-}
-
-@media only screen and (max-width: 400px) {
-  .expl-head {
-    display: none;
-  }
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+  padding: 40px;
+  padding-bottom: 60px;
+  margin-bottom: 0px;
 }
 
 .splash-footer {
-  position: relative; 
+  position: fixed; 
   width: 100%;
   bottom: 0;
   background-color: #ffab62;
@@ -106,7 +107,7 @@
   border: #036C9C;
 }
 
-/* Admin page */
+/* Admin pages */
 .adminlaundrycard {
   margin: 10px;
   border-radius: 5px;
@@ -134,20 +135,44 @@
 
 .admin-card-title{
   font-weight: 600;
+  color: #328CB6;
 }
 
 .create-laundryitem-btn {
   display: flex;
   justify-content: center;
-  margin: 10px;
+  padding: 10px;
 }
 
-.admin-list-container{
-  background-color: #E4F6FF;
+.createbtn{
+  padding: 10px 30px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.admin-list-container, .orderlist{
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
   margin: 0px;
   padding: 10px;
 }
 
+.admin-signin {
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+}
+
+.admin-signinform{
+  height: 40%;
+  margin: 10px;
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ordercard{
+  margin: 5px;
+}
 
 
 @media only screen and (max-width: 450px) {
@@ -158,15 +183,33 @@
     flex-direction: column;
   }
 
-
-.laundrycard-img {
-  vertical-align: left;
-}
+  .laundrycard-img {
+    vertical-align: left;
+  }
 
   .laundrycard-form {
     width: 93%;
     display: flex;
   }
 
+  .expl-head {
+    display: none;
+  }
+
 }
+
+@media only screen and (min-width: 800px) {
+
+  .splash{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .splash>*{
+    margin: 10px;
+  }
+}
+
+
 

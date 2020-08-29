@@ -16,7 +16,7 @@ export default function AdminView(props) {
       <AdminNav adminUser={props.adminUser} onAdminLogOut={props.onAdminLogOut}/>
       
       <CreateLaundry onCreate={props.onCreate} />
-        
+      <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
       <AdminLaundryList laundrylist={props.laundrylist} onEdit={props.onEdit} onDelete={props.onDelete} />
       
     </div>

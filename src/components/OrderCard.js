@@ -6,14 +6,12 @@ export default function OrderCard(props) {
 
   const {street, postal, city, firstName, lastName, status, _id} = props.order
 
-  console.log(props.order)
-
   return (
     
-      <Card body>
+      <Card body className="ordercard">
         <Card.Text>
           {street} {postal} {city} {firstName} {lastName} {status}
-          <Link to={`/admin/delivery/${_id}/details`}><Button variant="primary">See Order</Button></Link>
+          <Link to={`/admin/delivery/${_id}/details`}><Button className="general-btn" variant="primary">See Order</Button></Link>
         </Card.Text>
       </Card>
 

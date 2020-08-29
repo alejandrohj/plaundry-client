@@ -45,8 +45,8 @@ export default function OrderDetails(props) {
       {/* <p>{order.street} {order.postal} {order.city}</p> */}
       <p>Map</p>
       {
-        status === 'delivered' ? (<Button disabled={true}>{status}</Button>) :
-        ( <Button onClick={() => handleStatusChange(order.status)}>{status}</Button> )
+        status === 'delivered' ? (<Button className="general-btn" disabled={true}>{status}</Button>) :
+        ( <Button className="general-btn" onClick={() => handleStatusChange(order.status)}>{status}</Button> )
       }
     </div>
   )
