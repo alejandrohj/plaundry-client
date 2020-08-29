@@ -33,26 +33,21 @@ export default function OrderDetails(props) {
   if (!order){
     return <p>Loading ....</p>
   }
+  if(!props.loggedInUser) {
+    return <Redirect to={'/admin/sign-in'} />
+  }
 
   const {status} = order
 
   return (
-    <>
-    {
-      !props.loggedInUser ? 
-      <Redirect to={'/admin/sign-in'} /> :
-      (
-      <div>
-        <AdminNav />
-        {/* <p>{order.street} {order.postal} {order.city}</p> */}
-        <p>Map</p>
-        {
-          status === 'delivered' ? (<Button disabled={true}>{status}</Button>) :
-          ( <Button onClick={() => handleStatusChange(order.status)}>{status}</Button> )
-        }
-      </div>
-      )
-    }
-    </>
+    <div>
+      <AdminNav />
+      {/* <p>{order.street} {order.postal} {order.city}</p> */}
+      <p>Map</p>
+      {
+        status === 'delivered' ? (<Button disabled={true}>{status}</Button>) :
+        ( <Button onClick={() => handleStatusChange(order.status)}>{status}</Button> )
+      }
+    </div>
   )
 }

@@ -6,6 +6,8 @@ export default function OrderCard(props) {
 
   const {street, postal, city, firstName, lastName, status, _id} = props.order
 
+  console.log(props.order)
+
   return (
     
       <Card body>

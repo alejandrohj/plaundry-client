@@ -6,11 +6,12 @@ import AdminNav from './AdminNav'
 
 export default function AdminSignIn(props) {
 
+  if (props.toAdminHome) {
+    return <Redirect to='/admin' />
+  }
+
   return (
     <div>
-      {
-        props.toAdminHome ? <Redirect to='/admin' /> :
-        <>
         <AdminNav onAdminLogOut={props.onAdminLogOut}/> 
       
         <Form onSubmit={props.onSignIn}>
@@ -33,8 +34,6 @@ export default function AdminSignIn(props) {
             Sign In
           </Button>
         </Form>
-        </>
-      }
     </div>
   )
 }

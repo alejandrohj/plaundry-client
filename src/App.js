@@ -24,6 +24,7 @@ function App() {
   const [laundryitems, setLaundryItems] = useState([]);
   const [loggedInUser, setLogIn] = useState(null);
   const [toIntro, setToIntro] = useState(false);
+  const [adminUser, setAdminUser] = useState(false);
 
   useEffect(() => {
     axios.get(`${API_URL}/laundry`)
@@ -40,7 +41,7 @@ function App() {
 
   const [toHome, setToHome] = useState(false);
   const [toAdminHome, setToAdminHome] = useState(false);
-
+  const [toLogOut, setLogOut] = useState(false);
   
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -68,6 +69,7 @@ function App() {
     axios.post(`${API_URL}/admin/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
+        setAdminUser(true);
         setTimeout(() => setToAdminHome(true), 500)
       })
   }
@@ -77,6 +79,7 @@ function App() {
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         setLogIn(null)
+        setLogOut(true);
       })  
   }
 
@@ -162,6 +165,8 @@ function App() {
                     onAdminLogOut={handleAdminLogOut} 
                     onEdit={handleEditItem} 
                     loggedInUser={loggedInUser} 
+                    onLogOut={toLogOut}
+                    adminUser={adminUser}
                   />
          }} />
         <Route path="/home" render ={() => {
@@ -176,7 +181,7 @@ function App() {
                   />
         }} />
         <Route exact path="/admin/delivery" render={() => {
-          return <OrderList loggedInUser={loggedInUser}/>
+          return <OrderList loggedInUser={loggedInUser} />
         }} />
         <Route path="/admin/delivery/:id/details" render={(routeProps) => {
           return <OrderDetails {...routeProps} loggedInUser={loggedInUser}/>

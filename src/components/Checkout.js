@@ -12,6 +12,16 @@ const promise = loadStripe("pk_test_51HJbtACi0BSLj9s1UdXp5qb0IsxDhy7Pv5kqZgz5tYo
 export default function Checkout(props) {
 
   const [toHome, setToHome] = useState(false);
+  const [dates, setDates] = useState(null)
+
+  useEffect(() => {
+    setDates(localStorage.getItem('dates'))
+  }, [])
+
+  console.log(dates)
+  //["2020-08-24T08:00:00+02:00","2020-08-26T10:00:00+02:00"]
+  // Change this to normal dates and show on page
+  // Store seperate string in db
 
   const handlePlaceOrder = () => {
     axios.post(`${API_URL}/order` , {
@@ -45,7 +55,7 @@ export default function Checkout(props) {
   
   return (
     <div>
-        <Navbar />
+        <Navbar loggedInUser={props.loggedInUser}/>
         {/* Show name & address. */}
 
         <p>Total: €{total}</p>
