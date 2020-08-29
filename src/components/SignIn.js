@@ -26,6 +26,9 @@ export default function SignIn(props) {
             Password needs to have a number, a character, a lowercase and uppercase letter and needs to have at least 8 characters.
           </Form.Text>
         </Form.Group>
+        {
+            props.err ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
+        }
         <Button className="general-btn" variant="primary" type="submit">
           Sign In
         </Button>

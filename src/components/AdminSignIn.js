@@ -6,6 +6,7 @@ import AdminNav from './AdminNav'
 
 export default function AdminSignIn(props) {
 
+  console.log(props.errorMessage)
   if (props.toAdminHome) {
     return <Redirect to='/admin' />
   }
@@ -30,6 +31,9 @@ export default function AdminSignIn(props) {
               Password needs to have a number, a character, a lowercase and uppercase letter and needs to have at least 8 characters.
             </Form.Text>
           </Form.Group>
+          {
+            props.adminErr ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
+          }
           <Button style={{fontSize: '20px'}} className="general-btn" variant="primary" type="submit">
             Sign In
           </Button>
