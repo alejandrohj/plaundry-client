@@ -2,13 +2,30 @@
 /* lightblue: E4F6FF */
 /* darker blue: #46C5FF */
 
+/* Genereal btn stylin */
+.general-btn{
+  background-color:  #46C5FF;
+  border: #46C5FF;
+}
+
+.general-btn:hover {
+  background-color: #328CB6;
+  border: #328CB6;
+}
+
+.general-btn:focus {
+  background-color: #328CB6;
+  border: #328CB6;
+}
+
+/* /-page */
+
 .splash-body {
   margin:0;
   padding:0;
   width: 100%;
 }
 
-/* /-page */
 .splash {
   background-color: #46C5FF;
   color: white;
@@ -51,7 +68,7 @@
   padding: 20px;
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 400px) {
   .expl-head {
     display: none;
   }
@@ -71,13 +88,34 @@
   margin-bottom: 0px;
 }
 
+/* Admin nav */
+.admin-nav{
+  background-color:  #46C5FF;
+}
+
+.admin-nav-btn {
+  width: 80px;
+  font-size: 13px;
+  margin-top: 5px;
+  background-color: #328CB6;
+  border: #328CB6;
+}
+
+.admin-nav-btn:hover {
+  background-color: #036C9C;
+  border: #036C9C;
+}
+
 /* Admin page */
-.card {
+.adminlaundrycard {
   margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #46C5FF;
+  display: flex;
+  flex-direction: row;
 }
 
 .laundrycard-img {
-  width: 20%;
   margin: 10px;
   vertical-align: center;
 }
@@ -85,6 +123,8 @@
 .laundrycard-form {
   display: flex;
   flex-direction: column;
+  margin: 10px;
+  width: 70%;
 }
 
 .laundrycard-input {
@@ -92,14 +132,8 @@
   width: 80%;
 }
 
-.btn-container-laundrycard {
-  display: flex;
-  flex-direction: row;
-  align-self: center;
-}
-
-.btn-container-laundrycard button {
-  margin: 5px;
+.admin-card-title{
+  font-weight: 600;
 }
 
 .create-laundryitem-btn {
@@ -108,29 +142,30 @@
   margin: 10px;
 }
 
+.admin-list-container{
+  background-color: #E4F6FF;
+  margin: 0px;
+  padding: 10px;
+}
 
-@media only screen and (min-width: 1000px) {
+
+
+@media only screen and (max-width: 450px) {
 
   /* Admin page */
-  .laundrycard-form {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .laundrycard-input {
-    width: 50%;
-    margin: 10px;
-  }
-  
-  .btn-container-laundrycard {
-    width: 30%;
+  .adminlaundrycard {
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
 
-  .btn-container-laundrycard button {
-    width: 200px;  
+
+.laundrycard-img {
+  vertical-align: left;
+}
+
+  .laundrycard-form {
+    width: 93%;
+    display: flex;
   }
 
 }

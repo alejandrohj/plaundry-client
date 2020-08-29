@@ -7,9 +7,9 @@ import {Redirect} from 'react-router-dom'
 
 export default function AdminView(props) {
  
-  if (!props.loggedInUser || props.onLogOut) {
-    return <Redirect to={'/admin/sign-in'} />
-  }
+  // if (!props.loggedInUser || props.onLogOut) {
+  //   return <Redirect to={'/admin/sign-in'} />
+  // }
 
   return (
     <div>
@@ -17,7 +17,6 @@ export default function AdminView(props) {
       
       <CreateLaundry onCreate={props.onCreate} />
         
-      <hr></hr>
       <AdminLaundryList laundrylist={props.laundrylist} onEdit={props.onEdit} onDelete={props.onDelete} />
       
     </div>

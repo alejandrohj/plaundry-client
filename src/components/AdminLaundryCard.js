@@ -60,32 +60,31 @@ export default function AdminLaundryCard(props) {
   }
 
   return (
-    <Card style={{display:'flex', flexDirection: 'row'}}>
-      <img src={laundryItem.image} style={{height: '200px', width:'150px'}} alt="laundry-img" className="laundrycard-img"/>
+    <Card className="adminlaundrycard">
+      <img src={laundryItem.image} style={{height: '80%', width:'30%', alignSelf:'center'}} alt="laundry-img" className="laundrycard-img"/>
 
-      <Form className="laundrycard-form" >
+      <Form className="laundrycard-form">
 
-      <div className="laundrycard-input" >
-        <Form.Group>
-          <Form.Label>Name</Form.Label>
+        <Form.Group >
+          <Form.Label className="admin-card-title">Name</Form.Label>
           <Form.Control onChange={handleNameChange} name="name" type="text" value={laundryItem.name}></Form.Control>
         </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Description</Form.Label>
+        <Form.Group >
+          <Form.Label className="admin-card-title">Description</Form.Label>
           <Form.Control onChange={handleDescriptionChange} name="description" type="text" value={laundryItem.description}></Form.Control>
         </Form.Group>
 
-        <Row>
+        <Row >
           <Col>
-            <Form.Group>
-              <Form.Label>Price</Form.Label>
+          <Form.Group >
+              <Form.Label className="admin-card-title">Price</Form.Label>
               <Form.Control onChange={handlePriceChange} name="price" type="number" value={laundryItem.price}></Form.Control>
             </Form.Group>
           </Col>
           <Col>
           <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Category</Form.Label>
+            <Form.Label className="admin-card-title">Category</Form.Label>
             <Form.Control onChange={handleCategoryChange} name="category" as="select"  defaultValue={laundryItem.category}>
 
               {
@@ -97,31 +96,30 @@ export default function AdminLaundryCard(props) {
             </Form.Control>
           </Form.Group>
           </Col>
-          <Col>
-          <Form.Group>
-              <Form.File onChange={handleImageChange} name="image" id="exampleFormControlFile1" label="Change image" />
-          </Form.Group>
-          </Col>
         </Row>
-      </div>
 
-      <div className="btn-container-laundrycard">
-        <Button onClick={() => props.onEdit(laundryItem)} style={{height: '50px'}} variant="primary">
-          Save Changes
-        </Button>
+        <Form.Group >
+        <Form.Label className="admin-card-title">Change image</Form.Label>
+              <Form.File onChange={handleImageChange} name="image" id="exampleFormControlFile1" />
+        </Form.Group>
 
-        <Button onClick={handleOpen} variant="danger">Delete</Button>
+        <div style={{display: 'flex', justifyContent:'space-evenly'}}>
+          <Button className="general-btn" onClick={() => props.onEdit(laundryItem)} style={{height: '40px',width: '40%', margin: '10px 20px'}} variant="primary">
+            Save
+          </Button>
+
+          <Button onClick={handleOpen} variant="danger" style={{height: '40px',width: '40%', margin: '10px 20px'}}>Delete</Button>
+        </div>
         <Modal centered show={showDelete} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title style={{textAlign: 'center'}}>Are you sure you want to delete this item?</Modal.Title>
           </Modal.Header>
           <Modal.Body style={{display: 'flex', justifyContent: 'space-evenly'}}>
-            <Button onClick={handleClose} style={{height: '50px', width: '100px'}} variant="primary">No</Button>
-            <Button onClick={() => props.onDelete(laundryItem._id)} style={{height: '50px', width: '100px'}} variant="danger">Yes, delete</Button>
+            <Button className="general-btn" onClick={handleClose} style={{height: '40px', width: '100px'}} variant="primary">No</Button>
+            <Button onClick={() => props.onDelete(laundryItem._id)} style={{height: '40px', width: '100px'}} variant="danger">Yes</Button>
           </Modal.Body>
         </Modal>
        
-      </div>
       </Form>
     </Card>
   )

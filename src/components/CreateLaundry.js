@@ -12,7 +12,7 @@ export default function CreateLaundry(props) {
   return (
     <div>
       <div className="create-laundryitem-btn">
-      <Button onClick={handleOpen} >Create a new item</Button>
+      <Button onClick={handleOpen} className="general-btn">Create a new item</Button>
       </div>
       <Modal centered show={showCreate} onHide={handleClose}>
 
@@ -58,7 +58,7 @@ export default function CreateLaundry(props) {
               <Form.File name="image" id="exampleFormControlFile1" label="Add an image" />
             </Form.Group>
 
-            <Button onClick={handleClose} style={{height: '50px'}} variant="primary" type="submit">
+            <Button className="general-btn" onClick={handleClose} variant="primary" type="submit">
               Create Item
             </Button>
           </Form>
