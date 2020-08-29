@@ -21,7 +21,15 @@ export default function Checkout(props) {
       // delivery: 
     }, {withCredentials: true})
       .then((result) => {
-        setToHome(true);
+        localStorage.removeItem('order')
+        //Update the User name and adress:
+        axios.post(`${API_URL}/user/${props.loggedInUser._id}/edit`,{
+          firstName: JSON.parse(localStorage.getItem('name')),
+          city: JSON.parse(localStorage.getItem('adress'))[0].formatted_address
+        },{withCredentials: true})
+          .then((res)=>{
+            setToHome(true);
+          })
         // Delete order from localstorage
       })
   }

@@ -7,37 +7,39 @@ import {Redirect} from 'react-router-dom'
 
 export default function OrderList(props) {
 
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState()
 
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
-      .then((res) => {
+      .then((result) => {
         // Sort results by status
-        let ordersClone = JSON.parse(JSON.stringify(res.data));
-        let ordering = {};
-        let sortOrder = ['to pick up', 'picked up', 'washing', 'to deliver', 'delivered'];
-        for (let i = 0; i < sortOrder.length; i++) ordering[sortOrder[i]] = i;
-        ordersClone.sort((a,b) =>   (ordering[a.status] - ordering[b.status]))
-        setOrders(ordersClone)
+        //let ordersClone = JSON.parse(JSON.stringify(res.data));
+        // let ordering = {};
+        // let sortOrder = ['to pick up', 'picked up', 'washing', 'to deliver', 'delivered'];
+        // for (let i = 0; i < sortOrder.length; i++) ordering[sortOrder[i]] = i;
+        // ordersClone.sort((a,b) =>   (ordering[a.status] - ordering[b.status]))
+        console.log('dataorders',result.data)
+        setOrders(result.data)
       })
-  }, [])
-
+  },[])
+  if(!orders) return(<p>Loading...</p>)
   return (
     <>
-    {
-      !props.loggedInUser ? 
-      (<Redirect to={'/admin/sign-in'} />) :
+    
+      {/* !props.loggedInUser ? 
+      (<Redirect to={'/admin/sign-in'} />) : */}
       (
       <div>
-        <AdminNav />
+         <AdminNav />
         {
           orders.map((order, i) => {
-            return <OrderCard key={'order' + i} order={order}/>
+            console.log(order)
+            return <OrderCard key={'orders'+i} order = {order}/>
           })
         }
-        </div>
+      </div> 
       )
-    }
+    
     </>
   )
 }
