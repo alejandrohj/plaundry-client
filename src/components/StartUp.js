@@ -12,12 +12,13 @@ export default function StartUp() {
         </div>
         <div className="check-text" >
           <p className="check-p">Check if our service is available in your area:</p>
-          <FormControl
+          <FormControl 
+          className="check-form"
           placeholder="Postal Code"
           aria-label="Postal Code"
           aria-describedby="basic-addon2"
           />
-          <Link to={'/home'}><Button style={{margin: '5px'}} variant="outline-secondary">Check</Button></Link>
+          <Link to={'/home'}><Button className="check-btn" variant="outline-secondary">Check</Button></Link>
         </div>
         <div className="splash-expl">
           <h3 className="expl-head" >How does it work?</h3>
