@@ -28,7 +28,6 @@ export default function OrderList(props) {
     
       {/* !props.loggedInUser ? 
       (<Redirect to={'/admin/sign-in'} />) : */}
-      (
       <div>
          <AdminNav />
         {
@@ -38,7 +37,6 @@ export default function OrderList(props) {
           })
         }
       </div> 
-      )
     
     </>
   )

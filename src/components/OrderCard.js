@@ -11,7 +11,7 @@ export default function OrderCard(props) {
         <h5>{userId.firstName}</h5>
         <h6>{userId.city}</h6>
         <p>{status}</p>
-        <Link to={`/admin/delivery/${_id}/details`}><Button>Details</Button></Link>
+        <Link to={`/admin/delivery/${_id}/details`}><Button className="general-btn">Details</Button></Link>
       </Card.Body>
     </Card>
 

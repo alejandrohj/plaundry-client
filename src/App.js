@@ -24,6 +24,7 @@ function App() {
   const [laundryitems, setLaundryItems] = useState([]);
   const [loggedInUser, setLogIn] = useState(null);
   const [toIntro, setToIntro] = useState(false);
+  const [adminUser, setAdminUser] = useState(false);
 
   useEffect(() => {
     axios.get(`${API_URL}/laundry`)
@@ -40,8 +41,10 @@ function App() {
 
   const [toHome, setToHome] = useState(false);
   const [toAdminHome, setToAdminHome] = useState(false);
+  const [toLogOut, setLogOut] = useState(false);
+  const [errMessage, setErr] = useState(null);
+  const [err, setErrStatus] = useState(false);
 
-  
   const handleSignIn = (e) => {
     e.preventDefault();
     const {email, password} = e.currentTarget;
@@ -49,6 +52,11 @@ function App() {
       .then((result) => {
         setLogIn(result.data)
         setTimeout(() => setToHome(true), 500)
+      })
+      .catch((err) => {
+        setErrStatus(true);
+        let error = err.response.data.error
+        setErr(error);
       })
   }
 
@@ -60,7 +68,15 @@ function App() {
         setLogIn(result.data)
         setTimeout(() => setToHome(true), 500)
       })
+      .catch((err) => {
+        setErrStatus(true);
+        let error = err.response.data.errorMessage
+        setErr(error);
+      })
   }
+
+  const [adminErr, setAdminErr] = useState(false);
+
 
   const handleAdminSignIn = (e) => {
     e.preventDefault();
@@ -68,7 +84,13 @@ function App() {
     axios.post(`${API_URL}/admin/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setLogIn(result.data)
+        setAdminUser(true);
         setTimeout(() => setToAdminHome(true), 500)
+      })
+      .catch((err) => {
+        setAdminErr(true);
+        let error = err.response.data.error
+        setErr(error);
       })
   }
 
@@ -77,6 +99,7 @@ function App() {
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         setLogIn(null)
+        setLogOut(true);
       })  
   }
 
@@ -141,6 +164,7 @@ function App() {
         localStorage.clear();
         setLogIn(null);
         setTimeout(() => setToIntro(true), 500)
+        setTimeout(() => setToIntro(false), 700)
       })
   }
 
@@ -149,12 +173,14 @@ function App() {
       <Switch>
         <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
-          return <SignIn toHome={toHome} onSignIn={handleSignIn} />
+          return <SignIn toHome={toHome} onSignIn={handleSignIn} err={err}
+          errorMessage={errMessage}/>
         }} />
         <Route path="/sign-up" render={() => {
-          return <SignUp toHome={toHome} onSignUp={handleSignUp} />
+          return <SignUp toHome={toHome} onSignUp={handleSignUp} err={err}
+          errorMessage={errMessage}/>
         }} />
-         <Route exact path="/admin" render={(routeProps) => {
+         <Route exact path="/admin" render={() => {
           return <AdminView 
                     laundrylist={laundryitems} 
                     onCreate={handleCreateItem} 
@@ -162,6 +188,8 @@ function App() {
                     onAdminLogOut={handleAdminLogOut} 
                     onEdit={handleEditItem} 
                     loggedInUser={loggedInUser} 
+                    onLogOut={toLogOut}
+                    adminUser={adminUser}
                   />
          }} />
         <Route path="/home" render ={() => {
@@ -173,10 +201,12 @@ function App() {
                     onAdminLogOut={handleAdminLogOut} 
                     onSignIn={handleAdminSignIn} 
                     loggedInUser={loggedInUser} 
+                    adminErr={adminErr}
+                    errorMessage={errMessage}
                   />
         }} />
         <Route exact path="/admin/delivery" render={() => {
-          return <OrderList loggedInUser={loggedInUser}/>
+          return <OrderList loggedInUser={loggedInUser} />
         }} />
         <Route path="/admin/delivery/:id/details" render={(routeProps) => {
           return <OrderDetails {...routeProps} loggedInUser={loggedInUser}/>

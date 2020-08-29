@@ -1,11 +1,11 @@
-import React,{useState, useEffect,useRef} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import Navbar from './Navbar';
 import axios from 'axios';
 import {API_URL} from '../config'
-import {Card} from 'react-bootstrap'
+import {Card, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
 
-
+import CalenderModal from './CalenderModal'
 import AmountCart from './AmountCart';
 import LocationSearchInput from './AutomCompleteAdress'
 
@@ -18,6 +18,8 @@ export default function Cart(props) {
         setAdress(JSON.parse(localStorage.getItem('adress')));
         setName(JSON.parse(localStorage.getItem('name')))
     }, [])
+
+    
     if (!OrderedLaundries){
         return (<>
             <Navbar/>
@@ -37,13 +39,15 @@ export default function Cart(props) {
         localStorage.setItem('name',JSON.stringify(e.currentTarget.value))
         setName(e.currentTarget.value)
     }
+
+
     return (
         <div>
         <Navbar loggedInUser={props.loggedInUser}/>
         <div style={{marginLeft: '10px'}}>
             <div style={{display: 'flex', justifyContent: 'space-around'}}>
                 <Link to={'/home'}><p>Go Back to the lists</p></Link>
-                <Link to={'/checkout'}><p>Checkout</p></Link>
+                <CalenderModal />
             </div>
             <AmountCart/>
             <LocationSearchInput handleLocationSearch = {handleLocationSearch}/>
