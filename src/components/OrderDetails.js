@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import {Button} from 'react-bootstrap'
+import {Button,Card,ListGroup} from 'react-bootstrap'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import {API_URL} from '../config'
 import AdminNav from './AdminNav'
+import MapWithAMarker from './Map';
+
 
 export default function OrderDetails(props) {
 
@@ -37,17 +39,44 @@ export default function OrderDetails(props) {
     return <Redirect to={'/admin/sign-in'} />
   }
 
-  const {status} = order
+  const {status, userId, orderItems} = order
 
   return (
     <div>
       <AdminNav />
-      {/* <p>{order.street} {order.postal} {order.city}</p> */}
-      <p>Map</p>
-      {
-        status === 'delivered' ? (<Button className="general-btn" disabled={true}>{status}</Button>) :
-        ( <Button className="general-btn" onClick={() => handleStatusChange(order.status)}>{status}</Button> )
-      }
+      <Card style={{ width: '18rem', margin:'40px'}}>
+          <Card.Body>
+            <div>
+              <h5>{userId.firstName}</h5>
+              <MapWithAMarker
+                coordinates = {userId.address.coordinates}
+                containerElement={<div style={{ height: `400px` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+              />
+              <h6>{userId.city}</h6>
+              {
+                status === 'delivered' ? (<Button className="general-btn" disabled={true}>{status}</Button>) :
+                ( <Button className="general-btn" onClick={() => handleStatusChange(order.status)}>{status}</Button> )
+              }
+            </div>
+            <hr/>
+            <h5>Laundries:</h5>
+            <hr/>
+            <ListGroup className="list-group-flush">
+              {
+                orderItems.map((elem)=>{
+                  return(<>
+                    <ListGroup.Item>
+                    <p><b>Laundry: {elem.laundry.name}</b></p><p><b>Quantity: {elem.quantityOflaundries}</b></p>
+                    </ListGroup.Item>
+                    <hr/>
+                  </>
+                  )
+                })
+              }
+              </ListGroup>
+          </Card.Body>
+      </Card>
     </div>
   )
 }

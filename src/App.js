@@ -13,10 +13,12 @@ import StartUp from './components/StartUp';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+import userDetails from './components/UserDetails';
 //#endregion Components
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
+import UserDetails from './components/UserDetails';
 
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
           setLogIn(result.data)
         })
     }
-  }, [])
+  }, [loggedInUser])
 
   const [toHome, setToHome] = useState(false);
   const [toAdminHome, setToAdminHome] = useState(false);
@@ -95,7 +97,6 @@ function App() {
   }
 
   const handleAdminLogOut = () => {
-    console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         setLogIn(null)
@@ -167,7 +168,6 @@ function App() {
         setTimeout(() => setToIntro(false), 700)
       })
   }
-
   return (
     <div>
       <Switch>
@@ -213,6 +213,9 @@ function App() {
         }} />
         <Route path="/cart" render={()=>{
           return <Cart loggedInUser={loggedInUser}/>
+        }}/>
+        <Route path="/userDetails" render={()=>{
+          return <UserDetails loggedInUser={loggedInUser}/>
         }}/>
         <Route path="/checkout" render={()=>{
           return <Checkout loggedInUser={loggedInUser}/>

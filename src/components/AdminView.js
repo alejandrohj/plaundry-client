@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdminNav from './AdminNav'
 import CreateLaundry from './CreateLaundry'
 import AdminLaundryList from './AdminLaundryList'
@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom'
 
 
 export default function AdminView(props) {
+
  
   // if (!props.loggedInUser || props.onLogOut) {
   //   return <Redirect to={'/admin/sign-in'} />
