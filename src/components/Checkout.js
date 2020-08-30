@@ -40,7 +40,6 @@ export default function Checkout(props) {
           .then((res)=>{
             setToHome(true);
           })
-        // Delete order from localstorage
       })
   }
   

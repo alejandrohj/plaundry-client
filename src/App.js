@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import {API_URL} from './config';
 import axios from 'axios';
+
 //#region Components
 import SignIn from './components/SignIn';
 import AdminSignIn from './components/AdminSignIn';
@@ -13,6 +14,7 @@ import StartUp from './components/StartUp';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+import ErrorComponent from './components/404'
 //#endregion Components
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -272,6 +274,9 @@ function App() {
         <Route path="/checkout" render={()=>{
           return <Checkout loggedInUser={loggedInUser}/>
         }}/>
+        <Route path="*" render={()=>{
+          return <ErrorComponent />
+        }} />
       </Switch>
     </div>
   );

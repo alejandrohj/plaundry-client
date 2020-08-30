@@ -5,7 +5,7 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import {API_URL} from '../config';
-import { Button } from 'react-bootstrap';
+import { Button, Modal} from 'react-bootstrap';
 
 export default function CheckoutForm(props) {
 
@@ -18,6 +18,9 @@ export default function CheckoutForm(props) {
   const elements = useElements();
 
   const [disableBtn, setBtn] = useState(false);
+
+  const [showCreate, setShow] = useState(false);
+  const handleOpen = () => setShow(true);
 
   useEffect(() => {
     window
@@ -117,9 +120,21 @@ export default function CheckoutForm(props) {
     </form>
 
     {
-      !disableBtn ? <Button disabled={true}>Place order</Button> : <Button onClick={props.onPlaceOrder}>Place order</Button>
+      !disableBtn ? <Button disabled={true} className="general-btn">Place order</Button>  : <Button onClick={handleOpen} className="general-btn">Place order</Button>
     }
-    
+
+    <Modal centered show={showCreate} >
+
+      <Modal.Header closeButton>
+        <Modal.Title className="admin-card-title">Thank you for your order!</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <Button onClick={props.onPlaceOrder} className="general-btn">Go to homepage</Button>
+      </Modal.Body>
+      
+    </Modal>
+  
     </>
   )
 }
