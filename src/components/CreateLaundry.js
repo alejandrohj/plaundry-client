@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Form, Button, Row, Col, Modal} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 
 export default function CreateLaundry(props) {
 
@@ -59,10 +60,17 @@ export default function CreateLaundry(props) {
               <Form.Label className="admin-card-title">Add an image</Form.Label>
               <Form.File name="image" id="exampleFormControlFile1" />
             </Form.Group>
-
-            <Button className="general-btn" onClick={handleClose} variant="primary" type="submit">
+            {
+            props.err ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
+            } 
+            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+            <Button onClick={props.handleError} className="general-btn" variant="primary" type="submit">
               Create Item
             </Button>
+            {
+              props.createSucces ? <Button className="general-btn" onClick={handleClose}>Back to list</Button>: <></>
+            }
+            </div>
           </Form>
 
         </Modal.Body>

@@ -2,6 +2,7 @@ import React from 'react'
 import {Form, Button} from 'react-bootstrap'
 import {Redirect} from 'react-router-dom'
 import AdminNav from './AdminNav'
+import {PUBLIC_URL} from '../config';
 
 
 export default function AdminSignIn(props) {
@@ -14,10 +15,10 @@ export default function AdminSignIn(props) {
     <div className="admin-signin">
         <AdminNav onAdminLogOut={props.onAdminLogOut}/> 
         <p style={{textAlign: 'center', marginTop: '30px', marginLeft:'5%', marginRight:'5%',color: '#036C9C', fontWeight:'600', fontSize: '25px'}}><em>Plaundry helps you reach your customers easily and user-friendly.</em></p>
-        <Form  className="admin-signinform" onSubmit={props.onSignIn}>
+        <Form noValidate className="admin-signinform" onSubmit={props.onSignIn}>
           <Form.Group style={{width:'50%'}} controlId="formBasicEmail">
             <Form.Label style={{color: '#036C9C', fontWeight:'600'}}>Email address</Form.Label>
-            <Form.Control name="email" type="email" placeholder="Enter email" />
+            <Form.Control  name="email" type="email" placeholder="Enter email" />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -37,7 +38,9 @@ export default function AdminSignIn(props) {
             Sign In
           </Button>
         </Form>
-        <p style={{textAlign: 'center', color: '#036C9C', fontWeight:'600', fontSize: '16px', margin: '0% 18%', paddingTop: '20px', paddingBottom: '50px'}}>Do you want to use Plaundry for your businnes? Reach out to us at: 06-12345678 or business@plaundry.com.</p>
+        <p style={{textAlign: 'center', color: '#036C9C', fontWeight:'600', fontSize: '16px', margin: '0% 18%', paddingTop: '20px', paddingBottom: '50px'}}>Do you want to use Plaundry for your businnes? 
+        <br></br>
+        Reach out to us by <a href="tel://+1234567890"><img style={{width: '20px'}} src={`${PUBLIC_URL}/phone-blue.png`} alt="phone" /></a> or <a href="mailto:business@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-blue.png`} alt="email" /></a></p>
     </div>
   )
 }

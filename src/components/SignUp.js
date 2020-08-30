@@ -10,7 +10,7 @@ export default function SignUp(props) {
 
   return (
     <div>
-      <Form onSubmit={props.onSignUp}>
+      <Form noValidate onSubmit={props.onSignUp}>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control name="username" type="text" placeholder="Enter username" />
@@ -40,7 +40,7 @@ export default function SignUp(props) {
       </Form>
 
       <p>Already have an account?</p>
-      <Link to="/sign-in">Sign In</Link>
+      <Link to="/sign-in" onClick={props.handleError}>Sign In</Link>
 
     </div>
   )

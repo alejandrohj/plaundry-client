@@ -21,10 +21,19 @@ import './App.css';
 
 function App() {
 
+  //#region Hooks
   const [laundryitems, setLaundryItems] = useState([]);
   const [loggedInUser, setLogIn] = useState(null);
   const [toIntro, setToIntro] = useState(false);
   const [adminUser, setAdminUser] = useState(false);
+  const [toHome, setToHome] = useState(false);
+  const [toAdminHome, setToAdminHome] = useState(false);
+  const [toLogOut, setLogOut] = useState(false);
+  const [errMessage, setErr] = useState(null);
+  const [err, setErrStatus] = useState(false);
+  const [adminErr, setAdminErr] = useState(false);
+  const [createSucces, setCreateSucces] = useState(false);
+  //#endregion Hooks
 
   useEffect(() => {
     axios.get(`${API_URL}/laundry`)
@@ -38,12 +47,6 @@ function App() {
         })
     }
   }, [])
-
-  const [toHome, setToHome] = useState(false);
-  const [toAdminHome, setToAdminHome] = useState(false);
-  const [toLogOut, setLogOut] = useState(false);
-  const [errMessage, setErr] = useState(null);
-  const [err, setErrStatus] = useState(false);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -70,13 +73,10 @@ function App() {
       })
       .catch((err) => {
         setErrStatus(true);
-        let error = err.response.data.errorMessage
+        let error = err.response.data.error
         setErr(error);
       })
   }
-
-  const [adminErr, setAdminErr] = useState(false);
-
 
   const handleAdminSignIn = (e) => {
     e.preventDefault();
@@ -98,8 +98,11 @@ function App() {
     console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
-        setLogIn(null)
-        setLogOut(true);
+        setAdminUser(false);
+        localStorage.clear();
+        setLogIn(null);
+        setTimeout(() => setLogOut(true), 500)
+        setTimeout(() => setLogOut(false), 700)
       })  
   }
 
@@ -119,12 +122,26 @@ function App() {
           image: response.data.image
         }, {withCredentials: true})
           .then((result) => {
-            let newItem = result.data;
+            setErrStatus(true);
+            setErr(result.data.message);
+            setTimeout(() => setErrStatus(false), 3000)
+            let newItem = result.data.response;
             let cloneItems = JSON.parse(JSON.stringify(laundryitems))
-            cloneItems.push(newItem)
-            setLaundryItems(cloneItems)
+            cloneItems.push(newItem);
+            setLaundryItems(cloneItems);
+            setCreateSucces(true);
+          })
+          .catch((err) => {
+            setErrStatus(true);
+            let error = err.response.data.error
+            setErr(error);
+          })
       })
-    })
+      .catch((err) => {
+        setErrStatus(true);
+        let error = err.response.data.error
+        setErr(error);
+      })
   }
 
   const handleEditItem = (updatedLaundry) => {
@@ -136,7 +153,9 @@ function App() {
       image: updatedLaundry.image
 
     },  {withCredentials: true})
-      .then(() => {
+      .then((response) => {
+        setErrStatus(true);
+        setErr(response.data.message)
         let clonedLaundryItems = laundryitems.map((item) => {
           if (item._id === updatedLaundry._id) {
             item = updatedLaundry
@@ -144,6 +163,12 @@ function App() {
           return item;
         })
         setLaundryItems(clonedLaundryItems)
+        setTimeout(() => setErrStatus(false), 2000)
+      })
+      .catch((err) => {
+        setErrStatus(true);
+        let error = err.response.data.error
+        setErr(error);
       })
   }
 
@@ -168,17 +193,31 @@ function App() {
       })
   }
 
+  const handleError = () => {
+    setErrStatus(false);
+  }
+
   return (
     <div>
       <Switch>
         <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
-          return <SignIn toHome={toHome} onSignIn={handleSignIn} err={err}
-          errorMessage={errMessage}/>
+          return <SignIn 
+                    toHome={toHome} 
+                    onSignIn={handleSignIn} 
+                    err={err}
+                    errorMessage={errMessage} 
+                    handleError={handleError}
+                  />
         }} />
         <Route path="/sign-up" render={() => {
-          return <SignUp toHome={toHome} onSignUp={handleSignUp} err={err}
-          errorMessage={errMessage}/>
+          return <SignUp 
+                    toHome={toHome} 
+                    onSignUp={handleSignUp} 
+                    err={err}
+                    errorMessage={errMessage} 
+                    handleError={handleError}
+                  />
         }} />
          <Route exact path="/admin" render={() => {
           return <AdminView 
@@ -190,10 +229,19 @@ function App() {
                     loggedInUser={loggedInUser} 
                     onLogOut={toLogOut}
                     adminUser={adminUser}
+                    err={err}
+                    errorMessage={errMessage} 
+                    handleError={handleError}
+                    createSucces={createSucces}
                   />
          }} />
         <Route path="/home" render ={() => {
-          return <Home onLogOut={handleLogOut} laundrylist={laundryitems} loggedInUser={loggedInUser} toIntro = {toIntro}/>
+          return <Home 
+                  onLogOut={handleLogOut} 
+                  laundrylist={laundryitems} 
+                  loggedInUser={loggedInUser} 
+                  toIntro = {toIntro} 
+                />
         }}/>
         <Route path="/admin/sign-in" render={() => {
           return <AdminSignIn 
@@ -206,10 +254,17 @@ function App() {
                   />
         }} />
         <Route exact path="/admin/delivery" render={() => {
-          return <OrderList loggedInUser={loggedInUser} />
+          return <OrderList 
+                    loggedInUser={loggedInUser} 
+                    adminUser={adminUser} 
+                    onAdminLogOut={handleAdminLogOut} 
+                    />
         }} />
         <Route path="/admin/delivery/:id/details" render={(routeProps) => {
-          return <OrderDetails {...routeProps} loggedInUser={loggedInUser}/>
+          return <OrderDetails 
+                    {...routeProps} 
+                    loggedInUser={loggedInUser}
+                  />
         }} />
         <Route path="/cart" render={()=>{
           return <Cart loggedInUser={loggedInUser}/>

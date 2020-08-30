@@ -23,21 +23,17 @@ export default function OrderList(props) {
       })
   },[])
   if(!orders) return(<p>Loading...</p>)
+  if(!props.loggedInUser) return(<Redirect to={'/admin/sign-in'} />)
+  
   return (
-    <>
-    
-      {/* !props.loggedInUser ? 
-      (<Redirect to={'/admin/sign-in'} />) : */}
-      <div>
-         <AdminNav />
-        {
-          orders.map((order, i) => {
-            console.log(order)
-            return <OrderCard key={'orders'+i} order = {order}/>
-          })
-        }
-      </div> 
-    
-    </>
+    <div>
+        <AdminNav adminUser={props.adminUser} onAdminLogOut={props.onAdminLogOut}/>
+      {
+        orders.map((order, i) => {
+          console.log(order)
+          return <OrderCard key={'orders'+i} order = {order}/>
+        })
+      }
+    </div> 
   )
 }

@@ -10,7 +10,7 @@ export default function SignIn(props) {
 
   return (
     <div>
-      <Form onSubmit={props.onSignIn}>
+      <Form noValidate onSubmit={props.onSignIn}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control name="email" type="email" placeholder="Enter email" />
@@ -33,7 +33,7 @@ export default function SignIn(props) {
           Sign In
         </Button>
       </Form>
-      <Link to="/sign-up">Sign Up</Link>
+      <Link to="/sign-up" onClick={props.handleError}>Sign Up</Link>
     </div>
   )
 }

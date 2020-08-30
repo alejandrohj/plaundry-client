@@ -102,7 +102,9 @@ export default function AdminLaundryCard(props) {
         <Form.Label className="admin-card-title">Change image</Form.Label>
               <Form.File onChange={handleImageChange} name="image" id="exampleFormControlFile1" />
         </Form.Group>
-
+          {
+            props.err ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
+          } 
         <div style={{display: 'flex', justifyContent:'space-evenly'}}>
           <Button className="general-btn" onClick={() => props.onEdit(laundryItem)} style={{height: '40px',width: '40%', margin: '10px 20px'}} variant="primary">
             Save
