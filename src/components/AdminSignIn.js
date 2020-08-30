@@ -6,7 +6,6 @@ import AdminNav from './AdminNav'
 
 export default function AdminSignIn(props) {
 
-  console.log(props.errorMessage)
   if (props.toAdminHome) {
     return <Redirect to='/admin' />
   }
