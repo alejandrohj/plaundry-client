@@ -39,14 +39,18 @@ export default function OrderDetails(props) {
     return <Redirect to={'/admin/sign-in'} />
   }
 
-  const {status, userId, orderItems} = order
+  const {status, userId, orderItems,pickUp, delivery} = order
 
   return (
     <div>
-      <AdminNav />
+      <AdminNav adminUser={props.adminUser} onAdminLogOut={props.onAdminLogOut}/>
       <Card style={{ minWidth: '20rem', margin:'40px'}}>
           <Card.Body>
             <div>
+              {
+                status==='to pick up'? <p> Date: <b>{pickUp.slice(0,10)}</b></p> :
+                <p> Date: <b>{delivery.slice(0,10)}</b></p>
+              }
               <h5>{userId.name.firstName}</h5>
               <MapWithAMarker
                 coordinates = {userId.address.coordinates}
@@ -54,6 +58,10 @@ export default function OrderDetails(props) {
                 mapElement={<div style={{ height: `100%` }} />}
               />
               <h6>{userId.city}</h6>
+              {
+                status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
+                <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
+              }
               {
                 status === 'delivered' ? (<Button className="general-btn" disabled={true}>{status}</Button>) :
                 ( <Button className="general-btn" onClick={() => handleStatusChange(order.status)}>{status}</Button> )

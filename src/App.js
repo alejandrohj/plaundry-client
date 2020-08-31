@@ -16,6 +16,7 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import ErrorComponent from './components/404'
 import UserDetails from './components/UserDetails';
+import UserOrders from './components/UserOrders';
 //#endregion Components
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -267,6 +268,9 @@ function App() {
         }}/>
         <Route path="/userDetails" render={()=>{
           return <UserDetails loggedInUser={loggedInUser}/>
+        }}/>
+        <Route path="/userOrders" render={()=>{
+          return <UserOrders loggedInUser={loggedInUser}/>
         }}/>
         <Route path="/checkout" render={()=>{
           return <Checkout loggedInUser={loggedInUser}/>

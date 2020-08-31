@@ -38,7 +38,7 @@ export default function CreateLaundry(props) {
               <Col>
                 <Form.Group>
                   <Form.Label className="admin-card-title">Price</Form.Label>
-                  <Form.Control name="price" type="number" placeholder="Enter Price" />
+                  <Form.Control name="price"  step ='0.01' type="number" placeholder="Enter Price" />
                 </Form.Group>
               </Col>
               <Col>
