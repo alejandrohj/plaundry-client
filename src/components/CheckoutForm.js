@@ -6,6 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 import {API_URL} from '../config';
 import { Button, Modal} from 'react-bootstrap';
+import './CheckoutForm.css'
 
 export default function CheckoutForm(props) {
 
@@ -85,57 +86,68 @@ export default function CheckoutForm(props) {
     }
   };
 
+  const getTotal = (items) => {
+    let total = items.reduce((acc, elem) => {
+      return acc += elem.quantity * elem.price;
+    }, 0)
+    return total;
+  }
+
+  let total = getTotal(JSON.parse(localStorage.getItem('order')))
+
   return (
-    <>
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-      <button className="btn"
-        disabled={processing || disabled || succeeded}
-        id="submit"
-      >
-        <span id="button-text">
-          {processing ? (
-            <div className="spinner" id="spinner"></div>
-          ) : (
-            "Pay"
-          )}
-        </span>
-      </button>
-      {/* Show any error that happens when processing the payment */}
-      {error && (
-        <div className="card-error" role="alert">
-          {error}
-        </div>
-      )}
-      {/* Show a success message upon completion */}
-      <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a
-          href={`https://dashboard.stripe.com/test/payments`}
+    <div id="stripeform">
+      <p className="total">Total: €{total}</p>
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
+        {/* Show any error that happens when processing the payment */}
+        {error && (
+          <div className="card-error" role="alert">
+            {error}
+          </div>
+        )}
+        <button className="btn" 
+          disabled={processing || disabled || succeeded}
+          id="submit"
         >
-          {" "}
-          Stripe dashboard.
-        </a> 
-      </p>
-    </form>
+          <span id="button-text">
+            {processing ? (
+              <div className="spinner" id="spinner"></div>
+            ) : (
+              "Pay"
+            )}
+          </span>
+        </button>
+        
+        {/* Show a success message upon completion */}
+        <p className={succeeded ? "result-message" : "result-message hidden"}>
+          Payment succeeded, see the result in your
+          <a
+            href={`https://dashboard.stripe.com/test/payments`}
+          >
+            {" "}
+            Stripe dashboard.
+          </a> 
+        </p>
+      </form>
 
-    { 
-      !disableBtn ? <Button disabled={true} className="general-btn">Place order</Button>  : 
-      <Button onClick={handleOpen} className="general-btn">Place order</Button>
-    }
+      { 
+        !disableBtn ? <Button disabled={true} id="general-btn">Place order</Button>  : 
+        <Button onClick={handleOpen} id="general-btn">Place order</Button>
+      }
 
-    <Modal centered show={showCreate} >
+      <Modal centered show={showCreate} >
 
-      <Modal.Header closeButton>
-        <Modal.Title className="admin-card-title">Thank you for your order!</Modal.Title>
-      </Modal.Header>
+        <Modal.Header closeButton>
+          <Modal.Title className="admin-card-title">Thank you for your order!</Modal.Title>
+        </Modal.Header>
 
-      <Modal.Body>
-        <Button onClick={props.onPlaceOrder} className="general-btn">Go to homepage</Button>
-      </Modal.Body>
-      
-    </Modal>
+        <Modal.Body>
+          <Button onClick={props.onPlaceOrder} className="general-btn">Go to homepage</Button>
+        </Modal.Body>
+        
+      </Modal>
   
-    </>
+    </div>
   )
 }

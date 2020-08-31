@@ -38,33 +38,21 @@ export default function Checkout(props) {
       })
   }
   
-  if (!props.loggedInUser) {
-    return <Redirect to={'/sign-in'} />
-  }
+  // if (!props.loggedInUser) {
+  //   return <Redirect to={'/sign-in'} />
+  // }
 
-  if (toHome) {
-    return <Redirect to={'/home'} />
-  }
-
-  const getTotal = (items) => {
-    let total = items.reduce((acc, elem) => {
-      return acc += elem.quantity * elem.price;
-    }, 0)
-    return total;
-  }
-
-  let total = getTotal(JSON.parse(localStorage.getItem('order')))
+  // if (toHome) {
+  //   return <Redirect to={'/home'} />
+  // }
   
   return (
-    <div>
+    <>
         <Navbar loggedInUser={props.loggedInUser}/>
-
-        <p>Total: €{total}</p>
-
         <Elements stripe={promise}>
           <CheckoutForm onPlaceOrder={handlePlaceOrder}/>
         </Elements>
 
-    </div>
+    </>
   )
 }

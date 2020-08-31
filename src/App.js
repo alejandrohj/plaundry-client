@@ -198,6 +198,7 @@ function App() {
   return (
 
       <Switch>
+      <Route path="/check" component={Checkout}/>
         <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
           return <SignIn 

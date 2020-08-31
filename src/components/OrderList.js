@@ -31,7 +31,7 @@ export default function OrderList(props) {
       {
         orders.map((order, i) => {
           console.log(order)
-          return <OrderCard key={'orders'+i} order = {order}/>
+          return <OrderCard key={'orders'+i} order={order}/>
         })
       }
     </div> 

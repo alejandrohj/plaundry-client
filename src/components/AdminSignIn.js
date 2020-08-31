@@ -7,6 +7,7 @@ import './AdminSignIn.css'
 
 export default function AdminSignIn(props) {
 
+  console.log('test')
   if (props.loggedInUser) {
     return <Redirect to='/admin' />
   }

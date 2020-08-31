@@ -3,7 +3,7 @@ import {Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 export default function OrderCard(props) {
-
+  console.log(props.order)
   const {orderItems,status,userId,_id} = props.order
   return (
       <div style={{display:'flex', flexWrap: 'wrap'}}>

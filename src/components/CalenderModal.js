@@ -26,7 +26,7 @@ export default function CalenderModal() {
          
         </Modal.Body>
         <Modal.Footer>
-          <Link to="/checkout"><Button>Go to checkout</Button></Link>
+          <Link to="/checkout"><Button className="general-btn">Go to checkout</Button></Link>
         </Modal.Footer>
       </Modal>
     </>
