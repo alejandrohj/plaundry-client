@@ -24,7 +24,9 @@ export default function LaundryCard(props) {
                                 <div style={{display:'flex', justifyContent: 'center'}}>
                                     <Button onClick={() =>props.onChangeAmount('more',elem._id)} variant="primary">+</Button>
                                     <input value={elem.quantity} style={{width:'30px', margin:'auto 10px'}}></input>
-                                    <Button onClick={() =>props.onChangeAmount('less',elem._id)} variant="danger">-</Button>
+                                    {
+                                      elem.quantity === 0 ? <Button disabled={true} onClick={() =>props.onChangeAmount('less',elem._id)} variant="danger">-</Button> : <Button onClick={() =>props.onChangeAmount('less',elem._id)} variant="danger">-</Button>
+                                    }
                                 </div>
                             </Card.Body>
                         </Card>

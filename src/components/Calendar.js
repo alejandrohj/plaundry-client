@@ -14,7 +14,6 @@ export default function Calendar() {
   let calendarApi;
   const [pickedDates, setPickedDates] = useState([]);
   
-
   useEffect(() => {
   axios.get(`${API_URL}/orders`, {withCredentials: true})
     .then((result) => {
@@ -36,7 +35,6 @@ export default function Calendar() {
     }))
   })
 
-
   function createEventId() {
     return String(eventGuid++)
   }
@@ -48,17 +46,25 @@ export default function Calendar() {
     setAmount(clickAmount + 1)
     if (clickAmount > 2) {
       setErr(true)
-    } else {
+    } else if (clickAmount === 1) {
+      make('pickup', selectInfo)
+    } else if (clickAmount === 2) {
+      make('delivery', selectInfo)
+    }
+  }
+
+  function make(sort, info) {
     let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
-    calendarApi = selectInfo.view.calendar;
+    calendarApi = info.view.calendar;
     calendarApi.addEvent({
       id: createEventId(),
-      start: selectInfo.dateStr,
+      start: info.dateStr,
+      color: '#46C5FF',
+      title: sort
     })
-    clonedEventArr.push(selectInfo.dateStr)
+    clonedEventArr.push(info.dateStr)
     setEventArr(clonedEventArr);
     localStorage.setItem('dates', JSON.stringify(clonedEventArr))
-    }
   }
 
   const hide = (currentDate) => {
