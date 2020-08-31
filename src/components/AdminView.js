@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import AdminNav from './AdminNav'
 import CreateLaundry from './CreateLaundry'
 import AdminLaundryList from './AdminLaundryList'
 import {Redirect} from 'react-router-dom'
-import axios from 'axios'
-import {API_URL} from '../config';
-
 
 export default function AdminView(props) {
   
