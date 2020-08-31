@@ -52,8 +52,6 @@ export default function Checkout(props) {
     return total;
   }
 
-  console.log(JSON.parse(localStorage.getItem('order')))
-
   let total = getTotal(JSON.parse(localStorage.getItem('order')))
   
   return (
