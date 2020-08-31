@@ -10,7 +10,7 @@ export default function OrderCard(props) {
         <Card style={{ width: '18rem', margin:'40px'}}>
           <Card.Body style={{display: 'flex', alignItems: 'center'}}>
             <div>
-              <h5>{userId.firstName}</h5>
+              <h5>{userId.name.firstName}</h5>
               <h6>{userId.address.city}</h6>
               <p>{status}</p>
             </div>

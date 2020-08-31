@@ -7,7 +7,6 @@ html, body {
  padding: 0;
  height: 100%;
 }
-
 #root{
   height: 100%;
 }
@@ -162,6 +161,26 @@ html, body {
   background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
   margin: 0px;
   padding: 10px;
+  height: 100%;
+}
+
+.admin-signin {
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+  height: 100%;
+}
+
+.admin-signinform{
+  height: 40%;
+  margin: 10px;
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ordercard{
+  margin: 5px;
 }
 
 
@@ -201,5 +220,32 @@ html, body {
   }
 }
 
+/*///////////////////////CLIENT INTERFACE////////////////////////////*/
+/*Home page*/
+.amount-cart{
+  
+}
+/*category Navbar*/
+.category-navbar{
 
+}
+/*Laundries*/
+.LaundriesList{
+  display: flex;
+  flex-wrap: wrap;
+}
+.LaundriesList .LaundryCard{
+  margin: 10px;
+}
+.addOrRemove .lbtn{
+  height: 28px;
+  width: 28px;
+  padding: 0;
+  margin: 0;
+}
+.addOrRemove label{
+  margin: auto 10px;
+  border: 1px solid black;
+  padding: 1px 10px;
+}
 

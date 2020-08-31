@@ -275,7 +275,6 @@ function App() {
           return <ErrorComponent />
         }} />
       </Switch>
-
   );
 }
 

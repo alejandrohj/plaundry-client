@@ -13,7 +13,7 @@ export default function CalenderModal() {
   return (
     <>
       <div className="create-laundryitem-btn">
-      <Button onClick={handleOpen} >Checkout</Button>
+      <Button className="general-btn" onClick={handleOpen} >Appointment</Button>
       </div>
       <Modal centered show={showCalender} onHide={handleClose}>
 
