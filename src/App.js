@@ -30,7 +30,6 @@ function App() {
   const [adminUser, setAdminUser] = useState(false);
   const [toHome, setToHome] = useState(false);
   const [toAdminHome, setToAdminHome] = useState(false);
-  const [toLogOut, setLogOut] = useState(false);
   const [errMessage, setErr] = useState(null);
   const [err, setErrStatus] = useState(false);
   const [adminErr, setAdminErr] = useState(false);
@@ -88,6 +87,7 @@ function App() {
         setLogIn(result.data)
         setAdminUser(true);
         setTimeout(() => setToAdminHome(true), 500)
+     
       })
       .catch((err) => {
         setAdminErr(true);
@@ -100,11 +100,10 @@ function App() {
     console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
+        setToAdminHome(false);
         setAdminUser(false);
         localStorage.clear();
         setLogIn(null);
-        setTimeout(() => setLogOut(true), 500)
-        setTimeout(() => setLogOut(false), 700)
       })  
   }
 
@@ -229,7 +228,6 @@ function App() {
                     onAdminLogOut={handleAdminLogOut} 
                     onEdit={handleEditItem} 
                     loggedInUser={loggedInUser} 
-                    onLogOut={toLogOut}
                     adminUser={adminUser}
                     err={err}
                     errorMessage={errMessage} 
