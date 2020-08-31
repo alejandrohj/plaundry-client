@@ -98,7 +98,7 @@ export default function CheckoutForm(props) {
   return (
     <div id="stripeform">
       <p className="total">Total: €{total}</p>
-      <form id="payment-form" onSubmit={handleSubmit}>
+      <form className="pay-form" id="payment-form" onSubmit={handleSubmit}>
         <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
         {/* Show any error that happens when processing the payment */}
         {error && (

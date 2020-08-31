@@ -38,13 +38,13 @@ export default function Checkout(props) {
       })
   }
   
-  // if (!props.loggedInUser) {
-  //   return <Redirect to={'/sign-in'} />
-  // }
+  if (!props.loggedInUser) {
+    return <Redirect to={'/sign-in'} />
+  }
 
-  // if (toHome) {
-  //   return <Redirect to={'/home'} />
-  // }
+  if (toHome) {
+    return <Redirect to={'/home'} />
+  }
   
   return (
     <>
