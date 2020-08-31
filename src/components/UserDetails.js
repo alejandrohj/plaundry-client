@@ -44,7 +44,7 @@ export default function UserDetails(props) {
         localStorage.setItem('name',JSON.stringify(e.currentTarget.value))
         setName(e.currentTarget.value)
     }
-    let deftAddress = JSON.parse(localStorage.getItem('address'))?JSON.parse(localStorage.getItem('address'))[0].formatted_address: 'Search Places...'
+    let deftAddress = JSON.parse(localStorage.getItem('address'))?JSON.parse(localStorage.getItem('address')).city: 'Search Places...'
 
     return (
         <div>
@@ -57,7 +57,7 @@ export default function UserDetails(props) {
                 {
                     Adress? (<>
                         <MapWithAMarker
-                            coordinates = {Adress[0].coordinates}
+                            coordinates = {Adress.coordinates}
                             containerElement={<div style={{ height: `400px` }} />}
                             mapElement={<div style={{ height: `100%` }} />}
                         />

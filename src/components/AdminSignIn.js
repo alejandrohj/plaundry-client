@@ -3,11 +3,11 @@ import {Form, Button} from 'react-bootstrap'
 import {Redirect} from 'react-router-dom'
 import AdminNav from './AdminNav'
 import {PUBLIC_URL} from '../config';
-
+import './AdminSignIn.css'
 
 export default function AdminSignIn(props) {
 
-  if (props.toAdminHome) {
+  if (props.loggedInUser) {
     return <Redirect to='/admin' />
   }
 

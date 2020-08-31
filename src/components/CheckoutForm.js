@@ -119,8 +119,9 @@ export default function CheckoutForm(props) {
       </p>
     </form>
 
-    {
-      !disableBtn ? <Button disabled={true} className="general-btn">Place order</Button>  : <Button onClick={handleOpen} className="general-btn">Place order</Button>
+    { 
+      !disableBtn ? <Button disabled={true} className="general-btn">Place order</Button>  : 
+      <Button onClick={handleOpen} className="general-btn">Place order</Button>
     }
 
     <Modal centered show={showCreate} >

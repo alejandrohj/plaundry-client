@@ -1,0 +1,11 @@
+.admin-signin {
+  height: 100%;
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+}
+
+.admin-signinform{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

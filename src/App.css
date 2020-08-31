@@ -3,11 +3,14 @@
 /* darker blue: #46C5FF */
 
 html, body {
- height: 100%;
  margin: 0;
  padding: 0;
+ height: 100%;
 }
 
+#root{
+  height: 100%;
+}
 
 /* Genereal btn stylin */
 .general-btn{
@@ -21,6 +24,14 @@ html, body {
 }
 
 .general-btn:focus {
+  background-color: #328CB6;
+  border: #328CB6;
+}
+
+.admin-nav-btn {
+  width: 80px;
+  font-size: 13px;
+  margin-top: 5px;
   background-color: #328CB6;
   border: #328CB6;
 }
@@ -73,6 +84,7 @@ html, body {
   padding: 40px;
   padding-bottom: 60px;
   margin-bottom: 0px;
+  height: 100%;
 }
 
 .splash-footer {
@@ -89,17 +101,13 @@ html, body {
   margin-bottom: 0px;
 }
 
-/* Admin nav */
-.admin-nav{
-  background-color:  #46C5FF;
+.ordercard{
+  margin: 5px;
 }
 
-.admin-nav-btn {
-  width: 80px;
-  font-size: 13px;
-  margin-top: 5px;
-  background-color: #328CB6;
-  border: #328CB6;
+
+.admin-nav{
+  background-color:  #46C5FF;
 }
 
 .admin-nav-btn:hover {
@@ -154,24 +162,6 @@ html, body {
   background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
   margin: 0px;
   padding: 10px;
-}
-
-.admin-signin {
-  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
-}
-
-.admin-signinform{
-  height: 40%;
-  margin: 10px;
-  margin-bottom: 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.ordercard{
-  margin: 5px;
 }
 
 

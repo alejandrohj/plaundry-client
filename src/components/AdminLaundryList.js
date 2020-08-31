@@ -2,6 +2,7 @@ import React from 'react'
 import AdminLaundryCard from './AdminLaundryCard'
 
 export default function AdminLaundryList(props) {
+
   return (
     
     <div className="admin-list-container">
