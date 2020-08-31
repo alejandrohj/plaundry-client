@@ -31,7 +31,6 @@ function App() {
   const [toIntro, setToIntro] = useState(false);
   const [adminUser, setAdminUser] = useState(false);
   const [toHome, setToHome] = useState(false);
-  const [toAdminHome, setToAdminHome] = useState(false);
   const [errMessage, setErr] = useState(null);
   const [err, setErrStatus] = useState(false);
   const [adminErr, setAdminErr] = useState(false);
@@ -88,8 +87,6 @@ function App() {
       .then((result) => {
         setLogIn(result.data)
         setAdminUser(true);
-        setTimeout(() => setToAdminHome(true), 500)
-     
       })
       .catch((err) => {
         setAdminErr(true);
@@ -101,7 +98,6 @@ function App() {
   const handleAdminLogOut = () => {
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
-        setToAdminHome(false);
         setAdminUser(false);
         localStorage.clear();
         setLogIn(null);
@@ -236,7 +232,7 @@ function App() {
                     createSucces={createSucces}
                   />
          }} />
-        <Route path="/home" render ={() => {
+        <Route exact path="/home" render ={() => {
           return <Home 
                   onLogOut={handleLogOut} 
                   laundrylist={laundryitems} 
@@ -246,7 +242,6 @@ function App() {
         }}/>
         <Route path="/admin/sign-in" render={() => {
           return <AdminSignIn 
-                    toAdminHome={toAdminHome} 
                     onAdminLogOut={handleAdminLogOut} 
                     onSignIn={handleAdminSignIn} 
                     loggedInUser={loggedInUser} 

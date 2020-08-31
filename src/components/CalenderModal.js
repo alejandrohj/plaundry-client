@@ -11,7 +11,7 @@ export default function CalenderModal() {
 
 
   return (
-    <div>
+    <>
       <div className="create-laundryitem-btn">
       <Button className="general-btn" onClick={handleOpen} >Appointment</Button>
       </div>
@@ -20,15 +20,15 @@ export default function CalenderModal() {
         <Modal.Header closeButton>
           <Modal.Title >Choose a pick up and deliver date</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{height: '450px'}}>
+        <Modal.Body >
         
-          <Calendar />
+         <Calendar />
          
         </Modal.Body>
         <Modal.Footer>
           <Link to="/checkout"><Button>Go to checkout</Button></Link>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   )
 }
