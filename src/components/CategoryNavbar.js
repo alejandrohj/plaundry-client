@@ -6,21 +6,21 @@ import {Button} from 'react-bootstrap';
 export default function CategoryNavbar(props) {
     return (
         <div >
-            <Navbar bg="light" style={{display: 'flex', justifyContent:'space-around', padding:'0'}}>
+            <Navbar className='category-navbar' style={{display: 'flex', justifyContent:'space-around', padding:'0'}}>
                 <Nav.Item>
-                    <button onClick={()=>props.onCatSelect('clothing')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/tshirt-crew-outline.png`} alt ='shirt'/> <p style={{fontSize: '10px'}}>Clothes</p></button>
+                    <button class="nav-link" onClick={()=>props.onCatSelect('clothing')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/tshirt-crew-outline.png`} alt ='shirt'/> <p style={{fontSize: '10px', padding:'0px',margin: '0px'}}>Clothes</p></button>
                 </Nav.Item>
                 <Nav.Item>
-                    <button  onClick={()=>props.onCatSelect('bedding')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/bed-king-outline.png`} alt ='bed'/> <p style={{fontSize: '10px'}}>Bedding</p></button>
+                    <button  onClick={()=>props.onCatSelect('bedding')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/bed-king-outline.png`} alt ='bed'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Bedding</p></button>
                 </Nav.Item>
                 <Nav.Item>
-                    <button  onClick={()=>props.onCatSelect('bags')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/sack.png`} alt ='sack'/> <p style={{fontSize: '10px'}}>Laundry</p></button>
+                    <button  onClick={()=>props.onCatSelect('bags')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/sack.png`} alt ='sack'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Laundry</p></button>
                 </Nav.Item>
                 <Nav.Item>
-                    <button  onClick={()=>props.onCatSelect('towels')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/shower-head.png`} alt ='shower'/> <p style={{fontSize: '10px'}}>Bathroom</p></button>
+                    <button  onClick={()=>props.onCatSelect('towels')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/shower-head.png`} alt ='shower'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Bathroom</p></button>
                 </Nav.Item>
                 <Nav.Item>
-                    <button  onClick={()=>props.onCatSelect('business')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/handshake-outline.png`} alt ='business'/> <p style={{fontSize: '10px'}}>Business</p></button>
+                    <button  onClick={()=>props.onCatSelect('business')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/handshake-outline.png`} alt ='business'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Business</p></button>
                 </Nav.Item>
             </Navbar>
         </div>

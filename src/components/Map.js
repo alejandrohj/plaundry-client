@@ -4,10 +4,9 @@ import {
     GoogleMap,
     Marker,
   } from "react-google-maps";
-  
   const MapWithAMarker = withGoogleMap(props =>
     <GoogleMap
-      defaultZoom={8}
+      defaultZoom={19}
       defaultCenter={props.coordinates}
     >
       <Marker

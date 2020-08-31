@@ -34,15 +34,16 @@ export default function Checkout(props) {
         localStorage.removeItem('order')
         //Update the User name and adress:
         let updatedAddress = {
-          city: JSON.parse(localStorage.getItem('address'))[0].formatted_address,
-          coordinates: JSON.parse(localStorage.getItem('address'))[0].coordinates
+          city: JSON.parse(localStorage.getItem('address')).city,
+          coordinates: JSON.parse(localStorage.getItem('address')).coordinates
         }
         axios.post(`${API_URL}/user/${props.loggedInUser._id}/edit`,{
-          firstName: JSON.parse(localStorage.getItem('name')),
+          name: JSON.parse(localStorage.getItem('name')),
           address: updatedAddress
         },{withCredentials: true})
           .then((res)=>{
             setToHome(true);
+            localStorage.removeItem('name')
           })
       })
   }

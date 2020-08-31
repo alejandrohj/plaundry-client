@@ -52,17 +52,19 @@ export default function Home(props) {
         return <p>Loading ....</p>
     }
     return (
-        <div>
+        <div style={{height: '100%'}}>
             { 
                 props.toIntro ? (<Redirect to='/'/> ):(<>
                 <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
                 <CategoryNavbar onCatSelect = {handleCategorySelected}/>
-                <LaundryCard onChangeAmount = {handleAmountChange} laundries ={laundryitems} filter={filter}/>
-                <div style = {{display: "flex", backgroundColor: '#cfe1ff'}}>
-                <AmountCart laundries ={laundryitems}/>
-                <Nav.Item style={{marginLeft: '20px'}}>
-                    <Link to={'/cart'}><Button><img src={`${PUBLIC_URL}/cart-outline.png`} alt ='cartImage'/> Go to the cart</Button></Link>
-                </Nav.Item>
+                <div className="admin-list-container">
+                    <LaundryCard onChangeAmount = {handleAmountChange} laundries ={laundryitems} filter={filter}/>
+                    <nav class="navbar fixed-bottom navbar-light bg-light">
+                    <AmountCart laundries ={laundryitems}/>
+                        <Nav.Item style={{marginLeft: '20px'}}>
+                            <Link to={'/cart'}><Button className="general-btn"><img src={`${PUBLIC_URL}/cart-outline.png`} alt ='cartImage'/> Go to the cart</Button></Link>
+                        </Nav.Item>
+                    </nav>
                 </div>
                 </>)
             }

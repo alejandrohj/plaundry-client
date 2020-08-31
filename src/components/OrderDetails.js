@@ -44,10 +44,10 @@ export default function OrderDetails(props) {
   return (
     <div>
       <AdminNav />
-      <Card style={{ width: '18rem', margin:'40px'}}>
+      <Card style={{ minWidth: '20rem', margin:'40px'}}>
           <Card.Body>
             <div>
-              <h5>{userId.firstName}</h5>
+              <h5>{userId.name.firstName}</h5>
               <MapWithAMarker
                 coordinates = {userId.address.coordinates}
                 containerElement={<div style={{ height: `400px` }} />}

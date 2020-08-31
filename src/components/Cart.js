@@ -2,6 +2,7 @@ import React,{useState, useEffect, useRef} from 'react'
 import Navbar from './Navbar';
 import {Card, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
+import {PUBLIC_URL} from '../config';
 
 import AmountCart from './AmountCart';
 
@@ -16,7 +17,9 @@ export default function Cart(props) {
     if (!OrderedLaundries){
         return (<>
             <Navbar/>
-            <Link to={'/home'}><p>Go Back to the lists</p></Link>
+            <div style={{marginTop: '15px'}}>
+                <Link to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}}/> Back to the lists</Button></p></Link>
+            </div>
             <p>The cart is empty</p>
             </>
         )
@@ -25,15 +28,14 @@ export default function Cart(props) {
     let ItemsSelected = OrderedLaundries.filter((elem)=>{
         return elem.quantity > 0
     })
-   
 
     return (
         <div>
-        <Navbar loggedInUser={props.loggedInUser}/>
-        <div style={{marginLeft: '10px'}}>
+        <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
+        <div style={{marginLeft: '10px', marginTop:'15px'}}>
             <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                <Link to={'/home'}><p>Go Back to the lists</p></Link>
-                <Link to={'/userDetails'}><p>Order It!</p></Link>
+                <Link to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}}/> Back to the lists</Button></p></Link>
+                <Link to={'/userDetails'}><p><Button className="general-btn"> Order now <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}}/></Button></p></Link>
             </div>
             <AmountCart/>
         </div>

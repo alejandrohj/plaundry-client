@@ -26,7 +26,7 @@ export default function AmountCart(props) {
     },0)
     return (
         <div>
-            <h5>Total:{total}</h5>
+            <h5>Total:{total}€</h5>
         </div>
     )
 }

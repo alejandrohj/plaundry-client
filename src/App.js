@@ -200,7 +200,7 @@ function App() {
   }
 
   return (
-    <div>
+
       <Switch>
         <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
@@ -280,7 +280,6 @@ function App() {
           return <ErrorComponent />
         }} />
       </Switch>
-    </div>
   );
 }
 
