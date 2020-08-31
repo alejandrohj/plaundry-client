@@ -74,6 +74,8 @@ Plaundry is a laundry service sales website.
 - Orderlist
 - Ordercard
 - Orderdetails
+- UserDetails
+- UserOrders
 
 ## Services
 
