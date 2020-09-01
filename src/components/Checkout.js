@@ -7,11 +7,23 @@ import CheckoutForm from './CheckoutForm';
 import axios from 'axios';
 import {API_URL} from '../config';
 
-const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
+const promise = loadStripe('pk_test_51HJbtACi0BSLj9s1UdXp5qb0IsxDhy7Pv5kqZgz5tYo0eaDGmNpB8ynh5wP794fU4mOxJIiVniJ4fMMdqgwWoKky005wtL6m2C')
 
 export default function Checkout(props) {
-
+  console.log(promise)
   const [toHome, setToHome] = useState(false);
+  const [User, setUser] = useState(null);
+  const [Redirecting, setRedirecting] = useState(false);
+
+  useEffect(() => {
+    axios.get(`${API_URL}/user`,{withCredentials: true})
+        .then((res)=>{
+          setUser(res.data);
+        })
+        .catch(() => {
+          setRedirecting(true)
+        })
+  }, [])
 
   const handlePlaceOrder = () => {
     axios.post(`${API_URL}/order` , {
@@ -27,7 +39,8 @@ export default function Checkout(props) {
           city: JSON.parse(localStorage.getItem('address')).city,
           coordinates: JSON.parse(localStorage.getItem('address')).coordinates
         }
-        axios.post(`${API_URL}/user/${props.loggedInUser._id}/edit`,{
+        
+        axios.post(`${API_URL}/user/${User._id}/edit`,{
           name: JSON.parse(localStorage.getItem('name')),
           address: updatedAddress
         },{withCredentials: true})
@@ -38,8 +51,11 @@ export default function Checkout(props) {
       })
   }
   
-  if (!props.loggedInUser) {
-    return <Redirect to={'/sign-in'} />
+  if(Redirecting || props.toIntro){
+    return (<Redirect to={'/sign-in'}/>)
+  }
+  if(!User){
+      return <p>Loading...</p>
   }
 
   if (toHome) {
