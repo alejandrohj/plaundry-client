@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import interactionPlugin, {Draggable} from '@fullcalendar/interaction';
 import './Calendar.css';
 import axios from 'axios';
 import {API_URL} from '../config';
@@ -33,14 +33,17 @@ export default function Calendar() {
     return JSON.parse(JSON.stringify({
       title: 'Busy',
       start: date,
-      color: 'red',
+      color: '#ff8080',
+      textColor: 'white',
+      eventOverlap:false,
+      editable:false,
     }))
   })
 
   function createEventId() {
     return String(eventGuid++)
   }
-  
+
   const [clickAmount, setAmount] = useState(1)
   const [err, setErr] = useState(false)
 
@@ -51,12 +54,6 @@ export default function Calendar() {
     } else if (clickAmount === 1) {
       make('pickup', selectInfo)
     } else if (clickAmount === 2) {
-   
-        //let firstDate = new Date(eventArr[0])
-        let secondDate = new Date(eventArr[0])
-        secondDate.setDate(secondDate.getDate() +1)
-        //console.log(firstDate, 'test', secondDate ) //2020-09-01T10:00:00+02:00
-
         let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
         calendarApi = selectInfo.view.calendar;
         calendarApi.addEvent({
@@ -64,13 +61,10 @@ export default function Calendar() {
           start: selectInfo.dateStr,
           color: '#46C5FF',
           title: 'delivery',
-          // Doesn't work
-          //constraint: {startDate: secondDate}
         })
         clonedEventArr.push(selectInfo.dateStr)
         setEventArr(clonedEventArr);
         localStorage.setItem('dates', JSON.stringify(clonedEventArr))
-      
     }
   }
 
@@ -99,7 +93,7 @@ export default function Calendar() {
       end: endDate
     }
   }
-
+  
   return (
     <>
     {
@@ -121,13 +115,22 @@ export default function Calendar() {
         startTime: '08:00', 
         endTime: '18:00', 
       }}
+    
       allDaySlot={false}
       slotMinTime="08:00:00"
       slotMaxTime="18:00:00"
       dateClick={handleClick}
       defaultTimedEventDuration='00:30'
       events={usedDates}
-   
+      editable={true}
+      eventOverlap={false}
+      eventAllow={function(dropInfo){   
+        // Only let drop after a day
+        let pickUpDate = new Date (eventArr[0]);
+        pickUpDate.setDate(pickUpDate.getDate() + 1);
+        return (pickUpDate.toISOString() >= dropInfo.startStr) ? false : true;
+      }}
+
     />
     </div>
 

@@ -179,9 +179,11 @@ function App() {
     axios.delete(`${API_URL}/laundry/${id}/delete`,  {withCredentials: true})
       .then(() => {
         let filteredLaundryItems = laundryitems.filter((laundry) => {
+          console.log(laundry._id, 'test', id)
           return laundry._id !== id;
         })
         setLaundryItems(filteredLaundryItems)
+        console.log(filteredLaundryItems)
       })
   }
 

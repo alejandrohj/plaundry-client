@@ -5,6 +5,7 @@ import AdminLaundryList from './AdminLaundryList'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import {API_URL} from '../config';
+import Loading from './Loading'
 
 export default function AdminView(props) {
 
@@ -31,7 +32,7 @@ export default function AdminView(props) {
   }
 
   if(!userLog){
-    return <p>Loading...</p>
+    return (<Loading />)
   } else if (userLog && !isAdmin) {
     return (<Redirect to='/' />)
   }

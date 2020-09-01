@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Form, Button} from 'react-bootstrap'
 import {Redirect} from 'react-router-dom'
 import AdminNav from './AdminNav'
 import {PUBLIC_URL} from '../config';
 import './AdminSignIn.css'
-import axios from 'axios'
 
 export default function AdminSignIn(props) {
 
@@ -41,7 +40,7 @@ export default function AdminSignIn(props) {
         </Form>
         <p style={{textAlign: 'center', color: '#036C9C', fontWeight:'600', fontSize: '16px', margin: '0% 18%', paddingTop: '20px', paddingBottom: '50px'}}>Do you want to use Plaundry for your businnes? 
         <br></br>
-        Reach out to us by <a href="tel://+1234567890"><img style={{width: '20px'}} src={`${PUBLIC_URL}/phone-blue.png`} alt="phone" /></a> or <a href="mailto:business@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-blue.png`} alt="email" /></a></p>
+        Reach out to us by <a href="mailto:business@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-blue.png`} alt="email" /></a></p>
     </div>
   )
 }

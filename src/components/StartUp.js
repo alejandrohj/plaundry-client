@@ -8,7 +8,7 @@ export default function StartUp() {
     return (
       <div className="splash-body">
         <div className="splash" >
-          <h1 >Welcome to</h1>
+          <h1 className="splash-title">Welcome to</h1>
           <img style={{width: '280px'}} src={`${PUBLIC_URL}/white-logo.png`} alt="logo" />
         </div>
         <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
@@ -47,7 +47,7 @@ export default function StartUp() {
               <Link to={'/admin/sign-in'}><p className="footer-text">Admin</p></Link>
             </Col>
             <Col>
-              <p className="footer-text" style={{textAlign: 'right'}}>Reach us by <a href="tel://+1234567890"><img style={{width: '20px'}} src={`${PUBLIC_URL}/phone.png`} alt="phone" /></a> or <a href="mailto:info@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-outline.png`} alt="email" /></a></p>
+              <p className="footer-text" style={{textAlign: 'right'}}>Reach us by <a href="mailto:info@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-outline.png`} alt="email" /></a></p>
             </Col>
           </Row>
         </div>
