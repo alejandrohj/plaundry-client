@@ -10,8 +10,8 @@ export default function userOrdersCard(props) {
             <Card.Body style={{display: 'flex', alignItems: 'center'}}>
                 <div>
                     <h6>Dates:</h6>
-                    <p> PickUp: <b>{pickUp.slice(0,10)}</b></p>
-                    <p> Delivery: <b>{delivery.slice(0,10)}</b></p>
+                    <p> PickUp day: <b>{pickUp.slice(0,10)}</b></p>
+                    <p> Delivery day: <b>{delivery.slice(0,10)}</b></p>
                     <hr/>
                     <h6>{userId.address.city}</h6>
                     <h5><b>{status}</b></h5>

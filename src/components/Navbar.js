@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import {PUBLIC_URL} from '../config';
 
 export default function HomeNavbar(props) {
-  console.log(props)
     return (
         <>
         <Navbar sticky='top' className="admin-nav" expand="lg">

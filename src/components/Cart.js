@@ -1,14 +1,13 @@
-import React,{useState, useEffect, useRef} from 'react'
+import React,{useState, useEffect} from 'react'
 import Navbar from './Navbar';
 import {Card, Button} from 'react-bootstrap'
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import {PUBLIC_URL} from '../config';
 
 import AmountCart from './AmountCart';
 
 export default function Cart(props) {
     const [OrderedLaundries, setOrderedLaundries] = useState(null);
-
     useEffect(() => {
         setOrderedLaundries(JSON.parse(localStorage.getItem('order')));
     }, [])
@@ -28,7 +27,9 @@ export default function Cart(props) {
     let ItemsSelected = OrderedLaundries.filter((elem)=>{
         return elem.quantity > 0
     })
-
+    if(props.toIntro){
+        return (<Redirect to={'/sign-in'}/>)
+    } 
     return (
         <div>
         <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
@@ -38,6 +39,7 @@ export default function Cart(props) {
                 <Link to={'/userDetails'}><p><Button className="general-btn"> Order now <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}}/></Button></p></Link>
             </div>
             <AmountCart/>
+            
         </div>
         {
             ItemsSelected.map((elem,i)=>{

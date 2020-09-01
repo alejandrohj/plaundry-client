@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import {API_URL} from './config';
 import axios from 'axios';
+import {UserContext} from './UserContext';
 
 //#region Components
 import SignIn from './components/SignIn';
@@ -182,11 +183,11 @@ function App() {
   }
 
   const handleLogOut = () => {
-    console.log('worked')
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
         localStorage.clear();
         setLogIn(null);
+        console.log('loggingOut')
         setTimeout(() => setToIntro(true), 500)
         setTimeout(() => setToIntro(false), 700)
       })
@@ -197,7 +198,7 @@ function App() {
   }
 
   return (
-
+      <UserContext.Provider value = {loggedInUser}>
       <Switch>
         <Route exact path="/" component={StartUp}/>
         <Route path="/sign-in" render={() => {
@@ -264,13 +265,13 @@ function App() {
                   />
         }} />
         <Route path="/cart" render={()=>{
-          return <Cart loggedInUser={loggedInUser}/>
+          return <Cart loggedInUser={loggedInUser} onLogOut={handleLogOut} toIntro = {toIntro} />
         }}/>
         <Route path="/userDetails" render={()=>{
-          return <UserDetails loggedInUser={loggedInUser}/>
+          return <UserDetails loggedInUser={loggedInUser} onLogOut={handleLogOut} toIntro = {toIntro} />
         }}/>
         <Route path="/userOrders" render={()=>{
-          return <UserOrders loggedInUser={loggedInUser}/>
+          return <UserOrders loggedInUser={loggedInUser} onLogOut={handleLogOut} toIntro = {toIntro} />
         }}/>
         <Route path="/checkout" render={()=>{
           return <Checkout loggedInUser={loggedInUser}/>
@@ -279,6 +280,7 @@ function App() {
           return <ErrorComponent />
         }} />
       </Switch>
+      </UserContext.Provider>
   );
 }
 

@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import axios from 'axios'
 import {API_URL} from '../config'
+import {Redirect} from 'react-router-dom';
 
 import Navbar from './Navbar';
 import UserOrdersCard from './UserOrdersCard';
@@ -9,6 +10,7 @@ export default function UserOrders(props) {
 
     const[Orders, setOrders] = useState(null)
     const[loggedInUser, setLogIn] = useState(props.loggedInUser);
+    const [Redirecting, setRedirecting] = useState(false);
 
     useEffect(()=>{
         if(!loggedInUser){
@@ -23,6 +25,9 @@ export default function UserOrders(props) {
                         })
                         setOrders(myOrders)
                     })
+                    .catch(() => {
+                        setRedirecting(true)
+                    })
               })
           }
         else{
@@ -35,6 +40,9 @@ export default function UserOrders(props) {
                     })
         }    
     },[])
+    if(Redirecting || props.toIntro){
+        return (<Redirect to={'/sign-in'}/>)
+    } 
     if(!Orders){
         return <p>Loading...</p>
     }

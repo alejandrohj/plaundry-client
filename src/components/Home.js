@@ -51,7 +51,6 @@ export default function Home(props) {
     if (!laundryitems || !filter){
         return <p>Loading ....</p>
     }
-    console.log(props)
     return (
         <div style={{height: '100%'}}>
             { 
