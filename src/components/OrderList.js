@@ -8,30 +8,36 @@ import {Redirect} from 'react-router-dom'
 export default function OrderList(props) {
 
   const [orders, setOrders] = useState()
+  const [Redirecting, setRedirecting] = useState(false);
+  const [userLog, setNew] = useState(props.loggedInUser);
 
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
       .then((result) => {
-        // Sort results by status
-        //let ordersClone = JSON.parse(JSON.stringify(res.data));
-        // let ordering = {};
-        // let sortOrder = ['to pick up', 'picked up', 'washing', 'to deliver', 'delivered'];
-        // for (let i = 0; i < sortOrder.length; i++) ordering[sortOrder[i]] = i;
-        // ordersClone.sort((a,b) =>   (ordering[a.status] - ordering[b.status]))
         console.log('dataorders',result.data)
         setOrders(result.data)
       })
+    axios.get(`${API_URL}/user`, {withCredentials: true})
+      .then((result) => {
+        setNew(result.data)
+      })
+      .catch(() => {
+        setRedirecting(true)
+      })
   },[])
+
+  if (Redirecting) {
+    return (<Redirect to='/admin/sign-in' />)
+  }
   if(!orders) return(<p>Loading...</p>)
-  if(!props.loggedInUser) return(<Redirect to={'/admin/sign-in'} />)
   
   return (
-    <div>
+    <div className="orderlist-admin">
         <AdminNav adminUser={props.adminUser} onAdminLogOut={props.onAdminLogOut}/>
       {
         orders.map((order, i) => {
           console.log(order)
-          return <OrderCard key={'orders'+i} order = {order}/>
+          return <OrderCard key={'orders'+i} order={order}/>
         })
       }
     </div> 

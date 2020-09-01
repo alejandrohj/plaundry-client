@@ -8,7 +8,7 @@ export default function CategoryNavbar(props) {
         <div >
             <Navbar className='category-navbar' style={{display: 'flex', justifyContent:'space-around', padding:'0'}}>
                 <Nav.Item>
-                    <button class="nav-link" onClick={()=>props.onCatSelect('clothing')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/tshirt-crew-outline.png`} alt ='shirt'/> <p style={{fontSize: '10px', padding:'0px',margin: '0px'}}>Clothes</p></button>
+                    <button className="nav-link" onClick={()=>props.onCatSelect('clothing')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/tshirt-crew-outline.png`} alt ='shirt'/> <p style={{fontSize: '10px', padding:'0px',margin: '0px'}}>Clothes</p></button>
                 </Nav.Item>
                 <Nav.Item>
                     <button  onClick={()=>props.onCatSelect('bedding')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/bed-king-outline.png`} alt ='bed'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Bedding</p></button>

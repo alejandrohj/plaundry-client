@@ -6,6 +6,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import './Calendar.css';
 import axios from 'axios';
 import {API_URL} from '../config';
+import {Button, Modal} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 
 export default function Calendar() {
 
@@ -49,7 +51,26 @@ export default function Calendar() {
     } else if (clickAmount === 1) {
       make('pickup', selectInfo)
     } else if (clickAmount === 2) {
-      make('delivery', selectInfo)
+   
+        //let firstDate = new Date(eventArr[0])
+        let secondDate = new Date(eventArr[0])
+        secondDate.setDate(secondDate.getDate() +1)
+        //console.log(firstDate, 'test', secondDate ) //2020-09-01T10:00:00+02:00
+
+        let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
+        calendarApi = selectInfo.view.calendar;
+        calendarApi.addEvent({
+          id: createEventId(),
+          start: selectInfo.dateStr,
+          color: '#46C5FF',
+          title: 'delivery',
+          // Doesn't work
+          //constraint: {startDate: secondDate}
+        })
+        clonedEventArr.push(selectInfo.dateStr)
+        setEventArr(clonedEventArr);
+        localStorage.setItem('dates', JSON.stringify(clonedEventArr))
+      
     }
   }
 
@@ -60,7 +81,7 @@ export default function Calendar() {
       id: createEventId(),
       start: info.dateStr,
       color: '#46C5FF',
-      title: sort
+      title: sort,
     })
     clonedEventArr.push(info.dateStr)
     setEventArr(clonedEventArr);
@@ -68,11 +89,13 @@ export default function Calendar() {
   }
 
   const hide = (currentDate) => {
+    const startDate = new Date(currentDate.valueOf())
+    startDate.setDate(startDate.getDate() + 1)
     const endDate = new Date(currentDate.valueOf())
     // One month
     endDate.setDate(endDate.getDate() + 31)
     return {
-      start: new Date(currentDate.valueOf()),
+      start: startDate,
       end: endDate
     }
   }
@@ -82,6 +105,7 @@ export default function Calendar() {
     {
       err ? <p>You can only pick two dates</p> : null
     }
+    <div id="fullcalendar">
     <FullCalendar 
       plugins={[ dayGridPlugin , timeGridPlugin, interactionPlugin]}
       initialView="timeGridWeek"
@@ -98,13 +122,21 @@ export default function Calendar() {
         endTime: '18:00', 
       }}
       allDaySlot={false}
-      slotMinTime="07:00:00"
+      slotMinTime="08:00:00"
       slotMaxTime="18:00:00"
       dateClick={handleClick}
       defaultTimedEventDuration='00:30'
       events={usedDates}
    
     />
+    </div>
+
+        <Modal.Footer>
+          {
+            clickAmount < 3 ? <Button disabled={true} id="general-btn">Go to checkout</Button> :
+          <Link to="/checkout"><Button className="general-btn">Go to checkout</Button></Link>
+          }
+        </Modal.Footer>
    </>
   )
 }

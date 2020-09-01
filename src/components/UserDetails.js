@@ -100,11 +100,11 @@ export default function UserDetails(props) {
                 <div style={{display:'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
                     <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
                         <label>First Name</label>
-                        <input onChange={handleChangenName} style={{width: '350px'}} type='text' defaultValue={deftValName} placeholder='Tipe your full name'/>
+                        <input onChange={handleChangenName} style={{width: '350px'}} type='text' defaultValue={deftValName} placeholder='Type your full name'/>
                     </div>
                     <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
                         <label>Last Name</label>
-                        <input onChange={handleChangenLastName} style={{width: '350px'}} type='text' defaultValue={deftValLastName } placeholder='Tipe your full name'/>
+                        <input onChange={handleChangenLastName} style={{width: '350px'}} type='text' defaultValue={deftValLastName } placeholder='Type your full name'/>
                     </div>
                 </div>
             </div>

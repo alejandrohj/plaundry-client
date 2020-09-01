@@ -45,28 +45,14 @@ export default function Checkout(props) {
   if (toHome) {
     return <Redirect to={'/home'} />
   }
-
-  const getTotal = (items) => {
-    let total = items.reduce((acc, elem) => {
-      return acc += elem.quantity * elem.price;
-    }, 0)
-    return total;
-  }
-
-  console.log(JSON.parse(localStorage.getItem('order')))
-
-  let total = getTotal(JSON.parse(localStorage.getItem('order')))
   
   return (
-    <div>
+    <>
         <Navbar loggedInUser={props.loggedInUser}/>
-
-        <p>Total: €{total}</p>
-
         <Elements stripe={promise}>
           <CheckoutForm onPlaceOrder={handlePlaceOrder}/>
         </Elements>
 
-    </div>
+    </>
   )
 }

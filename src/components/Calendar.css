@@ -1,3 +1,45 @@
+
 .fc-view-harness-active {
-  height:300px!important;
+  height:18rem!important;
 }
+
+.fc .fc-toolbar-title{
+  font-weight: 600;
+  color: #328CB6;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.fc-col-header-cell-cushion{
+  color: #328CB6;
+}
+
+.fc-timegrid-slot-label-cushion{
+  color: #328CB6;
+}
+
+.general-btn:disabled{
+  background-color: #328CB6;
+}
+
+#general-btn{
+  background-color:  #46C5FF;
+  border: #46C5FF;
+  margin: 0px;
+}
+
+#general-btn:hover {
+  background-color: #328CB6;
+  border: #328CB6;
+}
+
+#general-btn:focus {
+  background-color: #328CB6;
+  border: #328CB6;
+}
+
+#fullcalendar{
+  margin: 10px;
+}
+
+
