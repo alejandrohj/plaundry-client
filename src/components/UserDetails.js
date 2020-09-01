@@ -23,22 +23,20 @@ export default function UserDetails(props) {
         axios.get(`${API_URL}/user`,{withCredentials: true})
             .then((res)=>{
                 setUser(res.data);
-                if(res.data.name){
+                if(localStorage.getItem('name')){
+                    setName(JSON.parse(localStorage.getItem('name')))
+                }
+                else if(res.data.name){
                     setName(res.data.name);
                     localStorage.setItem('name', JSON.stringify(res.data.name));
                 }
-                else if(localStorage.getItem('name')){
-                    setName(JSON.parse(localStorage.getItem('name')))
+                if(JSON.parse(localStorage.getItem('address'))){
+                    setAddress(JSON.parse(localStorage.getItem('address')))
                 }
-                if(res.data.address){
+                else if(res.data.address){
                     setAddress(res.data.address)
                     localStorage.setItem('address', JSON.stringify(res.data.address))
                 }
-                else if(JSON.parse(localStorage.getItem('address'))){
-                    setAddress(JSON.parse(localStorage.getItem('address')))
-                }
-                
-                
             })
             .catch(() => {
                 setRedirecting(true)

@@ -253,4 +253,13 @@ html, body {
   border: 1px solid black;
   padding: 1px 10px;
 }
-
+.user-orders-container{
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+  margin: 0px;
+  padding: 10px;
+  height: 100%;
+}
+.user-orders-container >div{
+  display: flex;
+  flex-wrap: wrap;
+}
