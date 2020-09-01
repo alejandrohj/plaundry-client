@@ -24,19 +24,31 @@ export default function UserDetails(props) {
             .then((res)=>{
                 setUser(res.data);
                 if(localStorage.getItem('name')){
+<<<<<<< HEAD
                     setName(JSON.parse(localStorage.getItem('name')))
+=======
+                  setName(JSON.parse(localStorage.getItem('name')))
+>>>>>>> origin/lanette
                 }
                 else if(res.data.name){
                     setName(res.data.name);
                     localStorage.setItem('name', JSON.stringify(res.data.name));
                 }
                 if(JSON.parse(localStorage.getItem('address'))){
+<<<<<<< HEAD
                     setAddress(JSON.parse(localStorage.getItem('address')))
+=======
+                  setAddress(JSON.parse(localStorage.getItem('address')))
+>>>>>>> origin/lanette
                 }
                 else if(res.data.address){
                     setAddress(res.data.address)
                     localStorage.setItem('address', JSON.stringify(res.data.address))
                 }
+<<<<<<< HEAD
+=======
+                
+>>>>>>> origin/lanette
             })
             .catch(() => {
                 setRedirecting(true)

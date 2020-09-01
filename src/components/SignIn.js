@@ -29,13 +29,13 @@ export default function SignIn(props) {
         </Form.Text>
       </Form.Group>
       {
-        props.adminErr ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
+        props.err ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
       }
       <Button style={{fontSize: '20px'}} className="general-btn" variant="primary" type="submit">
         Sign In
       </Button>
     </Form>
-    <p style={{textAlign: 'center', color: '#036C9C'}}>No account yet?</p>
+    <p style={{textAlign: 'center', color: '#036C9C', margin: '10px'}}>No account yet?</p>
     <Link to="/sign-up" style={{display: 'flex', justifyContent: 'center', fontWeight: '600', textDecoration:'underline', color: '#036C9C'}}>Sign Up</Link>
     <p style={{textAlign: 'center', color: '#036C9C', fontWeight:'600', fontSize: '16px', margin: '0% 18%', paddingTop: '20px', paddingBottom: '50px'}}>Do you have any question or need some support?
     <br></br>

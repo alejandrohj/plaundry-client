@@ -7,7 +7,7 @@ import CheckoutForm from './CheckoutForm';
 import axios from 'axios';
 import {API_URL} from '../config';
 
-const promise = loadStripe("pk_test_51HJbtACi0BSLj9s1UdXp5qb0IsxDhy7Pv5kqZgz5tYo0eaDGmNpB8ynh5wP794fU4mOxJIiVniJ4fMMdqgwWoKky005wtL6m2C")
+const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
 
 export default function Checkout(props) {
 
