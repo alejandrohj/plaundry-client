@@ -36,7 +36,7 @@ export default function SignUp(props) {
         </Form.Text>
       </Form.Group>
       {
-        props.adminErr ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
+        props.err ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
       }
       <Button style={{fontSize: '20px'}} className="general-btn" variant="primary" type="submit">
         Sign Up
