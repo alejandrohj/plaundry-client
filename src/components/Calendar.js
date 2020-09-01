@@ -6,6 +6,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import './Calendar.css';
 import axios from 'axios';
 import {API_URL} from '../config';
+import {Button, Modal} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 
 export default function Calendar() {
 
@@ -50,10 +52,10 @@ export default function Calendar() {
       make('pickup', selectInfo)
     } else if (clickAmount === 2) {
    
-        let firstDate = new Date(eventArr[0])
+        //let firstDate = new Date(eventArr[0])
         let secondDate = new Date(eventArr[0])
         secondDate.setDate(secondDate.getDate() +1)
-        console.log(firstDate, 'test', secondDate ) //2020-09-01T10:00:00+02:00
+        //console.log(firstDate, 'test', secondDate ) //2020-09-01T10:00:00+02:00
 
         let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
         calendarApi = selectInfo.view.calendar;
@@ -103,6 +105,7 @@ export default function Calendar() {
     {
       err ? <p>You can only pick two dates</p> : null
     }
+    <div id="fullcalendar">
     <FullCalendar 
       plugins={[ dayGridPlugin , timeGridPlugin, interactionPlugin]}
       initialView="timeGridWeek"
@@ -126,6 +129,14 @@ export default function Calendar() {
       events={usedDates}
    
     />
+    </div>
+
+        <Modal.Footer>
+          {
+            clickAmount < 3 ? <Button disabled={true} id="general-btn">Go to checkout</Button> :
+          <Link to="/checkout"><Button className="general-btn">Go to checkout</Button></Link>
+          }
+        </Modal.Footer>
    </>
   )
 }

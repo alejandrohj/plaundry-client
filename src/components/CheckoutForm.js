@@ -5,7 +5,7 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import {API_URL} from '../config';
-import { Button, Modal} from 'react-bootstrap';
+import { Button, Modal, Spinner} from 'react-bootstrap';
 import './CheckoutForm.css'
 
 export default function CheckoutForm(props) {
@@ -59,6 +59,7 @@ export default function CheckoutForm(props) {
   };
 
   const handleChange = async (event) => {
+    console.log(event)
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
@@ -97,7 +98,6 @@ export default function CheckoutForm(props) {
 
   return (
     <div id="stripeform">
-      <p className="total">Total: €{total}</p>
       <form className="pay-form" id="payment-form" onSubmit={handleSubmit}>
         <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
         {/* Show any error that happens when processing the payment */}
@@ -106,34 +106,25 @@ export default function CheckoutForm(props) {
             {error}
           </div>
         )}
+        {/* Show a success message upon completion */}
+        <p className={succeeded ? "result-message card-error" : "result-message card-error hidden"} >
+          Payment succeeded!
+        </p>
         <button className="btn" 
           disabled={processing || disabled || succeeded}
           id="submit"
         >
-          <span id="button-text">
             {processing ? (
-              <div className="spinner" id="spinner"></div>
+              <Spinner animation="border" style={{color: '#46C5FF'}} />
             ) : (
-              "Pay"
+              `Pay €${total}`
             )}
-          </span>
         </button>
-        
-        {/* Show a success message upon completion */}
-        <p className={succeeded ? "result-message" : "result-message hidden"}>
-          Payment succeeded, see the result in your
-          <a
-            href={`https://dashboard.stripe.com/test/payments`}
-          >
-            {" "}
-            Stripe dashboard.
-          </a> 
-        </p>
       </form>
 
       { 
-        !disableBtn ? <Button disabled={true} id="general-btn">Place order</Button>  : 
-        <Button onClick={handleOpen} id="general-btn">Place order</Button>
+        !disableBtn ? <Button disabled={true} id="payout-btn">Place order</Button>  : 
+        <Button onClick={handleOpen} id="payout-btn">Place order</Button>
       }
 
       <Modal centered show={showCreate} >

@@ -35,8 +35,8 @@ export default function SignIn(props) {
         Sign In
       </Button>
     </Form>
-    <p>No account yet?</p>
-    <Link to="/sign-up" >Sign Up</Link>
+    <p style={{textAlign: 'center', color: '#036C9C'}}>No account yet?</p>
+    <Link to="/sign-up" style={{display: 'flex', justifyContent: 'center', fontWeight: '600', textDecoration:'underline', color: '#036C9C'}}>Sign Up</Link>
     <p style={{textAlign: 'center', color: '#036C9C', fontWeight:'600', fontSize: '16px', margin: '0% 18%', paddingTop: '20px', paddingBottom: '50px'}}>Do you have any question or need some support?
     <br></br>
     Reach out to us by <a href="tel://+1234567890"><img style={{width: '20px'}} src={`${PUBLIC_URL}/phone-blue.png`} alt="phone" /></a> or <a href="mailto:business@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-blue.png`} alt="email" /></a></p>

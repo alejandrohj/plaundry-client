@@ -1,0 +1,25 @@
+.body-404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: '10px';
+  height: 100%;
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+}
+
+.text-404 {
+  color: #036C9C;
+  margin-top: 50px;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+}
+
+.link-404{
+  color: #036C9C;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: underline;
+}

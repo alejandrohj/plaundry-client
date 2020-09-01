@@ -102,6 +102,8 @@ function App() {
         setAdminUser(false);
         localStorage.clear();
         setLogIn(null);
+        setTimeout(() => setToIntro(true), 500)
+        setTimeout(() => setToIntro(false), 700)
       })  
   }
 
@@ -231,6 +233,7 @@ function App() {
                     errorMessage={errMessage} 
                     handleError={handleError}
                     createSucces={createSucces}
+                    toIntro = {toIntro}
                   />
          }} />
         <Route exact path="/home" render ={() => {

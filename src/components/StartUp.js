@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {PUBLIC_URL} from '../config';
 import {FormControl,Button, Row,Col} from 'react-bootstrap';
 
+
 export default function StartUp() {
     return (
       <div className="splash-body">
