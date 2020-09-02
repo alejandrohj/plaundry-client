@@ -51,6 +51,10 @@ export default function OrderDetails(props) {
                 status==='to pick up'? <p> Date: <b>{pickUp.slice(0,10)}</b></p> :
                 <p> Date: <b>{delivery.slice(0,10)}</b></p>
               }
+              {
+                status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
+                <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
+              }
               <h5>{userId.name.firstName}</h5>
               <MapWithAMarker
                 coordinates = {userId.address.coordinates}
@@ -58,10 +62,6 @@ export default function OrderDetails(props) {
                 mapElement={<div style={{ height: `100%` }} />}
               />
               <h6>{userId.city}</h6>
-              {
-                status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
-                <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
-              }
               {
                 status === 'delivered' ? (<Button className="general-btn" disabled={true}>{status}</Button>) :
                 ( <Button className="general-btn" onClick={() => handleStatusChange(order.status)}>{status}</Button> )
@@ -75,7 +75,7 @@ export default function OrderDetails(props) {
                 orderItems.map((elem)=>{
                   return(<>
                     <ListGroup.Item>
-                    <p><b>Laundry: {elem.laundry.name}</b></p><p><b>Quantity: {elem.quantityOflaundries}</b></p>
+                    <p><b>Type: {elem.laundry.name}</b></p><p><b>Quantity: {elem.quantityOflaundries}</b></p>
                     </ListGroup.Item>
                     <hr/>
                   </>

@@ -12,8 +12,6 @@ html, body {
   height: 100%;
 }
 
-
-
 /* Genereal btn stylin */
 .general-btn{
   background-color:  #46C5FF;
@@ -26,6 +24,11 @@ html, body {
 }
 
 .general-btn:focus {
+  background-color: #328CB6;
+  border: #328CB6;
+}
+
+.general-btn:disabled {
   background-color: #328CB6;
   border: #328CB6;
 }

@@ -18,9 +18,10 @@ export default function OrderCard(props) {
                 status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
                 <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
               }
+              <p>Status: <b>{status}</b></p>
+              <hr></hr>
               <h5>{userId.name.firstName}</h5>
               <h6>{userId.address.city}</h6>
-              <p>{status}</p>
               
             </div>
             <div>
