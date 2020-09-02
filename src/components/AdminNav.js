@@ -18,6 +18,7 @@ export default function AdminNav(props) {
             <Nav className="mr-auto" >
               <Link to="/admin" className="nav-link" style={{color: 'white', fontWeight: '600'}}>Edit items</Link>
               <Link to="/admin/delivery" className="nav-link" style={{color: 'white', fontWeight: '600'}}>Orders</Link>
+              <Link to="/admin/deliverersmanage" className="nav-link" style={{color: 'white', fontWeight: '600'}}>Deliverers</Link>
               </Nav>
               <Nav>
                 <Button className="admin-nav-btn" style={{fontWeight: '600'}} onClick={props.onAdminLogOut}>Log Out</Button>
