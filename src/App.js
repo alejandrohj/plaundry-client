@@ -23,6 +23,7 @@ import UserOrders from './components/UserOrders';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
+import Loading from './components/Loading';
 
 
 
@@ -285,6 +286,7 @@ function App() {
         <Route path="*" render={()=>{
           return <ErrorComponent />
         }} />
+ 
       </Switch>
       </UserContext.Provider>
   );
