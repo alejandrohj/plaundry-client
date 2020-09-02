@@ -57,10 +57,12 @@ export default function AdminView(props) {
   } else if (userLog && !isAdmin) {
     return (<Redirect to='/' />)
   }
-
+  if(props.toIntro){
+    return (<Redirect to={'/'}/>)
+  } 
   return (
     <div>
-        <AdminNav adminUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
+        <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
         <CreateDeliverer onCreateDeliverer={handelCreateDeliverer} createSucces={createSucces}/>
         <div style={{display:'flex', justifyContent: 'center', flexWrap:'wrap'}}>
             {

@@ -38,12 +38,14 @@ export default function OrderDetails(props) {
   if(!props.loggedInUser) {
     return <Redirect to={'/admin/sign-in'} />
   }
-
+  if(props.toIntro){
+    return (<Redirect to={'/'}/>)
+  } 
   const {status, userId, orderItems,pickUp, delivery} = order
 
   return (
     <div>
-      <AdminNav adminUser={props.adminUser} onAdminLogOut={props.onAdminLogOut}/>
+      <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
       <Card style={{ minWidth: '20rem', margin:'40px'}}>
           <Card.Body>
             <div>

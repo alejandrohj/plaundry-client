@@ -20,6 +20,8 @@ import ErrorComponent from './components/404'
 import UserDetails from './components/UserDetails';
 import UserOrders from './components/UserOrders';
 import DelivererManage from './components/DelivererManage';
+import DelivererSignIn from './components/DelivererSignIn';
+import DelivererHomePage from './components/DelivererHomePage';
 //#endregion Components
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -110,7 +112,18 @@ function App() {
         setTimeout(() => setToIntro(false), 700)
       })  
   }
-
+  const handleDelivererSignIn = (e) => {
+    e.preventDefault();
+    const {email, password} = e.currentTarget;
+    axios.post(`${API_URL}/deliverer/signin`, {email: email.value, password: password.value},  {withCredentials: true})
+      .then((result) => {
+        setLogIn(result.data)
+      })
+      .catch((err) => {
+        let error = err.response.data.error
+        setErr(error);
+      })
+  }
   const handleCreateItem = (e) => {
     e.preventDefault();
     const {name, description, price, category, image} = e.currentTarget;
@@ -259,23 +272,39 @@ function App() {
                     errorMessage={errMessage}
                   />
         }} />
+        <Route exact path='/deliverer/sign-in' render={()=>{
+          return <DelivererSignIn 
+                  onSignIn={handleDelivererSignIn} 
+                  loggedInUser={loggedInUser}
+                  />
+        }}/>
+        <Route exact path='/deliverer/home' render={()=>{
+          return <DelivererHomePage 
+                    loggedInUser={loggedInUser}
+                    toIntro = {toIntro}
+                    />
+        }}/>
         <Route exact path="/admin/delivery" render={() => {
           return <OrderList 
                     loggedInUser={loggedInUser} 
                     adminUser={adminUser} 
-                    onAdminLogOut={handleAdminLogOut} 
+                    onAdminLogOut={handleAdminLogOut}
+                    toIntro = {toIntro}
                     />
         }} />
         <Route path="/admin/delivery/:id/details" render={(routeProps) => {
           return <OrderDetails 
                     {...routeProps} 
                     loggedInUser={loggedInUser}
+                    onAdminLogOut={handleAdminLogOut}
+                    toIntro = {toIntro} 
                   />
         }} />
         <Route path="/admin/deliverersmanage" render={()=>{
           return <DelivererManage
                     onAdminLogOut={handleAdminLogOut}
                     loggedInUser={loggedInUser}
+                    toIntro = {toIntro} 
                 />
         }}/>
         <Route path="/cart" render={()=>{

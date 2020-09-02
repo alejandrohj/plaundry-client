@@ -38,7 +38,7 @@ export default function AdminView(props) {
 
   return (
     <>
-      <AdminNav adminUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
+      <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
       
       <CreateLaundry onCreate={props.onCreate} err={props.err} errorMessage={props.errorMessage} handleError={props.handleError} createSucces={props.createSucces}/>
       <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>

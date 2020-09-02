@@ -44,7 +44,10 @@ export default function StartUp() {
         <div className="splash-footer"> 
           <Row>
             <Col>
-              <Link to={'/admin/sign-in'}><p className="footer-text">Admin</p></Link>
+              <div style={{display: 'flex'}}>
+                <Link to={'/admin/sign-in'}><p className="footer-text">Admin</p></Link>
+                <Link to={'/deliverer/sign-in'}><p className="footer-text">Deliverer</p></Link>
+              </div>
             </Col>
             <Col>
               <p className="footer-text" style={{textAlign: 'right'}}>Reach us by <a href="mailto:info@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-outline.png`} alt="email" /></a></p>

@@ -4,13 +4,14 @@ import OrderCard from './OrderCard'
 import axios from 'axios'
 import {API_URL} from '../config'
 import {Redirect} from 'react-router-dom'
-
+import Loading from './Loading'
 
 export default function OrderList(props) {
 
   const [orders, setOrders] = useState()
   const [Redirecting, setRedirecting] = useState(false);
   const [userLog, setNew] = useState(props.loggedInUser);
+  const [isDeliverer, setIsDeliverer] = useState(false);
 
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
@@ -20,6 +21,9 @@ export default function OrderList(props) {
       })
     axios.get(`${API_URL}/user`, {withCredentials: true})
       .then((result) => {
+        if (result.data.type === 'deliverer') {
+          setIsDeliverer(true)
+        }
         setNew(result.data)
       })
       .catch(() => {
@@ -27,14 +31,18 @@ export default function OrderList(props) {
       })
   },[])
 
-  if (Redirecting) {
-    return (<Redirect to='/admin/sign-in' />)
+  if (Redirecting || props.toIntro) {
+    return (<Redirect to='/' />)
   }
-  if(!orders) return(<p>Loading...</p>)
-  
+
+  if(!userLog){
+    return (<Loading />)
+  } else if (userLog && !isDeliverer) {
+    return (<Redirect to='/' />)
+  }
   return (
     <div className="orderlist-admin">
-        <AdminNav adminUser={props.adminUser} onAdminLogOut={props.onAdminLogOut}/>
+        <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
 
       {
         orders.map((order, i) => {
