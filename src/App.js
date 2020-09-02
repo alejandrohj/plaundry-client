@@ -194,11 +194,9 @@ function App() {
     axios.delete(`${API_URL}/laundry/${id}/delete`,  {withCredentials: true})
       .then(() => {
         let filteredLaundryItems = laundryitems.filter((laundry) => {
-          console.log(laundry._id, 'test', id)
           return laundry._id !== id;
         })
         setLaundryItems(filteredLaundryItems)
-        console.log(filteredLaundryItems)
       })
   }
 
@@ -300,7 +298,7 @@ function App() {
                     toIntro = {toIntro} 
                   />
         }} />
-        <Route path="/admin/deliverersmanage" render={()=>{
+        <Route exact path="/admin/deliverersmanage" render={()=>{
           return <DelivererManage
                     onAdminLogOut={handleAdminLogOut}
                     loggedInUser={loggedInUser}

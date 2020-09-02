@@ -22,12 +22,15 @@
   background-color: white;
 }
 
-#payout-btn{
+.payout-btn{
   margin: 20px 30%;
   display: flex;
   justify-content: center;
   background-color:  #46C5FF;
   border: #46C5FF;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
 }
 
 .total{

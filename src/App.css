@@ -44,7 +44,7 @@ html, body {
 /* /-page */
 
 .splash-body {
-  height: 100%;
+  height: 110%;
 }
 
 .splash-title{
@@ -93,7 +93,7 @@ html, body {
   padding: 40px;
   padding-bottom: 60px;
   margin-bottom: 0px;
-  height: 100%;
+  height: 60%;
 }
 
 .splash-footer {
@@ -172,7 +172,13 @@ html, body {
   font-weight: 600;
 }
 
-.admin-list-container, .orderlist{
+.admin-list-container{
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+  margin: 0px;
+  padding: 10px;
+}
+
+.orderlist{
   background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
   margin: 0px;
   padding: 10px;
@@ -219,13 +225,22 @@ html, body {
     display: none;
   }
 
+  .splash-expl {
+    height: 55%;
+  }
+
+}
+
+.signup{
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+  margin: 0px;
+  padding: 10px;
+  height: 140%;
 }
 
 @media only screen and (min-width: 451px) {
-  .admin-list-container{
 
 
-  }
   .adminlaundrycard {
     display: flex;
     flex-direction: row;
@@ -244,6 +259,25 @@ html, body {
   .splash>*{
     margin: 10px;
   }
+
+  .signup{
+    height: 100%;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .admin-list-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .adminlaundrycard{
+    width: 45%;
+    height: 410px;
+  }
+
 }
 
 /*///////////////////////CLIENT INTERFACE////////////////////////////*/
@@ -278,9 +312,20 @@ html, body {
   background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
   margin: 0px;
   padding: 10px;
-  height: 100%;
+  height: 95%;
 }
 .user-orders-container >div{
   display: flex;
   flex-wrap: wrap;
 }
+
+.signin{
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+  margin: 0px;
+  padding: 10px;
+  height: 120%;
+}
+
+
+
+

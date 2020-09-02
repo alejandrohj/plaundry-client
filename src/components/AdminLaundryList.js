@@ -9,7 +9,7 @@ export default function AdminLaundryList(props) {
   }
 
   return (
-    
+
     <div className="admin-list-container">
     {
       props.laundrylist.map((laundry) => {
@@ -17,5 +17,6 @@ export default function AdminLaundryList(props) {
       })
     }
     </div>
+
   )
 }

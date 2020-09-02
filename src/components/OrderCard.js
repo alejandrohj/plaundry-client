@@ -3,11 +3,11 @@ import {Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 export default function OrderCard(props) {
-
+  console.log(props.order)
   const {orderItems,status,userId,_id, pickUp, delivery} = props.order
   return (
       <div style={{display:'flex', flexWrap: 'wrap'}}>
-        <Card style={{ minWidth:'20rem', margin:'40px'}}>
+        <Card style={{ minWidth:'20rem', margin:'1rem'}}>
           <Card.Body style={{display: 'flex', alignItems: 'center'}}>
             <div>
               {

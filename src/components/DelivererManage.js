@@ -61,16 +61,18 @@ export default function AdminView(props) {
     return (<Redirect to={'/'}/>)
   } 
   return (
-    <div>
+    <>
         <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
         <CreateDeliverer onCreateDeliverer={handelCreateDeliverer} createSucces={createSucces}/>
-        <div style={{display:'flex', justifyContent: 'center', flexWrap:'wrap'}}>
-            {
-                deliverers.map((deliverer)=>{
-                    return <DelivererCard onDelete={handleRemoveDeliverer} deliverer={deliverer}/>
-                })
-            }
+        <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)', height: '80%'}}>
+          <div style={{display:'flex', justifyContent: 'center', flexWrap:'wrap'}}>
+              {
+                  deliverers.map((deliverer)=>{
+                      return <DelivererCard onDelete={handleRemoveDeliverer} deliverer={deliverer}/>
+                  })
+              }
+          </div>
         </div>
-    </div>
+    </>
   )
 }

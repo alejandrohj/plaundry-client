@@ -1,7 +1,7 @@
 import React from 'react'
-import {Nav,Navbar, Card} from 'react-bootstrap';
+import {Nav,Navbar} from 'react-bootstrap';
 import {PUBLIC_URL} from '../config';
-import {Button} from 'react-bootstrap';
+
 
 export default function CategoryNavbar(props) {
     return (

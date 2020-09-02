@@ -107,25 +107,20 @@ export default function CheckoutForm(props) {
           </div>
         )}
         {/* Show a success message upon completion */}
-        <p className={succeeded ? "result-message card-error" : "result-message card-error hidden"} >
+        <p style={{margin: '5px'}} className={succeeded ? "result-message card-error" : "result-message card-error hidden"} >
           Payment succeeded!
         </p>
-        <button className="btn" 
+        <button className="payout-btn" 
           disabled={processing || disabled || succeeded}
-          id="submit"
+          id="submit" onClick={handleOpen}
         >
             {processing ? (
-              <Spinner animation="border" style={{color: '#46C5FF'}} />
+              <Spinner animation="border" style={{color: 'white'}} />
             ) : (
               `Pay €${total}`
             )}
         </button>
       </form>
-
-      { 
-        !disableBtn ? <Button disabled={true} id="payout-btn">Place order</Button>  : 
-        <Button onClick={handleOpen} id="payout-btn">Place order</Button>
-      }
 
       <Modal centered show={showCreate} >
 

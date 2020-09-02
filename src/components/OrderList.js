@@ -16,12 +16,12 @@ export default function OrderList(props) {
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
       .then((result) => {
-        console.log('dataorders',result.data)
+        // console.log('dataorders',result.data)
         setOrders(result.data)
       })
     axios.get(`${API_URL}/user`, {withCredentials: true})
       .then((result) => {
-        console.log(result.data.type, 'type')
+        // console.log(result.data.type, 'type')
         if (result.data.type === 'deliverer' ||result.data.type === 'admin') {
           setIsDeliverer(true)
         }
@@ -35,7 +35,7 @@ export default function OrderList(props) {
   if (Redirecting || props.toIntro) {
     return (<Redirect to='/' />)
   }
-  console.log(userLog, isDeliverer, 'ww')
+  // console.log(userLog, isDeliverer, 'ww')
   if(!userLog || !orders){
     return (<Loading />)
   } else if (userLog && !isDeliverer) {
@@ -47,7 +47,6 @@ export default function OrderList(props) {
 
       {
         orders.map((order, i) => {
-          console.log(order)
           return <OrderCard key={'orders'+i} order={order}/>
         })
       }

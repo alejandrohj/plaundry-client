@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form, Button, Row, Col, Modal} from 'react-bootstrap';
+import {Form, Button, Modal} from 'react-bootstrap';
 
 
 export default function CreateDeliverer(props) {
@@ -12,11 +12,11 @@ export default function CreateDeliverer(props) {
 
   return (
     <div>
-      <p style={{textAlign: 'center', marginTop: '20px', color: '#328CB6', fontWeight: '600', fontSize: '20px'}}>Deliverers Management view</p>
+      <p style={{textAlign: 'center', paddingTop: '20px', color: '#328CB6', fontWeight: '600', fontSize: '20px'}}>Deliverers Management view</p>
       <div className="create-laundryitem-btn">
       <Button onClick={handleOpen} className="general-btn createbtn">Create a new deliverer</Button>
       </div>
-      <hr/>
+      <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
       <Modal centered show={showCreate} onHide={handleClose}>
 
         <Modal.Header closeButton>

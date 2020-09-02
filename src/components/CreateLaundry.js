@@ -11,7 +11,7 @@ export default function CreateLaundry(props) {
   const handleOpen = () => setShow(true);
 
   return (
-    <div>
+    <>
       <p style={{textAlign: 'center', marginTop: '20px', color: '#328CB6', fontWeight: '600', fontSize: '20px'}}>Create, edit and delete your laundryitems.</p>
       <div className="create-laundryitem-btn">
       <Button onClick={handleOpen} className="general-btn createbtn">Create a new item</Button>
@@ -76,6 +76,6 @@ export default function CreateLaundry(props) {
         </Modal.Body>
         
       </Modal>
-    </div>
+    </>
   )
 }

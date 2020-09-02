@@ -12,9 +12,10 @@ export default function AdminSignIn(props) {
   }
 
   return (
-    <div className="admin-signin">
+    <>
         <AdminNav onAdminLogOut={props.onAdminLogOut}/> 
-        <p style={{textAlign: 'center', marginTop: '30px', marginLeft:'5%', marginRight:'5%',color: '#036C9C', fontWeight:'600', fontSize: '25px'}}><em>Plaundry helps you reach your customers easily and user-friendly.</em></p>
+        <div className="admin-signin">
+        <p style={{textAlign: 'center', marginLeft:'5%', marginRight:'5%',color: '#036C9C', fontWeight:'600', fontSize: '25px', paddingTop: '30px'}}><em>Plaundry helps you reach your customers easily and user-friendly.</em></p>
         <Form noValidate className="admin-signinform" onSubmit={props.onSignIn}>
           <Form.Group style={{width:'50%'}} controlId="formBasicEmail">
             <Form.Label style={{color: '#036C9C', fontWeight:'600'}}>Email address</Form.Label>
@@ -42,6 +43,7 @@ export default function AdminSignIn(props) {
         <br></br>
         Reach out to us by <a href="mailto:business@plaundry.com"><img style={{width: '20px'}} src={`${PUBLIC_URL}/email-blue.png`} alt="email" /></a></p>
     </div>
+    </>
   )
 }
 

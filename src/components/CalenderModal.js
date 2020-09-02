@@ -13,7 +13,7 @@ export default function CalenderModal() {
   return (
     <>
       <div >
-      <Button className="general-btn" onClick={handleOpen} >Book your appointment <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}} alt="button"/></Button>
+      <Button className="general-btn" onClick={handleOpen} >Place your order <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}} alt="button"/></Button>
       </div>
       <Modal centered show={showCalender} onHide={handleClose}>
 

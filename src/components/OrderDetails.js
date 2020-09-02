@@ -44,49 +44,51 @@ export default function OrderDetails(props) {
   const {status, userId, orderItems,pickUp, delivery} = order
 
   return (
-    <div>
+    <>
       <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
-      <Card style={{ minWidth: '20rem', margin:'40px'}}>
-          <Card.Body>
-            <div>
-              {
-                status==='to pick up'? <p> Date: <b>{pickUp.slice(0,10)}</b></p> :
-                <p> Date: <b>{delivery.slice(0,10)}</b></p>
-              }
-              {
-                status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
-                <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
-              }
-              <h5>{userId.name.firstName}</h5>
-              <MapWithAMarker
-                coordinates = {userId.address.coordinates}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-              />
-              <h6>{userId.city}</h6>
-              {
-                status === 'delivered' ? (<Button className="general-btn" disabled={true}>{status}</Button>) :
-                ( <Button className="general-btn" onClick={() => handleStatusChange(order.status)}>{status}</Button> )
-              }
-            </div>
-            <hr/>
-            <h5>Laundries:</h5>
-            <hr/>
-            <ListGroup className="list-group-flush">
-              {
-                orderItems.map((elem)=>{
-                  return(<>
-                    <ListGroup.Item>
-                    <p><b>Type: {elem.laundry.name}</b></p><p><b>Quantity: {elem.quantityOflaundries}</b></p>
-                    </ListGroup.Item>
-                    <hr/>
-                  </>
-                  )
-                })
-              }
-              </ListGroup>
-          </Card.Body>
-      </Card>
-    </div>
+      <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)'}}>
+        <Card style={{ minWidth: '20rem', margin: '0rem 2rem'}}>
+            <Card.Body>
+              <div>
+                {
+                  status==='to pick up'? <p> Date: <b>{pickUp.slice(0,10)}</b></p> :
+                  <p> Date: <b>{delivery.slice(0,10)}</b></p>
+                }
+                {
+                  status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
+                  <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
+                }
+                <h5>{userId.name.firstName}</h5>
+                <MapWithAMarker
+                  coordinates = {userId.address.coordinates}
+                  containerElement={<div style={{ height: `400px` }} />}
+                  mapElement={<div style={{ height: `100%` }} />}
+                />
+                <h6>{userId.city}</h6>
+                {
+                  status === 'delivered' ? (<Button className="general-btn" disabled={true}>{status}</Button>) :
+                  ( <Button className="general-btn" onClick={() => handleStatusChange(order.status)}>{status}</Button> )
+                }
+              </div>
+              <hr/>
+              <h5>Laundries:</h5>
+              <hr/>
+              <ListGroup className="list-group-flush">
+                {
+                  orderItems.map((elem)=>{
+                    return(<>
+                      <ListGroup.Item>
+                      <p><b>Type: {elem.laundry.name}</b></p><p><b>Quantity: {elem.quantityOflaundries}</b></p>
+                      </ListGroup.Item>
+                      <hr/>
+                    </>
+                    )
+                  })
+                }
+                </ListGroup>
+            </Card.Body>
+        </Card>
+      </div>
+    </>
   )
 }
