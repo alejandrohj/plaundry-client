@@ -125,9 +125,9 @@ export default function Calendar() {
           let pickUpDate = new Date (eventArr[0]);
           pickUpDate.setDate(pickUpDate.getDate() + 1);
           return (pickUpDate.toISOString() >= dropInfo.startStr) ? false : true;
-        } else {
+        } else if (!eventArr[0]){
           return true;
-        }
+        } 
       }}
 
     />

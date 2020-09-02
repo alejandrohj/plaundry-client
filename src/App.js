@@ -24,6 +24,7 @@ import DelivererManage from './components/DelivererManage';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
+import Loading from './components/Loading';
 
 
 
@@ -292,6 +293,7 @@ function App() {
         <Route path="*" render={()=>{
           return <ErrorComponent />
         }} />
+ 
       </Switch>
       </UserContext.Provider>
   );

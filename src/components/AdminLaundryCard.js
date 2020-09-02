@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Form, Button, Row, Col, Card, Modal} from 'react-bootstrap';
 import {API_URL} from '../config'
 import axios from 'axios'
@@ -7,15 +7,9 @@ export default function AdminLaundryCard(props) {
 
   let categories = ['bags', 'bedding', 'business', 'clothing',  'towels'];
 
-  const [laundryItem, setLaundryItem] = useState(null);
-
-  useEffect(() => {
-    axios.get(`${API_URL}/laundry/${props.item._id}`,  {withCredentials: true})
-      .then((result) => {
-          setLaundryItem(result.data)
-      })
-  }, [])
-
+  const [laundryItem, setLaundryItem] = useState(props.item);
+  const [err, setErr] = useState(false)
+ 
   const handleNameChange = (e) => {
     let updatedLaundry = JSON.parse(JSON.stringify(laundryItem));
     updatedLaundry.name = e.currentTarget.value;
@@ -29,9 +23,14 @@ export default function AdminLaundryCard(props) {
   }
 
   const handlePriceChange = (e) => {
-    let updatedLaundry = JSON.parse(JSON.stringify(laundryItem));
-    updatedLaundry.price = e.currentTarget.value;
-    setLaundryItem(updatedLaundry)
+    if (e.currentTarget.value < 0) {
+      setErr(true);
+    } else {
+      let updatedLaundry = JSON.parse(JSON.stringify(laundryItem));
+      updatedLaundry.price = e.currentTarget.value;
+      setLaundryItem(updatedLaundry)
+      setErr(false);
+    }
   }
 
   const handleCategoryChange = (e) => {
@@ -55,10 +54,6 @@ export default function AdminLaundryCard(props) {
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
 
-  if (!laundryItem){
-    return <p>Loading ....</p>
-  }
-
   return (
     <Card className="adminlaundrycard">
       <img src={laundryItem.image} style={{height: '80%', width:'30%', alignSelf:'center'}} alt="laundry-img" className="laundrycard-img"/>
@@ -80,6 +75,12 @@ export default function AdminLaundryCard(props) {
           <Form.Group >
               <Form.Label className="admin-card-title">Price</Form.Label>
               <Form.Control onChange={handlePriceChange} name="price" type="number" min='0' max='50' step='0.01' value={laundryItem.price} />
+<<<<<<< HEAD
+=======
+              {
+                err ? 'Price must be bigger than 0' : <></> 
+              }
+>>>>>>> origin/lanette
             </Form.Group>
           </Col>
           <Col>
@@ -118,7 +119,7 @@ export default function AdminLaundryCard(props) {
           </Modal.Header>
           <Modal.Body style={{display: 'flex', justifyContent: 'space-evenly'}}>
             <Button className="general-btn" onClick={handleClose} style={{height: '40px', width: '100px'}} variant="primary">No</Button>
-            <Button onClick={() => props.onDelete(laundryItem._id)} style={{height: '40px', width: '100px'}} variant="danger">Yes</Button>
+            <Button onClick={() => {console.log('Deleting', laundryItem);props.onDelete(laundryItem._id); handleClose()}} style={{height: '40px', width: '100px'}} variant="danger">Yes</Button>
           </Modal.Body>
         </Modal>
        
