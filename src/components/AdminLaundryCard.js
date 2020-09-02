@@ -75,12 +75,9 @@ export default function AdminLaundryCard(props) {
           <Form.Group >
               <Form.Label className="admin-card-title">Price</Form.Label>
               <Form.Control onChange={handlePriceChange} name="price" type="number" min='0' max='50' step='0.01' value={laundryItem.price} />
-<<<<<<< HEAD
-=======
               {
                 err ? 'Price must be bigger than 0' : <></> 
               }
->>>>>>> origin/lanette
             </Form.Group>
           </Col>
           <Col>
