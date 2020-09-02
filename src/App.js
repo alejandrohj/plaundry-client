@@ -19,6 +19,7 @@ import Checkout from './components/Checkout';
 import ErrorComponent from './components/404'
 import UserDetails from './components/UserDetails';
 import UserOrders from './components/UserOrders';
+import DelivererManage from './components/DelivererManage';
 //#endregion Components
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -268,6 +269,12 @@ function App() {
                     loggedInUser={loggedInUser}
                   />
         }} />
+        <Route path="/admin/deliverersmanage" render={()=>{
+          return <DelivererManage
+                    onAdminLogOut={handleAdminLogOut}
+                    loggedInUser={loggedInUser}
+                />
+        }}/>
         <Route path="/cart" render={()=>{
           return <Cart loggedInUser={loggedInUser} onLogOut={handleLogOut} toIntro = {toIntro} />
         }}/>
