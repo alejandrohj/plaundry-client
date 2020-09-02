@@ -76,6 +76,7 @@ export default function Calendar() {
   
   return (
     <>
+    <p style={{textAlign: 'center',color: '#036C9C'}}>Drag the 'pick up' and 'delivery' buttons to the day and time you prefer. There has to be at least one day between pick up and delivery for us to be able to clean your clothes.</p>
     <div style={{display: 'flex', justifyContent: 'center'}}>
       {
         eventArr.length >= 1 ?  <p className="general-btn" style={{display: 'none'}} id="pickupDrag">Pick Up</p> :  <p className="general-btn" style={{width:'100px', borderRadius: '5px', color: 'white', textAlign: 'center', padding: '3px', margin: '5px'}} id="pickupDrag">Pick Up</p>
@@ -117,7 +118,6 @@ export default function Calendar() {
         clonedEventArr.push(dropInfo.dateStr)
         setEventArr(clonedEventArr);
         localStorage.setItem('dates', JSON.stringify(clonedEventArr)) 
-        // remove draggable element!
       }}
       eventAllow={function(dropInfo){   
         // Only let drop after a day

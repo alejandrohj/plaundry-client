@@ -221,6 +221,18 @@ html, body {
 
 }
 
+@media only screen and (min-width: 451px) {
+  .admin-list-container{
+
+
+  }
+  .adminlaundrycard {
+    display: flex;
+    flex-direction: row;
+    /* width:  */
+  }
+}
+
 @media only screen and (min-width: 800px) {
 
   .splash{
