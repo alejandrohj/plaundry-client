@@ -23,6 +23,7 @@ export default function CategoryNavbar(props) {
                     <button  onClick={()=>props.onCatSelect('business')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/handshake-outline.png`} alt ='business'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Business</p></button>
                 </Nav.Item>
             </Navbar>
+            <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
         </div>
     )
 }

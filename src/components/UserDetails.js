@@ -76,36 +76,43 @@ export default function UserDetails(props) {
     let deftAddress = Address? Address.city : 'Search Places...'
     let deftValName = Name? Name.firstName: '';
     let deftValLastName = Name? Name.lastName: '';
+
     return (
-        <div>
-            <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
-            <div style={{marginLeft: '10px', marginTop: '15px'}}>
-            <Link to={'/cart'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}}/> Back</Button></p></Link>
-                <CalenderModal/>    
-                <h6 style={{marginTop:'20px'}}>Your adress:</h6>
-                <LocationSearchInput placeholder = {deftAddress} handleLocationSearch = {handleLocationSearch}/>
-                {
-                    Address? (<>
-                        <MapWithAMarker
-                            coordinates = {Address.coordinates}
-                            containerElement={<div style={{ height: `400px` }} />}
-                            mapElement={<div style={{ height: `100%` }} />}
-                        />
-                        </>
-                    ):(<p></p>)
-                }
-                <hr/>
-                <div style={{display:'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
-                    <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
-                        <label>First Name</label>
-                        <input onChange={handleChangenName} style={{width: '350px'}} type='text' defaultValue={deftValName} placeholder='Type your full name'/>
-                    </div>
-                    <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
-                        <label>Last Name</label>
-                        <input onChange={handleChangenLastName} style={{width: '350px'}} type='text' defaultValue={deftValLastName } placeholder='Type your full name'/>
-                    </div>
-                </div>
+      <>
+        <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
+        <div style={{marginLeft: '10px', marginTop:'15px'}}>
+          <div style={{display: 'flex', justifyContent: 'space-around'}}>
+            <Link to={'/cart'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}} alt="button" /> Back to your cart</Button></p></Link>
+            <CalenderModal/>  
+          </div>
+        </div> 
+        <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
+        <div style={{background: "linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)", height: '100%'}}>
+          <div style={{display:'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+            <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
+              <label style={{color: '#036C9C', fontWeight:'600', fontSize: '16px'}}>First Name</label>
+              <input onChange={handleChangenName} style={{width: '350px'}} type='text' defaultValue={deftValName} placeholder='Enter your firstname'/>
             </div>
+            <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
+                <label style={{color: '#036C9C', fontWeight:'600', fontSize: '16px'}}>Last Name</label>
+                <input onChange={handleChangenLastName} style={{width: '350px'}} type='text' defaultValue={deftValLastName } placeholder='Enter your lastname'/>
+            </div>
+            <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
+              <label style={{color: '#036C9C', fontWeight:'600', fontSize: '16px'}}>Your adress</label>
+              <LocationSearchInput placeholder = {deftAddress} handleLocationSearch = {handleLocationSearch} />
+            </div>
+          </div>  
+          {
+            Address? (<>
+              <MapWithAMarker
+                coordinates = {Address.coordinates}
+                containerElement={<div style={{ height: `400px`, marginTop: '5px'}} />}
+                mapElement={<div style={{ height: `100%` , margin: '0px 50px' }} />}
+              />
+              </>
+            ):(<p></p>)
+          }
         </div>
+      </>
     )
 }

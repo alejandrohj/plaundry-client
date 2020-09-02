@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import interactionPlugin, {Draggable} from '@fullcalendar/interaction';
 import './Calendar.css';
 import axios from 'axios';
 import {API_URL} from '../config';
@@ -13,80 +13,54 @@ export default function Calendar() {
 
   const [eventArr, setEventArr] = useState([]);
   let eventGuid = 0;
-  let calendarApi;
   const [pickedDates, setPickedDates] = useState([]);
+
+  function createEventId() {
+    return String(eventGuid++)
+  }
   
   useEffect(() => {
-  axios.get(`${API_URL}/orders`, {withCredentials: true})
-    .then((result) => {
-      let orderArr = result.data;
-      let pickClone = JSON.parse(JSON.stringify(pickedDates))
-      orderArr.map((order) => {
-        pickClone.push(order.pickUp)
-        pickClone.push(order.delivery)
+    axios.get(`${API_URL}/orders`, {withCredentials: true})
+      .then((result) => {
+        let orderArr = result.data;
+        let pickClone = JSON.parse(JSON.stringify(pickedDates))
+        orderArr.map((order) => {
+          pickClone.push(order.pickUp)
+          pickClone.push(order.delivery)
+        })
+        setPickedDates(pickClone)
       })
-      setPickedDates(pickClone)
+
+    let pickUpDrag = document.getElementById('pickupDrag');
+    let deliverDrag = document.getElementById('deliverDrag');
+    new Draggable(pickUpDrag, {
+      eventData: {
+        title:'pick up',
+        color: '#46C5FF',
+        id: createEventId()
+      } 
     })
+
+    new Draggable(deliverDrag, {
+      eventData: {
+        title:'delivery',
+        color: '#46C5FF',
+        id: createEventId(), 
+      }
+    })
+
   }, [])
   
   let usedDates = pickedDates.map((date) => {
     return JSON.parse(JSON.stringify({
       title: 'Busy',
       start: date,
-      color: 'red',
+      color: '#ff8080',
+      textColor: 'white',
+      eventOverlap:false,
+      editable:false,
     }))
   })
-
-  function createEventId() {
-    return String(eventGuid++)
-  }
-  
-  const [clickAmount, setAmount] = useState(1)
-  const [err, setErr] = useState(false)
-
-  const handleClick = (selectInfo) => {
-    setAmount(clickAmount + 1)
-    if (clickAmount > 2) {
-      setErr(true)
-    } else if (clickAmount === 1) {
-      make('pickup', selectInfo)
-    } else if (clickAmount === 2) {
-   
-        //let firstDate = new Date(eventArr[0])
-        let secondDate = new Date(eventArr[0])
-        secondDate.setDate(secondDate.getDate() +1)
-        //console.log(firstDate, 'test', secondDate ) //2020-09-01T10:00:00+02:00
-
-        let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
-        calendarApi = selectInfo.view.calendar;
-        calendarApi.addEvent({
-          id: createEventId(),
-          start: selectInfo.dateStr,
-          color: '#46C5FF',
-          title: 'delivery',
-          // Doesn't work
-          //constraint: {startDate: secondDate}
-        })
-        clonedEventArr.push(selectInfo.dateStr)
-        setEventArr(clonedEventArr);
-        localStorage.setItem('dates', JSON.stringify(clonedEventArr))
-      
-    }
-  }
-
-  function make(sort, info) {
-    let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
-    calendarApi = info.view.calendar;
-    calendarApi.addEvent({
-      id: createEventId(),
-      start: info.dateStr,
-      color: '#46C5FF',
-      title: sort,
-    })
-    clonedEventArr.push(info.dateStr)
-    setEventArr(clonedEventArr);
-    localStorage.setItem('dates', JSON.stringify(clonedEventArr))
-  }
 
   const hide = (currentDate) => {
     const startDate = new Date(currentDate.valueOf())
@@ -99,12 +73,18 @@ export default function Calendar() {
       end: endDate
     }
   }
-
+  
   return (
     <>
-    {
-      err ? <p>You can only pick two dates</p> : null
-    }
+    <p style={{textAlign: 'center',color: '#036C9C'}}>Drag the 'pick up' and 'delivery' buttons to the day and time you prefer. There has to be at least one day between pick up and delivery for us to be able to clean your clothes.</p>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      {
+        eventArr.length >= 1 ?  <p className="general-btn" style={{display: 'none'}} id="pickupDrag">Pick Up</p> :  <p className="general-btn" style={{width:'100px', borderRadius: '5px', color: 'white', textAlign: 'center', padding: '3px', margin: '5px'}} id="pickupDrag">Pick Up</p>
+      }
+      {
+        eventArr.length >= 2 ?  <p className="general-btn" style={{display: 'none'}} id="deliverDrag">Delivery</p> :  <p className="general-btn" style={{width:'100px', borderRadius: '5px', color: 'white', textAlign: 'center', padding: '3px', margin: '5px'}} id="deliverDrag">Delivery</p>
+      }
+    </div>
     <div id="fullcalendar">
     <FullCalendar 
       plugins={[ dayGridPlugin , timeGridPlugin, interactionPlugin]}
@@ -124,19 +104,41 @@ export default function Calendar() {
       allDaySlot={false}
       slotMinTime="08:00:00"
       slotMaxTime="18:00:00"
-      dateClick={handleClick}
       defaultTimedEventDuration='00:30'
       events={usedDates}
-   
+      editable={true}
+      eventOverlap={false}
+      droppable={true}
+      longPressDelay='500'
+      eventLongPressDelay='500'
+      selectLongPressDelay='500'
+      eventDurationEditable={false}
+      drop={function(dropInfo) {
+        let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
+        clonedEventArr.push(dropInfo.dateStr)
+        setEventArr(clonedEventArr);
+        localStorage.setItem('dates', JSON.stringify(clonedEventArr)) 
+      }}
+      eventAllow={function(dropInfo){   
+        // Only let drop after a day
+        if (eventArr[0]) {   
+          let pickUpDate = new Date (eventArr[0]);
+          pickUpDate.setDate(pickUpDate.getDate() + 1);
+          return (pickUpDate.toISOString() >= dropInfo.startStr) ? false : true;
+        } else {
+          return true;
+        }
+      }}
+
     />
     </div>
 
-        <Modal.Footer>
-          {
-            clickAmount < 3 ? <Button disabled={true} id="general-btn">Go to checkout</Button> :
-          <Link to="/checkout"><Button className="general-btn">Go to checkout</Button></Link>
-          }
-        </Modal.Footer>
+    <Modal.Footer>
+      {
+       eventArr.length < 2 ? <Button disabled={true} className="general-btn">Go to checkout</Button> : <Link to="/checkout"><Button className="general-btn">Go to checkout</Button></Link>
+      }
+      
+    </Modal.Footer>
    </>
   )
 }

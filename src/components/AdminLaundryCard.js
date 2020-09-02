@@ -79,7 +79,7 @@ export default function AdminLaundryCard(props) {
           <Col>
           <Form.Group >
               <Form.Label className="admin-card-title">Price</Form.Label>
-              <Form.Control onChange={handlePriceChange} name="price" type="number" value={laundryItem.price}></Form.Control>
+              <Form.Control onChange={handlePriceChange} name="price" type="number" min='0' max='50' step='1' value={laundryItem.price} />
             </Form.Group>
           </Col>
           <Col>

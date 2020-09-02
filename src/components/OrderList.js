@@ -5,6 +5,7 @@ import axios from 'axios'
 import {API_URL} from '../config'
 import {Redirect} from 'react-router-dom'
 
+
 export default function OrderList(props) {
 
   const [orders, setOrders] = useState()
@@ -34,6 +35,7 @@ export default function OrderList(props) {
   return (
     <div className="orderlist-admin">
         <AdminNav adminUser={props.adminUser} onAdminLogOut={props.onAdminLogOut}/>
+
       {
         orders.map((order, i) => {
           console.log(order)

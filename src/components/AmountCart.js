@@ -22,11 +22,13 @@ export default function AmountCart(props) {
     
     let total = laundries.reduce((acc,cur)=>{
         return acc + (cur.quantity * cur.price);
-
     },0)
+
     return (
-        <div>
-            <h5>Total:{total}€</h5>
+      <>
+        <div style={{padding: '10px', textAlign:'center', color: '#036C9C', fontWeight:'600', fontSize: '16px'}}>
+          <h5>Total: €{total.toFixed(2)}</h5>
         </div>
+      </>
     )
 }

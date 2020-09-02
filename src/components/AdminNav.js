@@ -9,7 +9,7 @@ export default function AdminNav(props) {
   return (
     <>
     <Navbar className="admin-nav" expand="lg">
-      <Link to="/admin"><img src={`${PUBLIC_URL}/white-logo.png`} style={{width: '150px'}} alt="logo"/></Link>
+      <Link to="/"><img src={`${PUBLIC_URL}/white-logo.png`} style={{width: '150px'}} alt="logo"/></Link>
       {
         !props.adminUser ? (<></>) : (
         <>
