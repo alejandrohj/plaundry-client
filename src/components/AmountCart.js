@@ -25,8 +25,10 @@ export default function AmountCart(props) {
 
     },0)
     return (
-        <div>
-            <h5>Total:{total}€</h5>
+      <>
+        <div style={{padding: '10px', textAlign:'center', color: '#036C9C', fontWeight:'600', fontSize: '16px'}}>
+          <h5>Total:{total}€</h5>
         </div>
+      </>
     )
 }

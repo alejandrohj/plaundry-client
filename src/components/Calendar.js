@@ -45,7 +45,7 @@ export default function Calendar() {
       eventData: {
         title:'delivery',
         color: '#46C5FF',
-        id: createEventId()
+        id: createEventId(), 
       }
     })
 
@@ -108,6 +108,10 @@ export default function Calendar() {
       editable={true}
       eventOverlap={false}
       droppable={true}
+      longPressDelay='500'
+      eventLongPressDelay='500'
+      selectLongPressDelay='500'
+      eventDurationEditable={false}
       drop={function(dropInfo) {
         let clonedEventArr = JSON.parse(JSON.stringify(eventArr))
         clonedEventArr.push(dropInfo.dateStr)

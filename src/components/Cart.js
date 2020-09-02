@@ -17,7 +17,7 @@ export default function Cart(props) {
         return (<>
             <Navbar/>
             <div style={{marginTop: '15px'}}>
-                <Link to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}}/> Back to the lists</Button></p></Link>
+                <Link to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}} alt="button"/> Back to the lists</Button></p></Link>
             </div>
             <p>The cart is empty</p>
             </>
@@ -31,34 +31,31 @@ export default function Cart(props) {
         return (<Redirect to={'/sign-in'}/>)
     } 
     return (
-        <div>
+      <>
         <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
         <div style={{marginLeft: '10px', marginTop:'15px'}}>
-            <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                <Link to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}}/> Back to the lists</Button></p></Link>
-                <Link to={'/userDetails'}><p><Button className="general-btn"> Order now <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}}/></Button></p></Link>
-            </div>
-            <AmountCart/>
-            
+          <div style={{display: 'flex', justifyContent: 'space-around'}}>
+            <Link to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}}alt="button" /> Back to the lists</Button></p></Link>
+            <Link to={'/userDetails'}><p><Button className="general-btn"> Order now <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}} alt="button"/></Button></p></Link>
+          </div>
         </div>
-        {
+         <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
+        <div style={{background: "linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)", height: '100%'}}>
+          <AmountCart />
+          {
             ItemsSelected.map((elem,i)=>{
-                return (
-                <Card key = {'cart'+i} style={{display: 'flex', flexDirection: 'row'}}>
-                    <Card.Body>
-                        <Card.Title>x{elem.quantity}</Card.Title>
-                        <Card.Title>{elem.name}</Card.Title>
-                        <Card.Text>
-                            {elem.description}
-                        </Card.Text>
-                        <Card.Text>
-                                {elem.price * elem.quantity}€
-                        </Card.Text>
-                    </Card.Body>
-                    <img src={elem.image} style={{height: '200px', width:'150px'}} alt='img'/>
-                </Card>)
+              return (
+              <Card key = {'cart'+i} style={{display: 'flex', flexDirection: 'row', margin: '10px'}}>
+                <Card.Body>
+                  <Card.Title>{elem.name}</Card.Title>
+                  <Card.Text>Amount: {elem.quantity}</Card.Text>
+                  <Card.Text>Total: €{elem.price * elem.quantity}</Card.Text>
+                </Card.Body>
+                <img src={elem.image} style={{height: '200px', width:'150px'}} alt='img'/>
+              </Card>)
             })
-        }
+          }
         </div>
+      </>
     )
 }
