@@ -10,7 +10,7 @@ export default function OrderList(props) {
 
   const [orders, setOrders] = useState()
   const [Redirecting, setRedirecting] = useState(false);
-  const [userLog, setNew] = useState(props.loggedInUser);
+  const [userLog, setNew] = useState(null);
   const [isDeliverer, setIsDeliverer] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,8 @@ export default function OrderList(props) {
       })
     axios.get(`${API_URL}/user`, {withCredentials: true})
       .then((result) => {
-        if (result.data.type === 'deliverer') {
+        console.log(result.data.type, 'type')
+        if (result.data.type === 'deliverer' ||result.data.type === 'admin') {
           setIsDeliverer(true)
         }
         setNew(result.data)
@@ -34,8 +35,8 @@ export default function OrderList(props) {
   if (Redirecting || props.toIntro) {
     return (<Redirect to='/' />)
   }
-
-  if(!userLog){
+  console.log(userLog, isDeliverer, 'ww')
+  if(!userLog || !orders){
     return (<Loading />)
   } else if (userLog && !isDeliverer) {
     return (<Redirect to='/' />)
