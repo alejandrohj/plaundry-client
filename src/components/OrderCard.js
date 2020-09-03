@@ -4,28 +4,34 @@ import {Link} from 'react-router-dom'
 
 export default function OrderCard(props) {
   console.log(props.order)
-  const {orderItems,status,userId,_id, pickUp, delivery} = props.order
+  const {orderItems,status,userId,_id, pickUp, delivery,message} = props.order
+  let colorOfStatus = status ==='to pick up'? '#ff8000': status ==='picked up'? '#00008a': status ==='washing'? '0080ff' : status ==='to deliver'? '#ffbf00' : '#5e5d5c'
   return (
       <div style={{display:'flex', flexWrap: 'wrap'}}>
         <Card style={{ minWidth:'20rem', margin:'1rem'}}>
           <Card.Body style={{display: 'flex', alignItems: 'center'}}>
-            <div>
-              {
-                status==='to pick up'? <p> Date: <b>{pickUp.slice(0,10)}</b></p> :
-                <p> Date: <b>{delivery.slice(0,10)}</b></p>
-              }
-              {
-                status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
-                <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
-              }
-              <p>Status: <b>{status}</b></p>
-              <hr></hr>
+            <div style={{color:'#328CB6'}}>
               <h5>{userId.name.firstName}</h5>
               <h6>{userId.address.city}</h6>
-              
-            </div>
-            <div>
-              <Link  style ={{marginLeft:'30px'}} to={`/admin/delivery/${_id}/details`}><Button className="general-btn">Details</Button></Link>
+              <hr/>
+              <h5>Status : <b style={{color: colorOfStatus}}>{status}</b></h5>
+              <hr/>
+              <h6><u>Dates</u>:</h6>
+              {
+                status==='to pick up'? <p>Must be picked up the <b>{pickUp.slice(0,10)}</b> at <b>{pickUp.slice(11,16)}h</b></p>:
+                <p>Picked up the <b>{pickUp.slice(0,10)}</b> at <b>{pickUp.slice(11,16)}h</b></p>
+              }
+              {
+                status === 'to deliver'? <p>Must be delivered the <b>{delivery.slice(0,10)}</b> at <b>{delivery.slice(11,16)}h</b></p>:
+                status === 'delivered'? <p>Delivered the <b>{delivery.slice(0,10)}</b> at <b>{delivery.slice(11,16)}h</b></p>:
+                <p>Delivery day: <b>{delivery.slice(0,10)}</b> at <b>{delivery.slice(11,16)}h</b></p>
+              }
+              <hr/>
+              <p>{message}</p>
+              <hr/>
+              <div style={{ display: 'flex',justifyContent: 'flex-end'}}>
+                <Link  style ={{marginLeft:'30px'}} to={`/admin/delivery/${_id}/details`}><Button className="general-btn">Details</Button></Link>
+              </div>
             </div>
           </Card.Body>
         </Card>

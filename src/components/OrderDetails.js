@@ -50,15 +50,18 @@ export default function OrderDetails(props) {
         <Card style={{ minWidth: '20rem', margin: '0rem 2rem'}}>
             <Card.Body>
               <div>
+              <h5>{userId.name.firstName}</h5>
+              <h6>{userId.address.city}</h6>
+              <hr/>
                 {
-                  status==='to pick up'? <p> Date: <b>{pickUp.slice(0,10)}</b></p> :
-                  <p> Date: <b>{delivery.slice(0,10)}</b></p>
+                  status==='to pick up'? <p>Must be picked up the <b>{pickUp.slice(0,10)}</b> at <b>{pickUp.slice(11,16)}h</b></p>:
+                  <p>Picked up the <b>{pickUp.slice(0,10)}</b> at <b>{pickUp.slice(11,16)}h</b></p>
                 }
                 {
-                  status==='to pick up'? <p> Pick up at : <b>{pickUp.slice(11,16)}</b></p> :
-                  <p> Deliver at: <b>{delivery.slice(11,16)}</b></p>
+                  status === 'to deliver'? <p>Must be delivered the <b>{delivery.slice(0,10)}</b> at <b>{delivery.slice(11,16)}h</b></p>:
+                  status === 'delivered'? <p>Delivered the <b>{delivery.slice(0,10)}</b> at <b>{delivery.slice(11,16)}h</b></p>:
+                  <p>Delivery day: <b>{delivery.slice(0,10)}</b> at <b>{delivery.slice(11,16)}h</b></p>
                 }
-                <h5>{userId.name.firstName}</h5>
                 <MapWithAMarker
                   coordinates = {userId.address.coordinates}
                   containerElement={<div style={{ height: `400px` }} />}

@@ -83,11 +83,14 @@ export default function UserDetails(props) {
         <div style={{marginLeft: '10px', marginTop:'15px'}}>
           <div style={{display: 'flex', justifyContent: 'space-around'}}>
             <Link to={'/cart'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}} alt="button" /> Back to your cart</Button></p></Link>
-            <CalenderModal/>  
+            <CalenderModal Address={Address} Name={Name}/>  
           </div>
         </div> 
         <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
         <div style={{background: "linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)", height: '100%'}}>
+        {
+          !Address || !Name.firstName || !Name.lastName? <p style={{margin: '0px 10px'}}><i><small>Please fill al the inputs</small></i></p> : ''
+        }
           <div style={{display:'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
             <div style={{display:'flex', flexDirection: 'column', margin: '10px 30px'}}>
               <label style={{color: '#036C9C', fontWeight:'600', fontSize: '16px'}}>First Name</label>
