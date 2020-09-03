@@ -22,6 +22,7 @@ import UserOrders from './components/UserOrders';
 import DelivererManage from './components/DelivererManage';
 import DelivererSignIn from './components/DelivererSignIn';
 import DelivererHomePage from './components/DelivererHomePage';
+import AvaibilityManagement from './components/AvailabilityManagement';
 //#endregion Components
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -300,6 +301,13 @@ function App() {
         }} />
         <Route exact path="/admin/deliverersmanage" render={()=>{
           return <DelivererManage
+                    onAdminLogOut={handleAdminLogOut}
+                    loggedInUser={loggedInUser}
+                    toIntro = {toIntro} 
+                />
+        }}/>
+        <Route exact path="/admin/avaibility" render={()=>{
+          return <AvaibilityManagement
                     onAdminLogOut={handleAdminLogOut}
                     loggedInUser={loggedInUser}
                     toIntro = {toIntro} 

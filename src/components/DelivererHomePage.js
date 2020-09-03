@@ -12,7 +12,7 @@ export default function DelivererHomePage(props) {
     const [isDeliverer, setIsDeliverer] = useState(false);
   
     useEffect(() => {
-        axios.get(`${API_URL}/user`, {withCredentials: true})
+        axios.get(`${API_URL}/availability`, {withCredentials: true})
             .then((result) => {
             if (result.data.type === 'deliverer') {
                 setIsDeliverer(true)
