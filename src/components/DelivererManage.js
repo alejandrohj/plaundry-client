@@ -17,7 +17,8 @@ export default function AdminView(props) {
   const [err, setErrStatus] = useState(false);
   
   useEffect(() => {
-    axios.get(`${API_URL}/user`, {withCredentials: true})
+    console.log('aaaaa')
+    axios.get(`${API_URL}/user`,{withCredentials: true})
         .then((result) => {
           if (result.data.type === 'admin') {
             setIsAdmin(true)
@@ -27,7 +28,7 @@ export default function AdminView(props) {
         .catch(() => {
           setRedirecting(true)
         })
-    axios.get(`${API_URL}/deliverers`)
+    axios.get(`${API_URL}/deliverers`,{withCredentials: true})
         .then((res)=>{
             setDeliverers(res.data)
         })
@@ -51,7 +52,7 @@ export default function AdminView(props) {
       })
   }
   const handleRemoveDeliverer = (id) =>{
-    axios.delete(`${API_URL}/deliverer/${id}/delete`)
+    axios.delete(`${API_URL}/deliverer/${id}/delete`,{withCredentials: true})
         .then((res)=>{
             window.location.reload(false)
         })
@@ -79,7 +80,7 @@ export default function AdminView(props) {
     <>
         <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
         <CreateDeliverer onCreateDeliverer={handelCreateDeliverer} createSucces={createSucces} errorMessage={errMessage} err={err} handleError={handleError}/>
-        <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)', height: '80%'}}>
+        <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)', height: '100%'}}>
           <div style={{display:'flex', justifyContent: 'center', flexWrap:'wrap'}}>
               {
                   deliverers.map((deliverer)=>{

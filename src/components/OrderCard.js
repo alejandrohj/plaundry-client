@@ -3,12 +3,13 @@ import {Button, Card} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 export default function OrderCard(props) {
-  console.log(props.order)
+
   const {orderItems,status,userId,_id, pickUp, delivery,message} = props.order
   let colorOfStatus = status ==='to pick up'? '#ff8000': status ==='picked up'? '#00008a': status ==='washing'? '0080ff' : status ==='to deliver'? '#ffbf00' : '#5e5d5c'
   return (
-      <div style={{display:'flex', flexWrap: 'wrap'}}>
-        <Card style={{ minWidth:'20rem', margin:'1rem'}}>
+      <div style={{ display:'flex', flexWrap: 'wrap', height: '500px'}}>
+        <Card style={{ minWidth:'20rem', margin:'1rem', borderRadius: '5px',
+        border: '1px solid #46C5FF'}}>
           <Card.Body style={{display: 'flex', alignItems: 'center'}}>
             <div style={{color:'#328CB6'}}>
               <h5>{userId.name.firstName}</h5>

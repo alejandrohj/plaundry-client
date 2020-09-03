@@ -45,7 +45,7 @@ export default function Cart(props) {
           {
             ItemsSelected.map((elem,i)=>{
               return (
-              <Card key = {'cart'+i} style={{display: 'flex', flexDirection: 'row', margin: '10px'}}>
+              <Card key = {'cart'+i} style={{display: 'flex', flexDirection: 'row', margin: '10px', borderRadius: '5px', border: '1px solid #46C5FF'}}>
                 <Card.Body>
                   <Card.Title>{elem.name}</Card.Title>
                   <Card.Text>Amount: {elem.quantity}</Card.Text>

@@ -1,11 +1,57 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import {PUBLIC_URL} from '../config';
-import {FormControl,Button, Row,Col} from 'react-bootstrap';
+import React,{useState, useEffect, useRef} from 'react';
+import {Link, Redirect} from 'react-router-dom';
+import {PUBLIC_URL,API_URL} from '../config';
+
+import {FormControl,Button, Row,Col,Form,Modal} from 'react-bootstrap';
+import axios from 'axios';
+
+import Loading from './Loading';
 
 
 export default function StartUp() {
+
+    const [PostalCodes, setPostalCodes] = useState(null);
+    const [IsAvailable, setIsAvailable] = useState(false);
+    const [showCreate, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const inputRef = useRef();
+
+    useEffect(()=>{
+      axios.get(`${API_URL}/availability`, {withCredentials: true})
+        .then((result) => {
+            setPostalCodes(result.data)
+          })
+          .catch((err) => {
+          })
+    },[])
+
+    const handleCheckPC = () =>{
+      let input =inputRef.current.value;
+      if(!input) return;
+      console.log(typeof input)
+      PostalCodes.forEach((postalCode)=>{
+        console.log(postalCode.Code, 'and',input , 'and', postalCode.available)
+        if(postalCode.Code == input && postalCode.available == true) {
+          console.log('match')
+          setIsAvailable(true)
+        }
+      })
+      setShow(true);
+    }
+    if(!PostalCodes) return <Loading/>
     return (
+      <>
+      <Modal centered show={showCreate} >
+            <Modal.Header style={{display: 'flex', justifyContent: 'center'}}>
+              <Modal.Title className="admin-card-title">START NOW</Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{textAlign: 'center'}}>
+              {IsAvailable? (<p>Services available in this location! You can use Plaundry!</p>): 
+              (<p>Sorry our services are not available in your location, but you can try our app</p>)}
+            <hr/>
+            <Link to={'/home'}><Button className="general-btn">Discover Plaundry</Button></Link>
+            </Modal.Body>
+      </Modal>
       <div className="splash-body">
         <div className="splash" >
           <h1 className="splash-title">Welcome to</h1>
@@ -14,13 +60,16 @@ export default function StartUp() {
         <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
         <div className="check-text" >
           <p style={{color: '#328CB6', fontWeight: '600', fontSize: '20px'}} className="check-p">Check if our service is available in your area:</p>
-          <FormControl 
-          className="check-form"
-          placeholder="Postal Code"
-          aria-label="Postal Code"
-          aria-describedby="basic-addon2"
-          />
-          <Link to={'/home'}><Button className="check-btn" variant="outline-secondary">Check</Button></Link>
+          <Form className="check-text">
+            <FormControl
+            ref={inputRef}
+            className="check-form"
+            placeholder="Postal Code"
+            aria-label="Postal Code"
+            aria-describedby="basic-addon2"
+            />
+            <Button onClick={handleCheckPC} className="check-btn" variant="outline-secondary">Check</Button>
+          </Form>
         </div>
         <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
         <div className="splash-expl">
@@ -55,5 +104,6 @@ export default function StartUp() {
           </Row>
         </div>
       </div>
+      </>
     )
 }

@@ -123,7 +123,7 @@ export default function CheckoutForm(props) {
       {
         succeeded ? 
         (<Modal centered show={showCreate} >
-          <Modal.Header closeButton>
+          <Modal.Header >
             <Modal.Title className="admin-card-title">Thank you for your order!</Modal.Title>
           </Modal.Header>
 
