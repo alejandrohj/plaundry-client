@@ -4,8 +4,6 @@ import {Form, Button, Modal} from 'react-bootstrap';
 
 export default function CreateDeliverer(props) {
 
-  let categories = ['bags', 'bedding', 'business', 'clothing',  'towels']
-
   const [showCreate, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
@@ -24,7 +22,7 @@ export default function CreateDeliverer(props) {
         </Modal.Header>
 
         <Modal.Body>
-          <Form onSubmit={props.onCreateDeliverer} >
+          <Form noValidate onSubmit={props.onCreateDeliverer} >
             <Form.Group>
               <Form.Label className="admin-card-title">Name</Form.Label>
               <Form.Control name="name" type="text" placeholder="Enter name" />

@@ -6,7 +6,7 @@ import {PUBLIC_URL} from '../config';
 import './AdminSignIn.css'
 
 export default function AdminSignIn(props) {
-
+  console.log(props.err, props.errorMessage)
   if (props.loggedInUser) {
     return <Redirect to='/admin/delivery' />
   }
@@ -32,7 +32,7 @@ export default function AdminSignIn(props) {
             </Form.Text>
           </Form.Group>
           {
-            props.adminErr ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
+            props.err ? <p style={{color: '#036C9C'}}>{props.errorMessage}</p> : <></>
           }
           <Button style={{fontSize: '20px'}} className="general-btn" variant="primary" type="submit">
             Sign In

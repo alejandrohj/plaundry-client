@@ -12,7 +12,9 @@ export default function AdminView(props) {
   const [Redirecting, setRedirecting] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [createSucces, setCreateSucces] = useState(false);
-  const [deliverers, setDeliverers] = useState(null)
+  const [deliverers, setDeliverers] = useState(null);
+  const [errMessage, setErr] = useState(null);
+  const [err, setErrStatus] = useState(false);
   
   useEffect(() => {
     axios.get(`${API_URL}/user`, {withCredentials: true})
@@ -37,9 +39,11 @@ export default function AdminView(props) {
     axios.post(`${API_URL}/deliverer/create`, {username: name.value, email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setCreateSucces(true)
-        window.location.reload(false)
       })
       .catch((err) => {
+        setErrStatus(true);
+        let error = err.response.data.error
+        setErr(error);
       })
   }
   const handleRemoveDeliverer = (id) =>{
@@ -48,6 +52,11 @@ export default function AdminView(props) {
             window.location.reload(false)
         })
   }
+
+  const handleError = () => {
+    setErrStatus(false);
+  }
+
   if (Redirecting || props.toIntro) {
     return (<Redirect to='/admin/sign-in' />)
   }
@@ -63,7 +72,7 @@ export default function AdminView(props) {
   return (
     <>
         <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
-        <CreateDeliverer onCreateDeliverer={handelCreateDeliverer} createSucces={createSucces}/>
+        <CreateDeliverer onCreateDeliverer={handelCreateDeliverer} createSucces={createSucces} errorMessage={errMessage} err={err} handleError={handleError}/>
         <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)', height: '80%'}}>
           <div style={{display:'flex', justifyContent: 'center', flexWrap:'wrap'}}>
               {

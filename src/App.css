@@ -93,7 +93,7 @@ html, body {
   padding: 40px;
   padding-bottom: 60px;
   margin-bottom: 0px;
-  height: 60%;
+  height: 70%;
 }
 
 .splash-footer {
@@ -240,12 +240,12 @@ html, body {
 
 @media only screen and (min-width: 451px) {
 
-
   .adminlaundrycard {
     display: flex;
     flex-direction: row;
     /* width:  */
   }
+
 }
 
 @media only screen and (min-width: 800px) {

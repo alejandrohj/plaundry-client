@@ -10,7 +10,6 @@ import {API_URL} from '../config';
 const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
 
 export default function Checkout(props) {
-  console.log(promise)
   const [toHome, setToHome] = useState(false);
   const [User, setUser] = useState(null);
   const [Redirecting, setRedirecting] = useState(false);
@@ -34,7 +33,6 @@ export default function Checkout(props) {
     }, {withCredentials: true})
       .then((result) => {
         localStorage.removeItem('order')
-        //Update the User name and adress:
         let updatedAddress = {
           city: JSON.parse(localStorage.getItem('address')).city,
           coordinates: JSON.parse(localStorage.getItem('address')).coordinates

@@ -55,8 +55,8 @@ export default function AdminLaundryCard(props) {
   const handleOpen = () => setShow(true);
 
   return (
-    <Card className="adminlaundrycard">
-      <img src={laundryItem.image} style={{height: '80%', width:'30%', alignSelf:'center'}} alt="laundry-img" className="laundrycard-img"/>
+    <Card className="adminlaundrycard" style={{height: '450px', alignItems:'center'}}>
+      <img src={laundryItem.image} style={{width: '150px',height: '200px', alignSelf:'center', marginLeft: '0px'}} alt="laundry-img" className="laundrycard-img"/>
 
       <Form className="laundrycard-form">
 
@@ -111,13 +111,14 @@ export default function AdminLaundryCard(props) {
           <Button onClick={handleOpen} variant="danger" style={{height: '40px',width: '40%', margin: '10px 20px'}}>Delete</Button>
         </div>
         <Modal centered show={showDelete} onHide={handleClose}>
-          <Modal.Header closeButton>
+         <Modal.Header closeButton>
             <Modal.Title className="admin-card-title" style={{textAlign: 'center'}}>Are you sure you want to delete this item?</Modal.Title>
           </Modal.Header>
           <Modal.Body style={{display: 'flex', justifyContent: 'space-evenly'}}>
             <Button className="general-btn" onClick={handleClose} style={{height: '40px', width: '100px'}} variant="primary">No</Button>
-            <Button onClick={() => {console.log('Deleting', laundryItem);props.onDelete(laundryItem._id); handleClose()}} style={{height: '40px', width: '100px'}} variant="danger">Yes</Button>
+            <Button onClick={() => {props.onDelete(laundryItem._id); handleClose()}} style={{height: '40px', width: '100px'}} variant="danger">Yes</Button>
           </Modal.Body>
+          
         </Modal>
        
       </Form>

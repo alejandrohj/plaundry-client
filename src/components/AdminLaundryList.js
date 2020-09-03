@@ -10,7 +10,7 @@ export default function AdminLaundryList(props) {
 
   return (
 
-    <div className="admin-list-container">
+    <div className="admin-list-container" style={{height: '100%'}}>
     {
       props.laundrylist.map((laundry) => {
         return <AdminLaundryCard onEdit={props.onEdit} onDelete={props.onDelete} item={laundry} key={'laundry' + laundry._id} err={props.err} errorMessage={props.errorMessage} handleError={props.handleError} />

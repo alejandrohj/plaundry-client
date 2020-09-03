@@ -59,7 +59,6 @@ export default function CheckoutForm(props) {
   };
 
   const handleChange = async (event) => {
-    console.log(event)
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
@@ -121,18 +120,20 @@ export default function CheckoutForm(props) {
             )}
         </button>
       </form>
+      {
+        succeeded ? 
+        (<Modal centered show={showCreate} >
+          <Modal.Header closeButton>
+            <Modal.Title className="admin-card-title">Thank you for your order!</Modal.Title>
+          </Modal.Header>
 
-      <Modal centered show={showCreate} >
+          <Modal.Body>
+            <Button onClick={props.onPlaceOrder} className="general-btn">Go to homepage</Button>
+          </Modal.Body>
 
-        <Modal.Header closeButton>
-          <Modal.Title className="admin-card-title">Thank you for your order!</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <Button onClick={props.onPlaceOrder} className="general-btn">Go to homepage</Button>
-        </Modal.Body>
-        
-      </Modal>
+        </Modal>) : (<></>)
+      }
+      
   
     </div>
   )

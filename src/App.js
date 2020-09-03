@@ -111,6 +111,7 @@ function App() {
         setTimeout(() => setToIntro(false), 700)
       })  
   }
+
   const handleDelivererSignIn = (e) => {
     e.preventDefault();
     const {email, password} = e.currentTarget;
@@ -119,6 +120,7 @@ function App() {
         setLogIn(result.data)
       })
       .catch((err) => {
+        setErrStatus(true);
         let error = err.response.data.error
         setErr(error);
       })
@@ -152,12 +154,14 @@ function App() {
             setErrStatus(true);
             let error = err.response.data.error
             setErr(error);
+            setCreateSucces(false);
           })
       })
       .catch((err) => {
         setErrStatus(true);
         let error = err.response.data.error
         setErr(error);
+        setCreateSucces(false);
       })
   }
 
@@ -190,12 +194,30 @@ function App() {
   }
 
   const handleDeleteItem = (id) => {
-    axios.delete(`${API_URL}/laundry/${id}/delete`,  {withCredentials: true})
-      .then(() => {
-        let filteredLaundryItems = laundryitems.filter((laundry) => {
-          return laundry._id !== id;
+    axios.get(`${API_URL}/orders`,  {withCredentials: true})
+      .then((response) => {
+        let laundries = response.data;
+        laundries.forEach((laundry) => {
+          laundry.orderItems.forEach((orderitem) => {
+            if (orderitem.laundry._id === id) {
+              setErrStatus(true);
+              setErr('Item is part of an order, can\'t delete now');
+              return;
+            } else {
+              setErrStatus(false);
+              setErr(null);
+            }
+            if (!err) {
+              axios.delete(`${API_URL}/laundry/${id}/delete`,  {withCredentials: true})
+                .then(() => {
+                  let filteredLaundryItems = laundryitems.filter((laundry) => {
+                    return laundry._id !== id;
+                  })
+                  setLaundryItems(filteredLaundryItems)
+                })
+            }
+          })
         })
-        setLaundryItems(filteredLaundryItems)
       })
   }
 
@@ -273,6 +295,9 @@ function App() {
           return <DelivererSignIn 
                   onSignIn={handleDelivererSignIn} 
                   loggedInUser={loggedInUser}
+                  err={err}
+                  errorMessage={errMessage} 
+                  handleError={handleError}
                   />
         }}/>
         <Route exact path='/deliverer/home' render={()=>{
