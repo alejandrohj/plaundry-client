@@ -74,8 +74,8 @@ export default function UserDetails(props) {
         setName(name)
     }
     let deftAddress = Address? Address.city : 'Search Places...'
-    let deftValName = Name? Name.firstName: '';
-    let deftValLastName = Name? Name.lastName: '';
+    let deftValName = Name? Name.firstName: null;
+    let deftValLastName = Name? Name.lastName: null;
 
     return (
       <>

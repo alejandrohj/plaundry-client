@@ -34,7 +34,6 @@ export default function UserOrders(props) {
         else{
           axios.get(`${API_URL}/orders`, {withCredentials: true})
             .then((res)=>{
-              console.log(res.data)
                 let myOrders = res.data.filter((orders)=>{
                     return orders.userId._id === loggedInUser._id
                 })
