@@ -55,7 +55,7 @@ export default function AdminLaundryCard(props) {
   const handleOpen = () => setShow(true);
 
   return (
-    <Card className="adminlaundrycard" style={{height: '450px', alignItems:'center'}}>
+    <Card className="adminlaundrycard" style={{height: 'auto', alignItems:'center'}}>
       <img src={laundryItem.image} style={{width: '150px',height: '200px', alignSelf:'center', marginLeft: '0px'}} alt="laundry-img" className="laundrycard-img"/>
 
       <Form className="laundrycard-form">
