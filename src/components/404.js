@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import './404.css'
 import gif from './cat.gif'
 
+
 export default function ErrorComponent() {
  
   return (
