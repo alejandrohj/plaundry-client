@@ -18,6 +18,7 @@ export default function AdminNav(props) {
                 props.loggedInUser.type === 'admin'?(<>
                   <Link to="/admin" className="nav-link" style={{color: 'white', fontWeight: '600'}}>Edit items</Link>
                   <Link to="/admin/deliverersmanage" className="nav-link" style={{color: 'white', fontWeight: '600'}}>Deliverers</Link>
+                  <Link to="/admin/avaibility" className="nav-link" style={{color: 'white', fontWeight: '600'}}>Avaibility</Link>
                 </>): ('')
               }
               <Link to="/admin/delivery" className="nav-link" style={{color: 'white', fontWeight: '600'}}>Orders</Link>
