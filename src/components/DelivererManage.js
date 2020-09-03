@@ -39,6 +39,10 @@ export default function AdminView(props) {
     axios.post(`${API_URL}/deliverer/create`, {username: name.value, email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
         setCreateSucces(true)
+        let newDeliverer = result.data;
+        let cloneDel = JSON.parse(JSON.stringify(deliverers))
+        cloneDel.push(newDeliverer);
+        setDeliverers(cloneDel);
       })
       .catch((err) => {
         setErrStatus(true);
@@ -52,6 +56,8 @@ export default function AdminView(props) {
             window.location.reload(false)
         })
   }
+
+  console.log(deliverers)
 
   const handleError = () => {
     setErrStatus(false);
