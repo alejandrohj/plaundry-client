@@ -43,6 +43,22 @@ export default function UserOrders(props) {
                   
         }    
     },[])
+
+    const handleMessageChange = (e, id) =>{
+        let OrdersClone = JSON.parse(JSON.stringify(Orders))
+        console.log(id)
+        console.log(e.currentTarget.value)
+        axios.post(`${API_URL}/order/${id}/edit/message`, {message: e.currentTarget.value}, {withCredentials: true})
+            .then((result) => {
+                let OrdersMod = OrdersClone.map((elem)=>{
+                    if(elem._id === id) elem.message = e.currentTarget.value
+                    return elem
+                })
+                console.log(result.data, 'order')
+                console.log(OrdersMod)
+                setOrders(OrdersMod)
+            })
+    }
     if(Redirecting || props.toIntro){
         return (<Redirect to={'/sign-in'}/>)
     } 
@@ -57,7 +73,7 @@ export default function UserOrders(props) {
                 <div>
                     {
                         Orders.map((order)=>{
-                            return <UserOrdersCard order={order}/>
+                            return <UserOrdersCard order={order} onChangeMessage = {handleMessageChange}/>
                         })
                     }
                 </div>

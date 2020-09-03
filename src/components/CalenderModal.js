@@ -3,8 +3,10 @@ import {Button, Modal} from 'react-bootstrap';
 import Calendar from './Calendar';
 import {PUBLIC_URL} from '../config';
 
-export default function CalenderModal() {
-
+export default function CalenderModal(props) {
+  
+  const {Address, Name}= props
+  console.log(Address, Name)
   const [showCalender, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
@@ -13,7 +15,10 @@ export default function CalenderModal() {
   return (
     <>
       <div >
-      <Button className="general-btn" onClick={handleOpen} >Place your order <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}} alt="button"/></Button>
+        { 
+          !Address || !Name.firstName? <Button disabled={true} className="general-btn" onClick={handleOpen} >Place your order <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}} alt="button"/></Button> : 
+          <Button className="general-btn" onClick={handleOpen} >Place your order <img src={`${PUBLIC_URL}/next.png`} style={{height: '15px'}} alt="button"/></Button>
+        }
       </div>
       <Modal centered show={showCalender} onHide={handleClose}>
 
