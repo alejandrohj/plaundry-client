@@ -128,9 +128,18 @@ function App() {
   const handleCreateItem = (e) => {
     e.preventDefault();
     const {name, description, price, category, image} = e.currentTarget;
+    let imgName = image.files[0].name;
+    let checkImg = imgName.substring(imgName.length-3)
+    if (checkImg !== 'jpg' || checkImg !== 'png') {
+      setErrStatus(true);
+      setErr('Please select .jpg or .png');
+    } else if (image.files[0].size > 10485760) {
+      setErrStatus(true);
+      setErr('Image is too big');
+    }
     let uploadData = new FormData();
     uploadData.append("imageUrl", image.files[0]);
-
+   
     axios.post(`${API_URL}/upload`, uploadData)
       .then((response) => {
         axios.post(`${API_URL}/laundry/create`, {

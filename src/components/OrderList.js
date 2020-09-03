@@ -5,6 +5,7 @@ import axios from 'axios'
 import {API_URL} from '../config'
 import {Redirect} from 'react-router-dom'
 import Loading from './Loading'
+import OrderSort from './OrderSort'
 
 export default function OrderList(props) {
 
@@ -12,12 +13,15 @@ export default function OrderList(props) {
   const [Redirecting, setRedirecting] = useState(false);
   const [userLog, setNew] = useState(null);
   const [isDeliverer, setIsDeliverer] = useState(false);
+  const [filteredOrders, setFilter] = useState();
 
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
       .then((result) => {
-        // console.log('dataorders',result.data)
+        console.log('dataorders',result.data)
+        
         setOrders(result.data)
+        setFilter(result.data)
       })
     axios.get(`${API_URL}/user`, {withCredentials: true})
       .then((result) => {
@@ -32,24 +36,68 @@ export default function OrderList(props) {
       })
   },[])
 
+  const sortPickUp = () => {  
+    console.log(orders)
+    let ordersClone = JSON.parse(JSON.stringify(filteredOrders))
+    ordersClone.sort((a,b) => {
+      return (a.pickUp < b.pickUp) ? -1 : ((a.pickUp > b.pickUp) ? 1 : 0);
+    })
+    setOrders(ordersClone)
+  }
+
+  const sortDelivery = () => {
+    let ordersClone = JSON.parse(JSON.stringify(filteredOrders))
+    ordersClone.sort((a,b) => {
+      return (a.delivery < b.delivery) ? -1 : ((a.delivery > b.delivery) ? 1 : 0);
+    })
+    setOrders(ordersClone)
+  }
+
+  const handleFilter = () => {
+    let status = [];
+    const checkboxes = document.querySelectorAll('input[name="status"]:checked');
+    checkboxes.forEach((checkbox) => {
+      status.push(checkbox.value);
+    })
+  
+    let newOrders = [];
+   
+    if (!status.length) {
+      setFilter(orders)
+    } else {
+      status.forEach((state) => {
+        orders.forEach((order) => {
+          if (order.status === state) {
+            newOrders.push(order)
+          }
+        })
+      })
+      setFilter(newOrders)
+    }
+  }
+
   if (Redirecting || props.toIntro) {
     return (<Redirect to='/' />)
   }
   // console.log(userLog, isDeliverer, 'ww')
-  if(!userLog || !orders){
+  if(!userLog || !orders ||!filteredOrders){
     return (<Loading />)
   } else if (userLog && !isDeliverer) {
     return (<Redirect to='/' />)
   }
   return (
-    <div className="orderlist-admin">
-        <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
+    <>
+      <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
 
-      {
-        orders.map((order, i) => {
-          return <OrderCard key={'orders'+i} order={order}/>
-        })
-      }
-    </div> 
+      <OrderSort sortPickUp={sortPickUp} sortDelivery={sortDelivery} handleFilter={handleFilter}/>
+      <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
+      <div className="orderlist-admin" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+        {
+          filteredOrders.map((order, i) => {
+            return <OrderCard key={'orders'+i} order={order}/>
+          })
+        }
+      </div> 
+    </>
   )
 }

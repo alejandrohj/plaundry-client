@@ -1,0 +1,36 @@
+.sortbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+
+.dropdown{
+  display: flex;
+  align-items: center;
+}
+
+.filter{
+  display: flex;
+  flex-direction: column;
+}
+
+
+@media only screen and (max-width: 699px) {
+
+.sortbar{
+  display: flex;
+  flex-direction: column;
+}
+.dropdown{
+  justify-content: center;
+}
+.filter{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+}
+
