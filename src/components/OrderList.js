@@ -54,6 +54,7 @@ export default function OrderList(props) {
   }
 
   const handleFilter = () => {
+    console.log(filteredOrders)
     let status = [];
     const checkboxes = document.querySelectorAll('input[name="status"]:checked');
     checkboxes.forEach((checkbox) => {
@@ -93,6 +94,7 @@ export default function OrderList(props) {
       <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
       <div className="orderlist-admin" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
         {
+          filteredOrders.length === 0 ? <p>No orders</p> :
           filteredOrders.map((order, i) => {
             return <OrderCard key={'orders'+i} order={order}/>
           })

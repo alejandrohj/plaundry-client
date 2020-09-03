@@ -46,10 +46,10 @@ export default function StartUp() {
               <Modal.Title className="admin-card-title">START NOW</Modal.Title>
             </Modal.Header>
             <Modal.Body style={{textAlign: 'center'}}>
-              {IsAvailable? (<p>Services availables in this location! Make your Plaundry!</p>): 
-              (<p>Sorry our services are not available in this location, but you can try our app</p>)}
+              {IsAvailable? (<p>Services available in this location! You can use Plaundry!</p>): 
+              (<p>Sorry our services are not available in your location, but you can try our app</p>)}
             <hr/>
-            <Link to={'/home'}><Button className="general-btn">Start my Plaundry</Button></Link>
+            <Link to={'/home'}><Button className="general-btn">Discover Plaundry</Button></Link>
             </Modal.Body>
       </Modal>
       <div className="splash-body">
