@@ -31,7 +31,7 @@ export default function CreateLaundry(props) {
 
             <Form.Group>
               <Form.Label className="admin-card-title">Description</Form.Label>
-              <Form.Control name="description" type="text" placeholder="Enter description" />
+              <Form.Control name="description" type="text" placeholder="Enter description" maxlength="100"/>
             </Form.Group>
         
             <Row>

@@ -67,7 +67,7 @@ export default function AdminLaundryCard(props) {
 
         <Form.Group >
           <Form.Label className="admin-card-title">Description</Form.Label>
-          <Form.Control onChange={handleDescriptionChange} name="description" type="text" value={laundryItem.description}></Form.Control>
+          <Form.Control onChange={handleDescriptionChange} name="description" type="text" value={laundryItem.description} maxlength="100"></Form.Control>
         </Form.Group>
 
         <Row >

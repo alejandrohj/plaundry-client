@@ -79,7 +79,7 @@ export default function AdminView(props) {
     <>
         <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
         <CreateDeliverer onCreateDeliverer={handelCreateDeliverer} createSucces={createSucces} errorMessage={errMessage} err={err} handleError={handleError}/>
-        <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)', height: '80%'}}>
+        <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)', height: '100%'}}>
           <div style={{display:'flex', justifyContent: 'center', flexWrap:'wrap'}}>
               {
                   deliverers.map((deliverer)=>{
