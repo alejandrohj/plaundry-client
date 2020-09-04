@@ -7,7 +7,7 @@ import axios from 'axios';
 import Loading from './Loading';
 
 
-export default function StartUp() {
+export default function StartUp(props) {
  
     const [PostalCodes, setPostalCodes] = useState(null);
     const [IsAvailable, setIsAvailable] = useState(false);
@@ -45,7 +45,7 @@ export default function StartUp() {
       localStorage.setItem('PostalCode', JSON.stringify(input));
       setShow(true);
     }
-    if (localStorage.getItem('PostalCode')) {
+    if (props.postalCode) {
       return <Redirect to='/home'/>
     }
     if(!PostalCodes) return <Loading/>
