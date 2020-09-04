@@ -58,7 +58,7 @@ export default function Home(props) {
           props.toIntro ? (<Redirect to='/'/> ):(<>
           <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
           <CategoryNavbar onCatSelect = {handleCategorySelected}/>
-          <div className="admin-list-container" style={{height: '110%'}}>
+          <div className="admin-list-container">
             <LaundryCard onChangeAmount = {handleAmountChange} laundries ={laundryitems} filter={filter}/>
             <nav className="navbar fixed-bottom navbar-light bg-light">
               <AmountCart laundries ={laundryitems}/>

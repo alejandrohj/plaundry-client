@@ -33,7 +33,7 @@ export default function Cart(props) {
         return elem.quantity > 0
     })
     if(props.toIntro){
-        return (<Redirect to={'/sign-in'}/>)
+        return (<Redirect to={'/'}/>)
     } 
     return (
       <>

@@ -14,7 +14,7 @@ export default function LaundryCard(props) {
                 <img /*class="rounded-circle cover"*/ src={elem.image} style={{height: '250px', width:'150px'}} alt='img'/>
                 <Card.Body>
                   <Card.Title>{elem.name}</Card.Title>
-                  <Card.Text>
+                  <Card.Text style={{fontSize: '13px'}}>
                       {elem.description}
                   </Card.Text>
                   <Card.Text>
