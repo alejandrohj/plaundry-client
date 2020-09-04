@@ -43,12 +43,14 @@ export default function UserDetails(props) {
                 setRedirecting(true)
             })
     }, [])
+
     if(Redirecting || props.toIntro){
         return (<Redirect to={'/sign-in'}/>)
     }
     if(!User){
         return <Loading />
     }
+
     const handleLocationSearch = (address) =>{
         let fixedAddress = {city: address[0].formatted_address,coordinates: address[0].coordinates}
         localStorage.setItem('address',JSON.stringify(fixedAddress))
