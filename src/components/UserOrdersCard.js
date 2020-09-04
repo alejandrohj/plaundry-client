@@ -6,7 +6,7 @@ export default function userOrdersCard(props) {
     let colorOfStatus = status ==='to pick up'? '#ff8000': status ==='picked up'? '#00008a': status ==='washing'? '0080ff' : status ==='to deliver'? '#ffbf00' : '#00ff00'
     return (
         <div style={{display:'flex', flexWrap: 'wrap'}}>
-            <Card style={{ minWidth:'20rem', margin: '20px', maxWidth: '30rem', height: ''}}>
+            <Card style={{ minWidth:'20rem', margin: '20px', maxWidth: '30rem', borderRadius: '5px', border: '1px solid #46C5FF'}}>
             <Card.Body style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{color:'#328CB6'}}>
                     <h5>Status : <b style={{color: colorOfStatus}}>{status}</b></h5>
@@ -16,7 +16,7 @@ export default function userOrdersCard(props) {
                         status ==='picked up'? <p>We are bringing your laundries to our installations</p>:
                         status ==='washing'? <p>Be patient we are taking care of your clothings</p>:
                         status ==='to deliver'?<p> Your laundries will be delivered: <b>{delivery.slice(0,10)}</b> at <b>{delivery.slice(11,16)}h</b></p>:
-                        (<><p>We hope you are happy with our services, if you have some issue let's us know by leaving a comentary</p>
+                        (<><p>We hope you are happy with our services. We’d like your feedback!</p>
                         <InputGroup>
                             <InputGroup.Prepend>
                             <InputGroup.Text style={{backgroundColor: '#46C5FF', color: 'white', fontSize: '13px'}}>Here</InputGroup.Text>

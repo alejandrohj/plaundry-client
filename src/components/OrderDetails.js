@@ -5,7 +5,7 @@ import axios from 'axios'
 import {API_URL} from '../config'
 import AdminNav from './AdminNav'
 import MapWithAMarker from './Map';
-
+import Loading from './Loading'
 
 export default function OrderDetails(props) {
 
@@ -33,7 +33,7 @@ export default function OrderDetails(props) {
   }
 
   if (!order){
-    return <p>Loading ....</p>
+    return (<Loading />)
   }
   if(!props.loggedInUser) {
     return <Redirect to={'/admin/sign-in'} />

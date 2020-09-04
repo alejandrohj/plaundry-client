@@ -32,7 +32,7 @@ export default function DelivererHomePage(props) {
       } else if (userLog && !isDeliverer) {
         return (<Redirect to='/' />)
       }
-      console.log(userLog)
+
     return (
         <div>
             <AdminNav loggedInUser={userLog} onAdminLogOut={props.onAdminLogOut}/>

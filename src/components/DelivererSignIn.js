@@ -6,7 +6,7 @@ import {PUBLIC_URL} from '../config';
 import './AdminSignIn.css'
 
 export default function AdminSignIn(props) {
-  console.log(props.err, props.errorMessage)
+
   if (props.loggedInUser) {
     return <Redirect to='/admin/delivery' />
   }

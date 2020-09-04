@@ -9,6 +9,7 @@ import LocationSearchInput from './AutomCompleteAdress';
 import MapWithAMarker from './Map';
 import CalenderModal from './CalenderModal';
 import Navbar from './Navbar';
+import Loading from './Loading'
 
 export default function UserDetails(props) {
 
@@ -46,7 +47,7 @@ export default function UserDetails(props) {
         return (<Redirect to={'/sign-in'}/>)
     }
     if(!User){
-        return <p>Loading...</p>
+        return <Loading />
     }
     const handleLocationSearch = (address) =>{
         let fixedAddress = {city: address[0].formatted_address,coordinates: address[0].coordinates}

@@ -202,6 +202,13 @@ html, body {
   margin: 5px;
 }
 
+.avail-list{
+  display :flex;
+  flex-wrap: wrap;
+  background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
+  height: 100%;
+}
+
 
 @media only screen and (max-width: 450px) {
 
@@ -210,6 +217,11 @@ html, body {
     display: flex;
     flex-direction: column;
   }
+
+
+.avail-list{
+  flex-flow: column wrap;
+}
 
   .laundrycard-img {
     vertical-align: left;

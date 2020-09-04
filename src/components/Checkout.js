@@ -6,6 +6,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from './CheckoutForm';
 import axios from 'axios';
 import {API_URL} from '../config';
+import Loading from './Loading'
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
 
@@ -53,7 +54,7 @@ export default function Checkout(props) {
     return (<Redirect to={'/sign-in'}/>)
   }
   if(!User){
-      return <p>Loading...</p>
+      return <Loading />
   }
 
   if (toHome) {

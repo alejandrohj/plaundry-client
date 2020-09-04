@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import axios from 'axios';
 import {API_URL} from '../config'
-
+import Loading from './Loading'
 
 export default function AmountCart(props) {
     const [laundries, setLaunries] = useState(null)
@@ -16,7 +16,7 @@ export default function AmountCart(props) {
     },[props.laundries])
     
     if(!laundries){
-        return <p>Loading ....</p>
+        return <Loading />
     }
     
     let total = laundries.reduce((acc,cur)=>{

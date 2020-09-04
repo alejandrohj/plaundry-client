@@ -5,6 +5,7 @@ import axios from 'axios'
 import {API_URL} from '../config';
 import CreateDeliverer from './CreateDeliverer';
 import DelivererCard from './DelivererCard';
+import Loading from './Loading'
 
 export default function AdminView(props) {
 
@@ -17,7 +18,6 @@ export default function AdminView(props) {
   const [err, setErrStatus] = useState(false);
   
   useEffect(() => {
-    console.log('aaaaa')
     axios.get(`${API_URL}/user`,{withCredentials: true})
         .then((result) => {
           if (result.data.type === 'admin') {
@@ -44,6 +44,9 @@ export default function AdminView(props) {
         let cloneDel = JSON.parse(JSON.stringify(deliverers))
         cloneDel.push(newDeliverer);
         setDeliverers(cloneDel);
+        setErrStatus(true);
+        let succes = 'Deliverer created!'
+        setErr(succes);
       })
       .catch((err) => {
         setErrStatus(true);
@@ -52,13 +55,14 @@ export default function AdminView(props) {
       })
   }
   const handleRemoveDeliverer = (id) =>{
-    axios.delete(`${API_URL}/deliverer/${id}/delete`,{withCredentials: true})
-        .then((res)=>{
-            window.location.reload(false)
+    axios.delete(`${API_URL}/deliverer/${id}/delete`,  {withCredentials: true})
+      .then(() => {
+        let filteredDel = deliverers.filter((del) => {
+          return del._id !== id;
         })
+        setDeliverers(filteredDel)
+      })
   }
-
-  console.log(deliverers)
 
   const handleError = () => {
     setErrStatus(false);
@@ -69,7 +73,7 @@ export default function AdminView(props) {
   }
 
   if(!userLog || !deliverers){
-    return <p>Loading...</p>
+    return (<Loading />)
   } else if (userLog && !isAdmin) {
     return (<Redirect to='/' />)
   }

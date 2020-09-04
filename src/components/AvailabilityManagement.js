@@ -6,6 +6,7 @@ import {FormCheck} from 'react-bootstrap'
 
 import CreatePostalCode from './CreatePostalCode';
 import AdminNav from './AdminNav'
+import Loading from './Loading'
 
 export default function AvailabilityManagement(props) {
 
@@ -14,6 +15,8 @@ export default function AvailabilityManagement(props) {
     const [userLog, setNew] = useState(null);
     const [Redirecting, setRedirecting] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [errMessage, setErr] = useState(null);
+    const [err, setErrStatus] = useState(false);
 
     useEffect(()=>{
         axios.get(`${API_URL}/user`, {withCredentials: true})
@@ -28,7 +31,6 @@ export default function AvailabilityManagement(props) {
         })
         axios.get(`${API_URL}/availability`, {withCredentials: true})
         .then((result) => {
-            console.log(result.data)
             setPostalCodes(result.data)
           })
           .catch((err) => {
@@ -40,10 +42,9 @@ export default function AvailabilityManagement(props) {
         axios.post(`${API_URL}/availability/create`, {Code: e.currentTarget.postalCode.value},  {withCredentials: true})
             .then((result) => {
                 setCreateSucces(true)
-                console.log(result)
-                window.location.reload(false)
-            })
-            .catch((err) => {
+                setErrStatus(true);
+                let succes = 'Region added!'
+                setErr(succes);
             })
 
     }
@@ -69,7 +70,7 @@ export default function AvailabilityManagement(props) {
       }
     
       if(!PostalCodes){
-        return <p>Loading...</p>
+        return (<Loading />)
       } else if (userLog && !isAdmin) {
         return (<Redirect to='/' />)
       }
@@ -78,10 +79,10 @@ export default function AvailabilityManagement(props) {
       } 
 
     return (
-        <div>
+        <>
             <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
-            <CreatePostalCode onCreatePostalCode={handleCreatePostalCode} createSucces={createSucces}/>
-            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+            <CreatePostalCode onCreatePostalCode={handleCreatePostalCode} createSucces={createSucces} err={err} errorMessage={errMessage}/>
+            <div className="avail-list">
                 {
                     PostalCodes.map((elem,i)=>{
                         return (<FormCheck key={'pc'+i}
@@ -95,6 +96,6 @@ export default function AvailabilityManagement(props) {
                     })
                 }
             </div>
-        </div>
+        </>
     )
 }

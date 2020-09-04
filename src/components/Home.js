@@ -10,6 +10,7 @@ import Navbar from './Navbar';
 import CategoryNavbar from './CategoryNavbar';
 import LaundryCard from './LaundryCard';
 import AmountCart from './AmountCart';
+import Loading from './Loading'
 //#endregion Components
 
 export default function Home(props) {
@@ -49,7 +50,7 @@ export default function Home(props) {
         // console.log(parseOrder)
     }
     if (!laundryitems || !filter){
-        return <p>Loading ....</p>
+        return <Loading />
     }
     return (
       <>

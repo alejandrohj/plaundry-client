@@ -6,6 +6,7 @@ import {Button} from 'react-bootstrap'
 
 import Navbar from './Navbar';
 import UserOrdersCard from './UserOrdersCard';
+import Loading from './Loading'
 
 export default function UserOrders(props) {
 
@@ -18,7 +19,6 @@ export default function UserOrders(props) {
             axios.get(`${API_URL}/user`, {withCredentials: true})
               .then((result) => {
                 setLogIn(result.data)
-                console.log(result.data)
                 axios.get(`${API_URL}/orders`, {withCredentials: true})
                     .then((res)=>{
                         let myOrders = res.data.filter((orders)=>{
@@ -45,16 +45,12 @@ export default function UserOrders(props) {
 
     const handleMessageChange = (e, id) =>{
         let OrdersClone = JSON.parse(JSON.stringify(Orders))
-        console.log(id)
-        console.log(e.currentTarget.value)
         axios.post(`${API_URL}/order/${id}/edit/message`, {message: e.currentTarget.value}, {withCredentials: true})
             .then((result) => {
                 let OrdersMod = OrdersClone.map((elem)=>{
                     if(elem._id === id) elem.message = e.currentTarget.value
                     return elem
                 })
-                console.log(result.data, 'order')
-                console.log(OrdersMod)
                 setOrders(OrdersMod)
             })
     }
@@ -62,7 +58,7 @@ export default function UserOrders(props) {
         return (<Redirect to={'/sign-in'}/>)
     } 
     if(!Orders){
-        return <p>Loading...</p>
+        return <Loading />
     }
     return (
         <div >

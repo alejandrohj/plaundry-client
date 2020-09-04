@@ -18,14 +18,11 @@ export default function OrderList(props) {
   useEffect(() => {
     axios.get(`${API_URL}/orders`,  {withCredentials: true})
       .then((result) => {
-        console.log('dataorders',result.data)
-        
         setOrders(result.data)
         setFilter(result.data)
       })
     axios.get(`${API_URL}/user`, {withCredentials: true})
       .then((result) => {
-        // console.log(result.data.type, 'type')
         if (result.data.type === 'deliverer' ||result.data.type === 'admin') {
           setIsDeliverer(true)
         }
@@ -37,7 +34,6 @@ export default function OrderList(props) {
   },[])
 
   const sortPickUp = () => {  
-    console.log(orders)
     let ordersClone = JSON.parse(JSON.stringify(filteredOrders))
     ordersClone.sort((a,b) => {
       return (a.pickUp < b.pickUp) ? -1 : ((a.pickUp > b.pickUp) ? 1 : 0);
@@ -54,7 +50,6 @@ export default function OrderList(props) {
   }
 
   const handleFilter = () => {
-    console.log(filteredOrders)
     let status = [];
     const checkboxes = document.querySelectorAll('input[name="status"]:checked');
     checkboxes.forEach((checkbox) => {
@@ -80,7 +75,7 @@ export default function OrderList(props) {
   if (Redirecting || props.toIntro) {
     return (<Redirect to='/' />)
   }
-  // console.log(userLog, isDeliverer, 'ww')
+
   if(!userLog || !orders ||!filteredOrders){
     return (<Loading />)
   } else if (userLog && !isDeliverer) {
