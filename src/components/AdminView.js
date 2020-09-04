@@ -37,12 +37,12 @@ export default function AdminView(props) {
   }
 
   return (
-    <>
+    <div>
       <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
       
       <CreateLaundry onCreate={props.onCreate} err={props.err} errorMessage={props.errorMessage} handleError={props.handleError} createSucces={props.createSucces}/>
       <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
       <AdminLaundryList laundrylist={props.laundrylist} onEdit={props.onEdit} onDelete={props.onDelete} err={props.err} errorMessage={props.errorMessage} handleError={props.handleError} />
-    </>
+    </div>
   )
 }

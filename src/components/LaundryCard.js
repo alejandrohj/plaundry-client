@@ -10,7 +10,7 @@ export default function LaundryCard(props) {
         {
           laundriesToDisplay.map((elem,i) => {  
             return (
-              <Card className='LaundryCard' key ={'laundry' +i} style={{ width: '340px',flexDirection:'row', height: '250px', borderRadius: '5px', border: '1px solid #46C5FF' }}>
+              <Card className='LaundryCard' key ={'laundry' +i} style={{ width: '340px',flexDirection:'row', height: '252px', borderRadius: '5px', border: '1px solid #46C5FF' }}>
                 <img /*class="rounded-circle cover"*/ src={elem.image} style={{height: '250px', width:'150px'}} alt='img'/>
                 <Card.Body>
                   <Card.Title>{elem.name}</Card.Title>

@@ -66,7 +66,7 @@ export default function UserOrders(props) {
         return <p>Loading...</p>
     }
     return (
-        <div style={{height: '100%'}}>
+        <div style={{height: '110%'}}>
             <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
             <div className="user-orders-container">
                 <Link style={{marginTop: '20px'}} to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}} alt="button"/> Back to the lists</Button></p></Link>
