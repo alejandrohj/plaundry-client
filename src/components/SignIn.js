@@ -5,11 +5,9 @@ import {PUBLIC_URL} from '../config';
 import Navbar from './Navbar';
 
 export default function SignIn(props) {
-
-  if (props.toHome){
-    return <Redirect to='/home' /> 
+  if (props.loggedInUser){
+    return <Redirect to='/cart' /> 
   }
-
   return (
     <>
     <Navbar loggedInUser={props.loggedInUser}/>

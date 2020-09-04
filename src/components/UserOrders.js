@@ -105,7 +105,7 @@ export default function UserOrders(props) {
         return <Loading />
     }
     return (
-        <div style={{height: '110%'}}>
+        <div style={{height: 'fill'}}>
             <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
             <OrderSort sortPickUp={sortPickUp} sortDelivery={sortDelivery} handleFilter={handleFilter}/>
             <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>

@@ -257,6 +257,7 @@ function App() {
                     err={err}
                     errorMessage={errMessage} 
                     handleError={handleError}
+                    loggedInUser={loggedInUser}
                   />
         }} />
         <Route path="/sign-up" render={() => {

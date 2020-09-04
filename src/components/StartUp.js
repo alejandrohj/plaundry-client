@@ -4,12 +4,11 @@ import {PUBLIC_URL,API_URL} from '../config';
 
 import {FormControl,Button, Row,Col,Form,Modal} from 'react-bootstrap';
 import axios from 'axios';
-
 import Loading from './Loading';
 
 
 export default function StartUp() {
-
+ 
     const [PostalCodes, setPostalCodes] = useState(null);
     const [IsAvailable, setIsAvailable] = useState(false);
     const [showCreate, setShow] = useState(false);
@@ -43,7 +42,11 @@ export default function StartUp() {
           setErrStatus(false)
         } 
       })
+      localStorage.setItem('PostalCode', JSON.stringify(input));
       setShow(true);
+    }
+    if (localStorage.getItem('PostalCode')) {
+      return <Redirect to='/home'/>
     }
     if(!PostalCodes) return <Loading/>
     return (

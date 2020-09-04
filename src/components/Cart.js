@@ -15,7 +15,7 @@ export default function Cart(props) {
     
     if (!OrderedLaundries){
         return (<>
-            <Navbar/>
+            <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
             <div style={{marginTop: '15px'}}>
                 <Link to={'/home'}><p><Button className="general-btn"><img src={`${PUBLIC_URL}/left-arrow.png`} style={{height: '15px'}} alt="button"/> Back to the lists</Button></p></Link>
             </div>
@@ -28,7 +28,7 @@ export default function Cart(props) {
         return elem.quantity > 0
     })
     if(props.toIntro){
-        return (<Redirect to={'/sign-in'}/>)
+        return (<Redirect to={'/'}/>)
     } 
     return (
       <>

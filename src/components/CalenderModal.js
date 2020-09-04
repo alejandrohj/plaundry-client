@@ -6,7 +6,6 @@ import {PUBLIC_URL} from '../config';
 export default function CalenderModal(props) {
   
   const {Address, Name}= props
-  console.log(Address, Name)
   const [showCalender, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
