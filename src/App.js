@@ -42,6 +42,7 @@ function App() {
   const [err, setErrStatus] = useState(false);
   const [adminErr, setAdminErr] = useState(false);
   const [createSucces, setCreateSucces] = useState(false);
+  const [postalCode,setPostalCode] =useState(null);
   //#endregion Hooks
 
   useEffect(() => {
@@ -62,6 +63,7 @@ function App() {
     const {email, password} = e.currentTarget;
     axios.post(`${API_URL}/signin`, {email: email.value, password: password.value},  {withCredentials: true})
       .then((result) => {
+        setPostalCode(JSON.parse(localStorage.getItem('PostalCode')));
         setLogIn(result.data)
         setTimeout(() => setToHome(true), 500)
       })
@@ -249,7 +251,9 @@ function App() {
   return (
       <UserContext.Provider value = {loggedInUser}>
       <Switch>
-        <Route exact path="/" component={StartUp}/>
+      <Route exact path="/" render={() => {
+          return <StartUp postalCode={postalCode}/>
+        }} />
         <Route path="/sign-in" render={() => {
           return <SignIn 
                     toHome={toHome} 
