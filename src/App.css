@@ -138,8 +138,12 @@ html, body {
 }
 
 .laundrycard-img {
-  margin: 10px;
-  vertical-align: center;
+  vertical-align: left;
+  align-self: flex-start;
+  margin-left: 10px;
+  border: 1px solid #46C5FF;
+  border-radius: 10px;
+  margin-top: 50px;
 }
 
 .laundrycard-form {
@@ -231,6 +235,7 @@ html, body {
   .laundrycard-img {
     vertical-align: left;
     align-Self: center;
+    border: 1px solid #46C5FF;
     border-radius: 10px;
   }
 
@@ -332,6 +337,7 @@ html, body {
 .LaundriesList{
   display: flex;
   flex-wrap: wrap;
+  
 }
 .LaundriesList .LaundryCard{
   margin: 10px;

@@ -45,8 +45,12 @@ export default function AvailabilityManagement(props) {
                 setErrStatus(true);
                 let succes = 'Region added!'
                 setErr(succes);
+                let newPostal = result.data.response;
+                let clonePostals = JSON.parse(JSON.stringify(PostalCodes))
+                clonePostals.push(newPostal);
+                setPostalCodes(clonePostals);
+                setTimeout(() => setErrStatus(false), 2000)
             })
-
     }
 
     const handleChangeAvailability = (e,id) =>{

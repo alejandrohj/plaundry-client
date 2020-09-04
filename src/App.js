@@ -132,7 +132,8 @@ function App() {
     let imgName = image.files[0].name;
     let checkImg = imgName.substring(imgName.length-3)
     if (checkImg !== 'jpg' || checkImg !== 'png') {
-      setErrStatus(true);
+      setTimeout(() => setErrStatus(true), 1000)
+      //setErrStatus(true);
       setErr('Please select .jpg or .png');
     } else if (image.files[0].size > 10485760) {
       setErrStatus(true);

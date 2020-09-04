@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 export default function OrderCard(props) {
   const {orderItems,status,userId,_id, pickUp, delivery,message} = props.order
-  let colorOfStatus = status ==='to pick up'? '#ff8000': status ==='picked up'? '#00008a': status ==='washing'? '0080ff' : status ==='to deliver'? '#ffbf00' : '#5e5d5c'
+  let colorOfStatus = status ==='to pick up'? '#ff8000': status ==='picked up'? '#00008a': status ==='washing'? '#0080ff' : status ==='to deliver'? '#ffbf00' : '#5e5d5c'
   return (
       <div style={{ display:'flex', flexWrap: 'wrap', height: '500px'}}>
         <Card style={{ minWidth:'20rem', margin:'1rem', borderRadius: '5px',
