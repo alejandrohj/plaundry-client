@@ -237,6 +237,7 @@ function App() {
   const handleLogOut = () => {
     axios.post(`${API_URL}/logout`, {}, {withCredentials: true})
       .then(() => {
+        setPostalCode(null);
         localStorage.clear();
         setLogIn(null);
         console.log('loggingOut')
