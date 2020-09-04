@@ -82,12 +82,12 @@ export default function OrderList(props) {
     return (<Redirect to='/' />)
   }
   return (
-    <>
+    <div>
       <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
 
       <OrderSort sortPickUp={sortPickUp} sortDelivery={sortDelivery} handleFilter={handleFilter}/>
       <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
-      <div className="orderlist-admin" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+      <div className="user-orders-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
         {
           filteredOrders.length === 0 ? <p>No orders</p> :
           filteredOrders.map((order, i) => {
@@ -95,6 +95,6 @@ export default function OrderList(props) {
           })
         }
       </div> 
-    </>
+    </div>
   )
 }

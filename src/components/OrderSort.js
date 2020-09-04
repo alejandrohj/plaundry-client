@@ -5,7 +5,8 @@ import './SortBar.css'
 export default function OrderSort(props) {
 
   return (
-    <div className="sortbar">
+    <div className="sortbar" style={{textAlign:'center'}}>
+      <div className='sortOrdersInput'>
       <Dropdown className="dropdowner" >
         <Dropdown.Toggle id="dropdown-basic" className="general-btn">
           Sort by date
@@ -16,7 +17,7 @@ export default function OrderSort(props) {
           <Dropdown.Item onClick={props.sortDelivery}>Delivery</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-
+    </div>
       <div className="filter" >
         {['checkbox'].map((type) => (
           <div key={`inline-${type}`} className="mb-3">

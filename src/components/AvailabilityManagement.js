@@ -55,7 +55,7 @@ export default function AvailabilityManagement(props) {
         axios.post(`${API_URL}/availability/${id}/edit`, {available: e.currentTarget.checked},  {withCredentials: true})
             .then((result) => {
                 let postalCodesCloneMod = postalCodesClone.map((elem)=>{
-                    if(elem._id === id) elem.available = e.currentTarget.checked
+                    if(elem._id === id) elem.available = !elem.available
                     return elem
                 })
                 setPostalCodes(postalCodesCloneMod)
@@ -70,7 +70,7 @@ export default function AvailabilityManagement(props) {
       }
     
       if(!PostalCodes){
-        return (<Loading />)
+        return <Loading/>
       } else if (userLog && !isAdmin) {
         return (<Redirect to='/' />)
       }

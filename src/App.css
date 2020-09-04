@@ -230,6 +230,8 @@ html, body {
 
   .laundrycard-img {
     vertical-align: left;
+    align-Self: center;
+    border-radius: 10px;
   }
 
   .laundrycard-form {
@@ -244,6 +246,14 @@ html, body {
   .splash-expl {
     height: 55%;
   }
+
+  .sortOrdersInput {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #46C5FF;
+  }
+  /* .admin-list-container{
+    height: 100%;
+  } */
 
 }
 
@@ -261,7 +271,6 @@ html, body {
     flex-direction: row;
     /* width:  */
   }
-
 }
 
 @media only screen and (min-width: 800px) {
@@ -279,6 +288,17 @@ html, body {
   .signup{
     height: 100%;
   }
+  .laundrycard-img {
+    vertical-align: left;
+    align-self: flex-start;
+    margin-left: 10px;
+    border: 1px solid #46C5FF;
+    border-radius: 10px;
+    margin-top: 50px;
+  }
+  .user-orders-container{
+    height: 100%;
+  }
 }
 
 @media only screen and (min-width: 900px) {
@@ -286,9 +306,12 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    height: 100%;
 
   }
-
+  .user-orders-container{
+    height: 100%;
+  }
   .adminlaundrycard{
     width: 45%;
     height: 410px;
@@ -328,7 +351,6 @@ html, body {
   background: linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%);
   margin: 0px;
   padding: 10px;
-  height: 95%;
 }
 .user-orders-container >div{
   display: flex;
@@ -341,6 +363,7 @@ html, body {
   padding: 10px;
   height: 120%;
 }
+
 
 
 

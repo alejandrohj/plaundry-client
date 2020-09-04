@@ -46,8 +46,8 @@ export default function OrderDetails(props) {
   return (
     <>
       <AdminNav loggedInUser={props.loggedInUser} onAdminLogOut={props.onAdminLogOut}/>
-      <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)'}}>
-        <Card style={{ minWidth: '20rem', margin: '0rem 2rem'}}>
+      <div style={{background: 'linear-gradient(180deg, rgba(228,246,255,1) 30%, rgba(141,217,252,1) 100%)', height: '100%', paddingTop: '10px'}}>
+        <Card style={{ minWidth: '20rem', margin: '10px 2rem', color: '#036C9C'}}>
             <Card.Body>
               <div>
               <h5>{userId.name.firstName}</h5>
@@ -74,14 +74,13 @@ export default function OrderDetails(props) {
                 }
               </div>
               <hr/>
-              <h5>Laundries:</h5>
-              <hr/>
-              <ListGroup className="list-group-flush">
+              <ListGroup className="list-group-flush" style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between', flexWrap:'wrap'}}>
                 {
                   orderItems.map((elem)=>{
                     return(<>
-                      <ListGroup.Item>
-                      <p><b>Type: {elem.laundry.name}</b></p><p><b>Quantity: {elem.quantityOflaundries}</b></p>
+                      <ListGroup.Item style={{display: 'flex', alignItems: 'center', border: '1px solid', borderRadius: '10px', margin: '10px'}}>
+                      <h6><b>x{elem.quantityOflaundries} {elem.laundry.name[0].toUpperCase() + elem.laundry.name.slice(1,elem.laundry.name.length)}</b></h6>
+                      <img src={elem.laundry.image} style={{height:'100px', marginLeft: '20px', borderRadius: '10px'}}/>
                       </ListGroup.Item>
                       <hr/>
                     </>

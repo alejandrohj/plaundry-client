@@ -10,7 +10,7 @@ import Navbar from './Navbar';
 import CategoryNavbar from './CategoryNavbar';
 import LaundryCard from './LaundryCard';
 import AmountCart from './AmountCart';
-import Loading from './Loading'
+import Loading from './Loading';
 //#endregion Components
 
 export default function Home(props) {
@@ -58,7 +58,7 @@ export default function Home(props) {
           props.toIntro ? (<Redirect to='/'/> ):(<>
           <Navbar loggedInUser={props.loggedInUser} onLogOut = {props.onLogOut}/>
           <CategoryNavbar onCatSelect = {handleCategorySelected}/>
-          <div className="admin-list-container" style={{height: '80%'}}>
+          <div className="admin-list-container" style={{height: '110%'}}>
             <LaundryCard onChangeAmount = {handleAmountChange} laundries ={laundryitems} filter={filter}/>
             <nav className="navbar fixed-bottom navbar-light bg-light">
               <AmountCart laundries ={laundryitems}/>
