@@ -15,6 +15,8 @@ export default function StartUp() {
     const [showCreate, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const inputRef = useRef();
+    const [errMessage, setErr] = useState(null);
+    const [err, setErrStatus] = useState(false);
 
     useEffect(()=>{
       axios.get(`${API_URL}/availability`, {withCredentials: true})
@@ -27,14 +29,19 @@ export default function StartUp() {
 
     const handleCheckPC = () =>{
       let input =inputRef.current.value;
-      if(!input) return;
+      if(!input) {
+        setErr('Please enter your postal code')
+        setErrStatus(true);
+        return;
+      }
       console.log(typeof input)
       PostalCodes.forEach((postalCode)=>{
         console.log(postalCode.Code, 'and',input , 'and', postalCode.available)
         if(postalCode.Code == input && postalCode.available == true) {
           console.log('match')
           setIsAvailable(true)
-        }
+          setErrStatus(false)
+        } 
       })
       setShow(true);
     }
@@ -43,13 +50,13 @@ export default function StartUp() {
       <>
       <Modal centered show={showCreate} >
             <Modal.Header style={{display: 'flex', justifyContent: 'center'}}>
-              <Modal.Title className="admin-card-title">START NOW</Modal.Title>
+              <Modal.Title className="admin-card-title">Discover Plaundry</Modal.Title>
             </Modal.Header>
             <Modal.Body style={{textAlign: 'center'}}>
-              {IsAvailable? (<p>Services available in this location! You can use Plaundry!</p>): 
-              (<p>Sorry our services are not available in your location, but you can try our app</p>)}
+              {IsAvailable? (<p>Good news: our service is available in your location. You never have to do your own laundry again!</p>): 
+              (<p>Sorry, our services are not available in your location. But you can still try our app.</p>)}
             <hr/>
-            <Link to={'/home'}><Button className="general-btn">Discover Plaundry</Button></Link>
+            <Link to={'/home'}><Button className="general-btn">Go</Button></Link>
             </Modal.Body>
       </Modal>
       <div className="splash-body">
@@ -60,6 +67,9 @@ export default function StartUp() {
         <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
         <div className="check-text" >
           <p style={{color: '#328CB6', fontWeight: '600', fontSize: '20px'}} className="check-p">Check if our service is available in your area:</p>
+          {
+            err ? <p style={{color: '#328CB6'}}>{errMessage}</p>: <></>
+          }
           <Form className="check-text">
             <FormControl
             ref={inputRef}

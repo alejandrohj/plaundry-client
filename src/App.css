@@ -209,6 +209,11 @@ html, body {
   height: 100%;
 }
 
+.btn-primary.dropdown-toggle {
+  background-color: #46C5FF!important;
+  border: #46C5FF!important;
+}
+
 
 @media only screen and (max-width: 450px) {
 
