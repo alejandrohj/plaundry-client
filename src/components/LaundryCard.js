@@ -6,7 +6,7 @@ export default function LaundryCard(props) {
         return elem.category === props.filter
     })
     return (
-      <div className='LaundriesList'>
+      <div style ={{alignContent: 'flex-start', justifyContent: 'center'}} className='LaundriesList'>
         {
           laundriesToDisplay.map((elem,i) => {  
             return (

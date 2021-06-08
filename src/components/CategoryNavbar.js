@@ -14,14 +14,14 @@ export default function CategoryNavbar(props) {
                     <button  onClick={()=>props.onCatSelect('bedding')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/bed-king-outline.png`} alt ='bed'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Bedding</p></button>
                 </Nav.Item>
                 <Nav.Item>
-                    <button  onClick={()=>props.onCatSelect('bags')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/sack.png`} alt ='sack'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Laundry</p></button>
-                </Nav.Item>
-                <Nav.Item>
                     <button  onClick={()=>props.onCatSelect('towels')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/shower-head.png`} alt ='shower'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Bathroom</p></button>
                 </Nav.Item>
                 <Nav.Item>
-                    <button  onClick={()=>props.onCatSelect('business')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/handshake-outline.png`} alt ='business'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Business</p></button>
+                    <button  onClick={()=>props.onCatSelect('bags')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/sack.png`} alt ='sack'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Laundry</p></button>
                 </Nav.Item>
+                {/* <Nav.Item>
+                    <button  onClick={()=>props.onCatSelect('business')} style={{textAlign:'center', border: 'none', backgroundColor: 'transparent'}}><img src={`${PUBLIC_URL}/handshake-outline.png`} alt ='business'/> <p style={{fontSize: '10px',padding:'0px',margin: '0px'}}>Business</p></button>
+                </Nav.Item> */}
             </Navbar>
             <hr style={{border: '1px solid #328CB6', margin: '0px'}}></hr>
         </div>
